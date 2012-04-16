@@ -13,7 +13,6 @@ public class Steiner implements FunctionR2R3_I
 	@Override
 	public Vec3D f(float x, float y)
 		{
-		// TODO Auto-generated method stub
 		float x_ = (float)(Math.cos(y) * Math.cos(y) * Math.sin(2 * x) / 2);
 		float y_ = (float)(Math.sin(x) * Math.sin(2 * y) / 2);
 		float z_ = (float)(Math.cos(x) * Math.sin(2 * y) / 2);

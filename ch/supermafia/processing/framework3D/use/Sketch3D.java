@@ -26,7 +26,7 @@ public class Sketch3D extends PApplet
 		
 		try
 			{
-			mesh = new ParametricMesh3DUnlekker(120, 120, this);
+			mesh = new ParametricMesh3DUnlekker(80, 80, this);
 			uMin = mesh.getuMin();
 			uMax = mesh.getuMax();
 			vMin = mesh.getvMin();
@@ -95,7 +95,6 @@ public class Sketch3D extends PApplet
 	
 	public void keyPressed()
 		{
-		if (key >= 48 && key <= 57) updateGui();
 		switch(key)
 			{
 			case '1':
@@ -122,11 +121,23 @@ public class Sketch3D extends PApplet
 				mesh.setFunction(Function.TRIAXIAL);
 				reinit();
 				break;
+			case '7':
+				mesh.setFunction(Function.HEIGHTMAP);
+				reinit();
+				break;
+			case '8':
+				mesh.setFunction(Function.KINECT);
+				reinit();
+				break;
 			case 'p':
 				isPrint = true;
 				break;
 			default:
 				break;
+			}
+		if (key >= 48 && key <= 57)
+			{
+			updateGui();
 			}
 		}
 	

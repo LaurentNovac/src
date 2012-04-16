@@ -84,7 +84,7 @@ public class KinectFunc implements FunctionR2R3_I
 	@Override
 	public float getUMax()
 		{
-		return 640;
+		return 640-1;
 		}
 	
 	@Override
@@ -96,7 +96,7 @@ public class KinectFunc implements FunctionR2R3_I
 	@Override
 	public float getVMax()
 		{
-		return 480;
+		return 480-1;
 		}
 	
 	/*------------------------------------------------------------------*\

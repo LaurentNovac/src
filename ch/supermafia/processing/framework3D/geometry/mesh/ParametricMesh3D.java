@@ -8,6 +8,7 @@ import ch.supermafia.processing.framework3D.mathematics.MathUtilities;
 import ch.supermafia.processing.framework3D.mathematics.Function.Cresent;
 import ch.supermafia.processing.framework3D.mathematics.Function.Function;
 import ch.supermafia.processing.framework3D.mathematics.Function.FunctionR2R3_I;
+import ch.supermafia.processing.framework3D.mathematics.Function.HeightMap;
 import ch.supermafia.processing.framework3D.mathematics.Function.KinectFunc;
 import ch.supermafia.processing.framework3D.mathematics.Function.KleinCycloid;
 import ch.supermafia.processing.framework3D.mathematics.Function.SinDistSquared;
@@ -36,6 +37,7 @@ public class ParametricMesh3D implements Mesh3D_I
 		
 		this.table = new Vec3D[(vCount + 1) * (uCount + 1)];
 		function = Function.TRANGULOID;
+		lastFunc=function;
 		computeTable();
 		}
 	
@@ -177,13 +179,20 @@ public class ParametricMesh3D implements Mesh3D_I
 			case TRIAXIAL:
 				func = new Triaxial();
 				break;
-			case KINECT:
-				func = new KinectFunc(context);//simpleopenni needs a context
+			case HEIGHTMAP:
+				func = new HeightMap();
+				break;
+			case KINECT://FIXME
+				func = new KinectFunc(context);//simpleopenni needs a processing context
 			default:
 				func = new SinDistSquared();
 				break;
 			}
-		
+		if(function!=lastFunc)
+			{
+			updateDomain();
+			lastFunc=function;
+			}
 		int nbThread = Runtime.getRuntime().availableProcessors();
 		Thread[] threads = new Thread[nbThread];
 		for(int i = 1; i <= nbThread; i++)
@@ -237,6 +246,14 @@ public class ParametricMesh3D implements Mesh3D_I
 		return uCount * y + x;
 		}
 	
+	private void updateDomain()
+		{
+		this.uMin = func.getUmin();
+		this.uMax = func.getUMax();
+		this.vMin = func.getVmin();
+		this.vMax = func.getVMax();
+		}
+	
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
@@ -249,6 +266,7 @@ public class ParametricMesh3D implements Mesh3D_I
 	protected float vMax;
 	protected PApplet context;
 	protected FunctionR2R3_I func;
+	protected Function lastFunc;
 	
 	//tools
 	protected Vec3D[] table;
