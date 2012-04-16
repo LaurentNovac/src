@@ -3,6 +3,7 @@ package ch.supermafia.processing.framework3D.use;
 
 import ch.supermafia.processing.framework3D.geometry.mesh.ParametricMesh3DUnlekker;
 import ch.supermafia.processing.framework3D.mathematics.Function.Function;
+import ch.supermafia.processing.framework3D.mathematics.Function.KinectFunc;
 import processing.core.PApplet;
 import unlekker.modelbuilder.UNav3D;
 import unlekker.modelbuilder.UVec3;
@@ -23,14 +24,17 @@ public class Sketch3D extends PApplet
 		nav = new UNav3D(this);
 		nav.setTranslation(width / 2, height / 2, 0);
 		
-		initGui();
 		try
 			{
-			mesh = new ParametricMesh3DUnlekker(100, 100, this);
+			mesh = new ParametricMesh3DUnlekker(120, 120, this);
 			uMin = mesh.getuMin();
 			uMax = mesh.getuMax();
 			vMin = mesh.getvMin();
 			vMax = mesh.getvMax();
+			lastuMin = uMin;
+			lastvMin = vMin;
+			lastuMax = uMax;
+			lastvMax = vMax;
 			distortionFactor = 1.0f;
 			}
 		catch (InterruptedException e)
@@ -41,13 +45,13 @@ public class Sketch3D extends PApplet
 		smooth();
 		initColor();
 		isColReverse = false;
-		initGui();
 		t = 0;
 		speedRotCam = new UVec3();
 		speedRotCam.x = random(0, PI / 20);
 		speedRotCam.y = random(0, PI / 20);
 		speedRotCam.z = random(0, PI / 20);
-		isPrint=false;
+		isPrint = false;
+		updateGui();
 		}
 	
 	public void draw()
@@ -57,6 +61,7 @@ public class Sketch3D extends PApplet
 		hint(ENABLE_DEPTH_TEST);
 		pushMatrix();
 		updateMesh();
+		
 		speedRotCam.x = sin(t * 1 / 10000);
 		speedRotCam.y = sin(t * 1 / 10000);
 		speedRotCam.z = sin(t * 1 / 10000);
@@ -81,7 +86,7 @@ public class Sketch3D extends PApplet
 		if (isPrint)
 			{
 			saveFrame("image-###.png");
-			isPrint=false;
+			isPrint = false;
 			}
 		
 		gui.draw();
@@ -90,28 +95,32 @@ public class Sketch3D extends PApplet
 	
 	public void keyPressed()
 		{
+		if (key >= 48 && key <= 57) updateGui();
 		switch(key)
 			{
 			case '1':
 				mesh.setFunction(Function.SINSQUARED);
+				reinit();
 				break;
 			case '2':
 				mesh.setFunction(Function.TRANGULOID);
+				reinit();
 				break;
 			case '3':
-				mesh.setFunction(Function.TWISTEDFANO);
+				mesh.setFunction(Function.STEINER);
+				reinit();
 				break;
 			case '4':
-				mesh.setFunction(Function.STEINER);
+				mesh.setFunction(Function.CRESENT);
+				reinit();
 				break;
 			case '5':
-				mesh.setFunction(Function.CRESENT);
+				mesh.setFunction(Function.KLEINCYCLOID);
+				reinit();
 				break;
 			case '6':
-				mesh.setFunction(Function.KLEINCYCLOID);
-				break;
-			case '7':
 				mesh.setFunction(Function.TRIAXIAL);
+				reinit();
 				break;
 			case 'p':
 				isPrint = true;
@@ -146,14 +155,22 @@ public class Sketch3D extends PApplet
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
 	
-	private void initGui()
+	private void updateGui()
 		{
+		uMin = mesh.getuMin();
+		uMax = mesh.getuMax();
+		vMin = mesh.getvMin();
+		vMax = mesh.getvMax();
+		mesh.setuMin(uMin);
+		mesh.setuMax(uMax);
+		mesh.setvMin(vMin);
+		mesh.setvMax(vMax);
 		gui = new USimpleGUI(this);
 		gui.addButton("reinit");
-		gui.addSlider("uMin", uMin, 4 * (float)(-Math.PI * 2), 4 * (float)(Math.PI * 2));
-		gui.addSlider("uMax", uMax, 4 * (float)(-Math.PI * 2), 4 * (float)(Math.PI * 2));
-		gui.addSlider("vMin", vMin, 4 * (float)(-Math.PI * 2), 4 * (float)(Math.PI * 2));
-		gui.addSlider("vMax", vMax, 4 * (float)(-Math.PI * 2), 4 * (float)(Math.PI * 2));
+		gui.addSlider("uMin", uMin, mesh.getuMin(), mesh.getuMax());
+		gui.addSlider("uMax", uMax, mesh.getuMin(), mesh.getuMax());
+		gui.addSlider("vMin", vMin, mesh.getvMin(), mesh.getvMax());
+		gui.addSlider("vMax", vMax, mesh.getvMin(), mesh.getvMax());
 		gui.addSlider("distortionFactor", distortionFactor, 1.0f, 3.0f);
 		gui.addSlider("scl", scl, 10, width);
 		gui.addButton("toSTL");
@@ -162,16 +179,29 @@ public class Sketch3D extends PApplet
 	
 	private void updateMesh()
 		{
-		try
+		if (uMin != lastuMin)
 			{
 			mesh.setuMin(uMin);
-			mesh.setuMax(uMax);
-			mesh.setvMin(vMin);
-			mesh.setvMax(vMax);
+			lastuMin = uMin;
+			reinit();
 			}
-		catch (InterruptedException e)
+		if (uMax != lastuMax)
 			{
-			e.printStackTrace();
+			mesh.setuMax(uMax);
+			lastuMax = uMax;
+			reinit();
+			}
+		if (vMin != lastvMin)
+			{
+			mesh.setvMin(vMin);
+			lastvMin = vMin;
+			reinit();
+			}
+		if (vMax != lastvMax)
+			{
+			mesh.setvMax(vMax);
+			lastvMax = vMax;
+			reinit();
 			}
 		}
 	
@@ -234,6 +264,11 @@ public class Sketch3D extends PApplet
 	public float uMax;
 	private float vMin;
 	private float vMax;
+	private float lastuMin;
+	public float lastuMax;
+	public float lastvMin;
+	public float lastvMax;
+	
 	private float distortionFactor;
 	private float scl;
 	private UColorTool colorTool;
@@ -241,5 +276,4 @@ public class Sketch3D extends PApplet
 	private int t;
 	private UVec3 speedRotCam;
 	private boolean isPrint;
-	
 	}

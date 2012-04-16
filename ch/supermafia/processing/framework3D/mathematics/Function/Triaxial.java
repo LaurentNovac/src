@@ -6,6 +6,10 @@ import ch.supermafia.processing.framework3D.geometry.Vec3D;
 public class Triaxial implements FunctionR2R3_I
 	{
 	
+	/*------------------------------------------------------------------*\
+	|*							Methodes Public							*|
+	\*------------------------------------------------------------------*/
+	
 	@Override
 	public Vec3D f(float x, float y)
 		{
@@ -19,33 +23,33 @@ public class Triaxial implements FunctionR2R3_I
 		
 		return new Vec3D(x_, y_, z_);
 		}
-
+	
+	/*------------------------------*\
+	|*				Get				*|
+	\*------------------------------*/
+	
 	@Override
 	public float getUmin()
 		{
-		// TODO Auto-generated method stub
 		return 0;
 		}
-
+	
 	@Override
 	public float getUMax()
 		{
-		// TODO Auto-generated method stub
-		return 0;
+		return (float)(2*Math.PI);
 		}
-
+	
 	@Override
 	public float getVmin()
 		{
-		// TODO Auto-generated method stub
 		return 0;
 		}
-
+	
 	@Override
 	public float getVMax()
 		{
-		// TODO Auto-generated method stub
-		return 0;
+		return (float)(2 * Math.PI);
 		}
 	
 	}

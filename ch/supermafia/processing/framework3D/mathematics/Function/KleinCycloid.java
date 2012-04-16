@@ -40,29 +40,25 @@ public class KleinCycloid implements FunctionR2R3_I
 	@Override
 	public float getUmin()
 		{
-		// TODO Auto-generated method stub
 		return 0;
 		}
 
 	@Override
 	public float getUMax()
 		{
-		// TODO Auto-generated method stub
-		return 0;
+		return (float)(2*b*c*Math.PI);
 		}
 
 	@Override
 	public float getVmin()
 		{
-		// TODO Auto-generated method stub
 		return 0;
 		}
 
 	@Override
 	public float getVMax()
 		{
-		// TODO Auto-generated method stub
-		return 0;
+		return (float)(4 * Math.PI);
 		}
 	
 	}

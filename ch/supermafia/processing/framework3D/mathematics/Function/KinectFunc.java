@@ -3,7 +3,7 @@ package ch.supermafia.processing.framework3D.mathematics.Function;
 
 import org.openkinect.processing.Kinect;
 
-import processing.core.PVector;
+import processing.core.PApplet;
 import ch.supermafia.processing.framework3D.geometry.Vec3D;
 
 public class KinectFunc implements FunctionR2R3_I
@@ -13,19 +13,26 @@ public class KinectFunc implements FunctionR2R3_I
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
 	
-	public KinectFunc()
+	public KinectFunc(PApplet context)
 		{
+		this.context = context;
 		createDepthLookUpTable();
 		initKinect();
-		rawDepth = kinect.getRawDepth();
+		compute();
 		}
 	
 	@Override
 	public Vec3D f(float x, float y)
 		{
-		int index=(int)(y*w+x);
+		compute();
+		int index = (int)(y * getUMax() + x);
 		int depth = rawDepth[index];
 		return depthToWorld(x, y, depth);
+		}
+	
+	public void compute()
+		{
+		rawDepth = kinect.getRawDepth();
 		}
 	
 	/*------------------------------------------------------------------*\
@@ -58,11 +65,38 @@ public class KinectFunc implements FunctionR2R3_I
 	
 	private void initKinect()
 		{
-		// TODO Auto-generated method stub
-		kinect = new Kinect(null);//we don't need the processing context
+		kinect = new Kinect(context);
 		kinect.start();
 		kinect.enableDepth(true);
 		kinect.processDepthImage(false);
+		}
+	
+	/*------------------------------*\
+	|*				Get				*|
+	\*------------------------------*/
+	
+	@Override
+	public float getUmin()
+		{
+		return 0;
+		}
+	
+	@Override
+	public float getUMax()
+		{
+		return 640;
+		}
+	
+	@Override
+	public float getVmin()
+		{
+		return 0;
+		}
+	
+	@Override
+	public float getVMax()
+		{
+		return 480;
 		}
 	
 	/*------------------------------------------------------------------*\
@@ -72,33 +106,6 @@ public class KinectFunc implements FunctionR2R3_I
 	private float[] conversionDepthMeter;
 	private Kinect kinect;
 	private int[] rawDepth;
-	private int w;//TODO
-	private int h;
-	@Override
-	public float getUmin()
-		{
-		// TODO Auto-generated method stub
-		return 0;
-		}
-
-	@Override
-	public float getUMax()
-		{
-		// TODO Auto-generated method stub
-		return 0;
-		}
-
-	@Override
-	public float getVmin()
-		{
-		// TODO Auto-generated method stub
-		return 0;
-		}
-
-	@Override
-	public float getVMax()
-		{
-		// TODO Auto-generated method stub
-		return 0;
-		}
+	private PApplet context;
+	
 	}

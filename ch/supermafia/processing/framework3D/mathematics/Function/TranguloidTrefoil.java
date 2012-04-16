@@ -9,6 +9,10 @@ import static java.lang.Math.PI;
 public class TranguloidTrefoil implements FunctionR2R3_I
 	{
 	
+	/*------------------------------------------------------------------*\
+	|*							Methodes Public							*|
+	\*------------------------------------------------------------------*/
+	
 	@Override
 	public Vec3D f(float u, float v)
 		{
@@ -17,32 +21,32 @@ public class TranguloidTrefoil implements FunctionR2R3_I
 		float z = (float)((cos(u) - 2 * cos(2 * u)) * (2 + cos(v)) * (2 + cos(v + 2 * PI / 3)) / 4);
 		return new Vec3D(x, y, z);
 		}
-
+	
+	/*------------------------------*\
+	|*				Get				*|
+	\*------------------------------*/
+	
 	@Override
 	public float getUmin()
 		{
-		// TODO Auto-generated method stub
-		return 0;
+		return (float)-Math.PI;
 		}
-
+	
 	@Override
 	public float getUMax()
 		{
-		// TODO Auto-generated method stub
-		return 0;
+		return (float)Math.PI;
 		}
-
+	
 	@Override
 	public float getVmin()
 		{
-		// TODO Auto-generated method stub
-		return 0;
+		return (float)-Math.PI;
 		}
-
+	
 	@Override
 	public float getVMax()
 		{
-		// TODO Auto-generated method stub
-		return 0;
+		return (float)Math.PI;
 		}
 	}

@@ -8,12 +8,12 @@ import ch.supermafia.processing.framework3D.mathematics.MathUtilities;
 import ch.supermafia.processing.framework3D.mathematics.Function.Cresent;
 import ch.supermafia.processing.framework3D.mathematics.Function.Function;
 import ch.supermafia.processing.framework3D.mathematics.Function.FunctionR2R3_I;
+import ch.supermafia.processing.framework3D.mathematics.Function.KinectFunc;
 import ch.supermafia.processing.framework3D.mathematics.Function.KleinCycloid;
 import ch.supermafia.processing.framework3D.mathematics.Function.SinDistSquared;
 import ch.supermafia.processing.framework3D.mathematics.Function.Steiner;
 import ch.supermafia.processing.framework3D.mathematics.Function.TranguloidTrefoil;
 import ch.supermafia.processing.framework3D.mathematics.Function.Triaxial;
-import ch.supermafia.processing.framework3D.mathematics.Function.TwistedFano;
 import processing.core.PApplet;
 
 public class ParametricMesh3D implements Mesh3D_I
@@ -55,22 +55,27 @@ public class ParametricMesh3D implements Mesh3D_I
 	
 	public float getuMin()
 		{
-		return uMin;
+		return func.getUmin();
 		}
 	
 	public float getuMax()
 		{
-		return uMax;
+		return func.getUMax();
 		}
 	
 	public float getvMin()
 		{
-		return vMin;
+		return func.getVmin();
 		}
 	
 	public float getvMax()
 		{
-		return vMax;
+		return func.getVMax();
+		}
+	
+	public FunctionR2R3_I getFunction()
+		{
+		return func;
 		}
 	
 	/*------------------------------*\
@@ -87,28 +92,24 @@ public class ParametricMesh3D implements Mesh3D_I
 		this.vCount = vCount;
 		}
 	
-	public void setuMin(float uMin) throws InterruptedException
+	public void setuMin(float uMin)
 		{
 		this.uMin = uMin;
-		computeTable();
 		}
 	
-	public void setuMax(float uMax) throws InterruptedException
+	public void setuMax(float uMax)
 		{
-		this.uMax = uMin + uMax;
-		computeTable();
+		this.uMax = uMax;
 		}
 	
-	public void setvMin(float vMin) throws InterruptedException
+	public void setvMin(float vMin)
 		{
 		this.vMin = vMin;
-		computeTable();
 		}
 	
-	public void setvMax(float vMax) throws InterruptedException
+	public void setvMax(float vMax)
 		{
-		this.vMax = vMin + vMax;
-		computeTable();
+		this.vMax = vMax;
 		}
 	
 	public void setFunction(Function function)
@@ -155,6 +156,7 @@ public class ParametricMesh3D implements Mesh3D_I
 	
 	public void computeTable() throws InterruptedException
 		{
+		System.out.println("computing mesh...");
 		switch(function)
 			{
 			case TRANGULOID:
@@ -162,9 +164,6 @@ public class ParametricMesh3D implements Mesh3D_I
 				break;
 			case SINSQUARED:
 				func = new SinDistSquared();
-				break;
-			case TWISTEDFANO:
-				func = new TwistedFano();
 				break;
 			case STEINER:
 				func = new Steiner();
@@ -176,8 +175,10 @@ public class ParametricMesh3D implements Mesh3D_I
 				func = new KleinCycloid(3, 3, 3);
 				break;
 			case TRIAXIAL:
-				func=new Triaxial();
+				func = new Triaxial();
 				break;
+			case KINECT:
+				func = new KinectFunc(context);//simpleopenni needs a context
 			default:
 				func = new SinDistSquared();
 				break;
@@ -194,6 +195,7 @@ public class ParametricMesh3D implements Mesh3D_I
 			{
 			threads[i - 1].join();
 			}
+		System.out.println("finished computing mesh");
 		}
 	
 	/*------------------------------------------------------------------*\
