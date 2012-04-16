@@ -9,18 +9,21 @@ public class Vec3D
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
-	public Vec3D()
-		{
-		this.x = 0;
-		this.y = 0;
-		this.z = 0;
-		}
-	
 	public Vec3D(float x, float y, float z)
 		{
 		this.x = x;
 		this.y = y;
 		this.z = z;
+		}
+	
+	public Vec3D()
+		{
+		this(0, 0, 0);
+		}
+	
+	public Vec3D(Vec3D src)
+		{
+		this(src.x, src.y, src.z);
 		}
 	
 	/*------------------------------*\

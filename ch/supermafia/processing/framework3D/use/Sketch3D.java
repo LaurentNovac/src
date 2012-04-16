@@ -20,13 +20,13 @@ public class Sketch3D extends PApplet
 	
 	public void setup()
 		{
-		size(1024, 768, P3D);
+		size(800, 600, P3D);
 		nav = new UNav3D(this);
 		nav.setTranslation(width / 2, height / 2, 0);
 		
 		try
 			{
-			mesh = new ParametricMesh3DUnlekker(80, 80, this);
+			mesh = new ParametricMesh3DUnlekker(100, 100, this);
 			uMin = mesh.getuMin();
 			uMax = mesh.getuMax();
 			vMin = mesh.getvMin();
@@ -125,10 +125,10 @@ public class Sketch3D extends PApplet
 				mesh.setFunction(Function.HEIGHTMAP);
 				reinit();
 				break;
-			case '8':
-				mesh.setFunction(Function.KINECT);
-				reinit();
-				break;
+//			case '8':
+//				mesh.setFunction(Function.KINECT);
+//				reinit();
+//				break;
 			case 'p':
 				isPrint = true;
 				break;

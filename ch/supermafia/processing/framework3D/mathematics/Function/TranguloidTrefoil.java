@@ -19,7 +19,7 @@ public class TranguloidTrefoil implements FunctionR2R3_I
 		float x = (float)(2 * sin(3 * u) / (2 + cos(v)));
 		float y = (float)(2 * (sin(u) + 2 * sin(2 * u)) / (2 + cos(v + 2 * PI / 3)));
 		float z = (float)((cos(u) - 2 * cos(2 * u)) * (2 + cos(v)) * (2 + cos(v + 2 * PI / 3)) / 4);
-		return new Vec3D(x, y, z);
+		return (new Vec3D(x, y, z));
 		}
 	
 	/*------------------------------*\

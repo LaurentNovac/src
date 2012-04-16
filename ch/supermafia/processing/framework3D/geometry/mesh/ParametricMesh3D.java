@@ -37,7 +37,7 @@ public class ParametricMesh3D implements Mesh3D_I
 		
 		this.table = new Vec3D[(vCount + 1) * (uCount + 1)];
 		function = Function.TRANGULOID;
-		lastFunc=function;
+		lastFunc = function;
 		computeTable();
 		}
 	
@@ -123,17 +123,7 @@ public class ParametricMesh3D implements Mesh3D_I
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
 	
-	@Override
-	public String toString()
-		{
-		StringBuilder builder = new StringBuilder();
-		builder.append("ParametricMesh [xCount=");
-		builder.append(uCount);
-		builder.append(", yCount=");
-		builder.append(vCount);
-		builder.append("]");
-		return builder.toString();
-		}
+
 	
 	@Override
 	public void draw()
@@ -141,6 +131,28 @@ public class ParametricMesh3D implements Mesh3D_I
 		drawGrid();
 		}
 	
+	@Override
+	public String toString()
+		{
+		StringBuilder builder = new StringBuilder();
+		builder.append("ParametricMesh3D [uCount=");
+		builder.append(uCount);
+		builder.append(", vCount=");
+		builder.append(vCount);
+		builder.append(", uMin=");
+		builder.append(uMin);
+		builder.append(", uMax=");
+		builder.append(uMax);
+		builder.append(", vMin=");
+		builder.append(vMin);
+		builder.append(", vMax=");
+		builder.append(vMax);
+		builder.append(", function=");
+		builder.append(function);
+		builder.append("]");
+		return builder.toString();
+		}
+
 	public void distort(float distortionFactor) throws InterruptedException
 		{
 		int nbThread = Runtime.getRuntime().availableProcessors();
@@ -188,10 +200,10 @@ public class ParametricMesh3D implements Mesh3D_I
 				func = new SinDistSquared();
 				break;
 			}
-		if(function!=lastFunc)
+		if (function != lastFunc)
 			{
 			updateDomain();
-			lastFunc=function;
+			lastFunc = function;
 			}
 		int nbThread = Runtime.getRuntime().availableProcessors();
 		Thread[] threads = new Thread[nbThread];

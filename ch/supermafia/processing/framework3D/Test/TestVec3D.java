@@ -52,6 +52,11 @@ public class TestVec3D
 		v.normalize();
 		float experimentalResult = v.norm();
 		assertTrue(isEqual(experimentalResult, theoreticalResult, 1E-5f));
+		Vec3D v2 = new Vec3D(v).scale(10);
+		System.out.println(v2);
+		v2.normalize();
+		System.out.println(v2);
+		
 		}
 	
 	@Test

@@ -1,7 +1,7 @@
 
 package ch.supermafia.processing.framework3D.mathematics.Function;
 
-import java.awt.Image;
+import java.awt.Color;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
@@ -20,11 +20,7 @@ public class HeightMap implements FunctionR2R3_I
 		{
 		try
 			{
-			img = ImageIO.read(new File(filename));
-			image = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_BYTE_INDEXED);
-			image.setData(img.getRaster());
-			System.out.println(image.getWidth());
-			System.out.println(image.getHeight());
+			hMap = loadHeightMap(filename, 0, 255);//FIXME too slow
 			}
 		catch (IOException e)
 			{
@@ -44,12 +40,9 @@ public class HeightMap implements FunctionR2R3_I
 	@Override
 	public Vec3D f(float x, float y)
 		{
-		System.out.println("x: " + x + "y: " + y);
-		float z_ = image.getRGB((int)x, (int)y);
-		
-		z_ /= 255.0f;
-		System.out.println("x: " + x + " y: " + y + " z: " + z_);
-		return new Vec3D(x, y, z_);
+		float z_ = hMap[index((int)x, (int)y)];
+		Vec3D v = new Vec3D(x, y, z_);
+		return v;
 		}
 	
 	/*------------------------------------------------------------------*\
@@ -60,6 +53,27 @@ public class HeightMap implements FunctionR2R3_I
 		{
 		BufferedImageOp op = new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null);
 		return op.filter(source, null);
+		}
+	
+	private float[] loadHeightMap(String img, float minHeight, float maxHeight) throws IOException
+		{
+		image = ImageIO.read(new File(img));
+		image.getSubimage(0, 0, 10, 10);
+		final float[] mapping = new float[image.getWidth() * image.getHeight()];
+		for(int x = 0; x < image.getWidth(); x++)
+			{
+			for(int y = 0; y < image.getHeight(); y++)
+				{
+				Color col = new Color(image.getRGB(x, y));
+				mapping[index(x, y)] = minHeight + ((col.getRed() + col.getBlue() + col.getGreen()) / 765f) * (maxHeight - minHeight);
+				}
+			}
+		return mapping;
+		}
+	
+	private int index(int x, int y)
+		{
+		return y * image.getWidth() + x;
 		}
 	
 	/*------------------------------*\
@@ -95,5 +109,6 @@ public class HeightMap implements FunctionR2R3_I
 	\*------------------------------------------------------------------*/
 	
 	private BufferedImage image;
-	private BufferedImage img;
+	private float[] hMap;
+	
 	}

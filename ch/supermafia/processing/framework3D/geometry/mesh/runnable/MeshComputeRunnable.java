@@ -4,7 +4,6 @@ package ch.supermafia.processing.framework3D.geometry.mesh.runnable;
 import ch.supermafia.processing.framework3D.geometry.Vec3D;
 import ch.supermafia.processing.framework3D.mathematics.MathUtilities;
 import ch.supermafia.processing.framework3D.mathematics.Function.FunctionR2R3_I;
-import processing.core.PVector;
 
 public class MeshComputeRunnable implements Runnable
 	{
