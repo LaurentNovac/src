@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ch.supermafia.processing.framework3D.geometry.Vec3D;
+import ch.supermafia.processing.framework3D.mathematics.MathUtilities;
 import static ch.supermafia.processing.framework3D.mathematics.MathUtilities.isEqual;
 
 ;
@@ -60,6 +61,20 @@ public class TestVec3D
 		}
 	
 	@Test
+	public void testNormalize2()
+		{
+		Vec3D v = new Vec3D(10, 32, 24.5f);
+		float theoreticalResult = v.norm();
+		v.normalize2();
+		float experimentalResult = v.norm();
+		assertTrue(isEqual(experimentalResult, theoreticalResult, 0));
+		Vec3D unitVec = v.normalize2();
+		experimentalResult = unitVec.norm();
+		theoreticalResult = 1.0f;
+		assertTrue(MathUtilities.isEqual(experimentalResult, experimentalResult, 1E-5f));
+		}
+	
+	@Test
 	public void testScale()
 		{
 		Vec3D v = new Vec3D(1.0f, 1.0f, 1.0f);
@@ -102,8 +117,14 @@ public class TestVec3D
 	@Test
 	public void testProjectOn()
 		{
-		//TODO
-		assertTrue(false);
+		Vec3D e1 = new Vec3D(1, 0, 0);
+		Vec3D e2 = new Vec3D(0, 1, 0);
+		
+		Vec3D experimentalE3 = new Vec3D(0, 0, 0);
+		Vec3D theoreticalE3 = e1.projectOn(e2);
+		assertTrue(experimentalE3.isEqual(theoreticalE3, 0));
+		theoreticalE3 = e2.projectOn(e1);
+		assertTrue(experimentalE3.isEqual(theoreticalE3, 0));
 		}
 	
 	@Test
@@ -126,8 +147,11 @@ public class TestVec3D
 	@Test
 	public void testCross()
 		{
-		//TODO
-		assertTrue(false);
+		Vec3D e1 = new Vec3D(1, 0, 0);
+		Vec3D e2 = new Vec3D(0, 1, 0);
+		Vec3D experimentalE3 = e1.cross(e2);
+		Vec3D theoreticalE3 = new Vec3D(0, 0, 1);
+		assertTrue(experimentalE3.isEqual(theoreticalE3, 0));
 		}
 	
 	@Test

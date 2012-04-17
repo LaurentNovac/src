@@ -191,6 +191,10 @@ public class Vec3D
 		return (float)Math.sqrt(x * x + y * y + z * z);
 		}
 	
+	/**
+	 * 
+	 * @return Vec3D normalized in placed
+	 */
 	public Vec3D normalize()
 		{
 		float magnitude = this.norm();
@@ -198,6 +202,19 @@ public class Vec3D
 		this.y /= magnitude;
 		this.z /= magnitude;
 		return this;
+		}
+	
+	/**
+	 * 
+	 * @return a new Vec3D normalized
+	 */
+	public Vec3D normalize2()
+		{
+		float magnitude = this.norm();
+		float x_ = this.x / magnitude;
+		float y_ = this.y / magnitude;
+		float z_ = this.z / magnitude;
+		return new Vec3D(x_, y_, z_);
 		}
 	
 	public float angleWith(Vec3D v)
@@ -209,10 +226,16 @@ public class Vec3D
 		return angle;
 		}
 	
+	/**
+	 * @param v
+	 * @return Vec3D projected on v in place
+	 */
 	public Vec3D projectOn(Vec3D v)
 		{
-		//TODO
-		return null;
+		float projNorm = this.dot(v) / v.norm();
+		Vec3D vUnit = v.normalize2();
+		vUnit.mult(projNorm);
+		return vUnit;
 		}
 	
 	public boolean isEqual(Vec3D v, float epsilon)

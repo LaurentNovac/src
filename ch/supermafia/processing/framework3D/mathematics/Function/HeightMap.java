@@ -76,7 +76,7 @@ public class HeightMap implements FunctionR2R3_I
 	
 	private void loadHeightMapP(float minHeight, float maxHeight) throws IOException
 		{
-		image=image.getSubimage(0, 0, 10, 10);
+		//image=image.getSubimage(0, 0, 10, 10);
 		hMap = new float[image.getWidth() * image.getHeight()];
 		int nbThread=Runtime.getRuntime().availableProcessors();
 		Thread[] t=new Thread[nbThread];
