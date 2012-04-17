@@ -12,6 +12,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import ch.supermafia.processing.framework3D.geometry.Vec3D;
+import ch.supermafia.processing.framework3D.mathematics.Function.runnable.LoadHeightMapRunnable;
 
 public class HeightMap implements FunctionR2R3_I
 	{
@@ -20,7 +21,10 @@ public class HeightMap implements FunctionR2R3_I
 		{
 		try
 			{
-			hMap = loadHeightMap(filename, 0, 255);//FIXME too slow
+			image = ImageIO.read(new File(filename));
+			System.out.println("loading heightMap");
+			loadHeightMapP(0, 255);//FIXME not working great
+			System.out.println("finished loading heightMap");
 			}
 		catch (IOException e)
 			{
@@ -55,9 +59,8 @@ public class HeightMap implements FunctionR2R3_I
 		return op.filter(source, null);
 		}
 	
-	private float[] loadHeightMap(String img, float minHeight, float maxHeight) throws IOException
+	private float[] loadHeightMap(float minHeight, float maxHeight) throws IOException
 		{
-		image = ImageIO.read(new File(img));
 		image.getSubimage(0, 0, 10, 10);
 		final float[] mapping = new float[image.getWidth() * image.getHeight()];
 		for(int x = 0; x < image.getWidth(); x++)
@@ -69,6 +72,30 @@ public class HeightMap implements FunctionR2R3_I
 				}
 			}
 		return mapping;
+		}
+	
+	private void loadHeightMapP(float minHeight, float maxHeight) throws IOException
+		{
+		image=image.getSubimage(0, 0, 10, 10);
+		hMap = new float[image.getWidth() * image.getHeight()];
+		int nbThread=Runtime.getRuntime().availableProcessors();
+		Thread[] t=new Thread[nbThread];
+		for(int i = 0; i < nbThread; i++)
+			{
+			t[i]=new Thread(new LoadHeightMapRunnable(i, nbThread, minHeight, maxHeight, image, hMap));
+			t[i].start();
+			}
+		for(int i = 0; i < nbThread; i++)
+			{
+			try
+				{
+				t[i].join();
+				}
+			catch (InterruptedException e)
+				{
+				e.printStackTrace();
+				}
+			}
 		}
 	
 	private int index(int x, int y)

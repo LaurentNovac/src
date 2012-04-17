@@ -124,6 +124,13 @@ public class TestVec3D
 		}
 	
 	@Test
+	public void testCross()
+		{
+		//TODO
+		assertTrue(false);
+		}
+	
+	@Test
 	public void testAngleWith()
 		{
 		Vec3D v1 = new Vec3D(1.0f, 0.0f, 0.0f);

@@ -3,7 +3,6 @@ package ch.supermafia.processing.framework3D.use;
 
 import ch.supermafia.processing.framework3D.geometry.mesh.ParametricMesh3DUnlekker;
 import ch.supermafia.processing.framework3D.mathematics.Function.Function;
-import ch.supermafia.processing.framework3D.mathematics.Function.KinectFunc;
 import processing.core.PApplet;
 import unlekker.modelbuilder.UNav3D;
 import unlekker.modelbuilder.UVec3;
@@ -143,14 +142,7 @@ public class Sketch3D extends PApplet
 	
 	public void reinit()
 		{
-		try
-			{
-			mesh.computeTable();
-			}
-		catch (InterruptedException e)
-			{
-			e.printStackTrace();
-			}
+		mesh.computeTable();
 		}
 	
 	/*------------------------------*\
@@ -224,14 +216,7 @@ public class Sketch3D extends PApplet
 	
 	private void distortMesh()
 		{
-		try
-			{
-			mesh.distort(distortionFactor);
-			}
-		catch (InterruptedException e)
-			{
-			e.printStackTrace();
-			}
+		mesh.distort(distortionFactor);
 		}
 	
 	private void initColor()

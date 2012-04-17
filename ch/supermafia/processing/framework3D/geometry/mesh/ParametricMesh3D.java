@@ -38,6 +38,7 @@ public class ParametricMesh3D implements Mesh3D_I
 		this.table = new Vec3D[(vCount + 1) * (uCount + 1)];
 		function = Function.TRANGULOID;
 		lastFunc = function;
+		this.distortionFact = 1.0f;
 		computeTable();
 		}
 	
@@ -123,8 +124,6 @@ public class ParametricMesh3D implements Mesh3D_I
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
 	
-
-	
 	@Override
 	public void draw()
 		{
@@ -147,83 +146,117 @@ public class ParametricMesh3D implements Mesh3D_I
 		builder.append(vMin);
 		builder.append(", vMax=");
 		builder.append(vMax);
+		builder.append(", distortionFact=");
+		builder.append(distortionFact);
 		builder.append(", function=");
 		builder.append(function);
 		builder.append("]");
 		return builder.toString();
 		}
-
-	public void distort(float distortionFactor) throws InterruptedException
+	
+	synchronized public void distort(float distortionFactor)
 		{
-		int nbThread = Runtime.getRuntime().availableProcessors();
-		Thread[] threads = new Thread[nbThread];
-		for(int i = 1; i <= nbThread; i++)
+		this.distortionFact = distortionFactor;
+		Thread thread = new Thread(new Runnable()
 			{
-			threads[i - 1] = new Thread(new MeshDistortionRunnable(i - 1, nbThread, table, uCount, vCount, distortionFactor));
-			threads[i - 1].start();
-			}
-		for(int i = 1; i <= nbThread; i++)
-			{
-			threads[i - 1].join();
-			}
+				
+				@Override
+				public void run()
+					{
+					int nbThread = Runtime.getRuntime().availableProcessors();
+					Thread[] threads = new Thread[nbThread];
+					for(int i = 1; i <= nbThread; i++)
+						{
+						threads[i - 1] = new Thread(new MeshDistortionRunnable(i - 1, nbThread, table, uCount, vCount, ParametricMesh3D.this.distortionFact));
+						threads[i - 1].start();
+						}
+					for(int i = 1; i <= nbThread; i++)
+						{
+						try
+							{
+							threads[i - 1].join();
+							}
+						catch (InterruptedException e)
+							{
+							e.printStackTrace();
+							}
+						}
+					}
+			});
+		thread.start();
 		}
 	
-	public void computeTable() throws InterruptedException
+	synchronized public void computeTable()
 		{
-		System.out.println("computing mesh...");
-		switch(function)
+		Thread thread = new Thread(new Runnable()
 			{
-			case TRANGULOID:
-				func = new TranguloidTrefoil();
-				break;
-			case SINSQUARED:
-				func = new SinDistSquared();
-				break;
-			case STEINER:
-				func = new Steiner();
-				break;
-			case CRESENT:
-				func = new Cresent();
-				break;
-			case KLEINCYCLOID:
-				func = new KleinCycloid(3, 3, 3);
-				break;
-			case TRIAXIAL:
-				func = new Triaxial();
-				break;
-			case HEIGHTMAP:
-				func = new HeightMap();
-				break;
-			case KINECT://FIXME
-				func = new KinectFunc(context);//simpleopenni needs a processing context
-			default:
-				func = new SinDistSquared();
-				break;
-			}
-		if (function != lastFunc)
-			{
-			updateDomain();
-			lastFunc = function;
-			}
-		int nbThread = Runtime.getRuntime().availableProcessors();
-		Thread[] threads = new Thread[nbThread];
-		for(int i = 1; i <= nbThread; i++)
-			{
-			threads[i - 1] = new Thread(new MeshComputeRunnable(i - 1, nbThread, table, uCount, vCount, uMin, uMax, vMin, vMax, func));
-			threads[i - 1].start();
-			}
-		for(int i = 1; i <= nbThread; i++)
-			{
-			threads[i - 1].join();
-			}
-		System.out.println("finished computing mesh");
+				
+				public void run()
+					{
+					System.out.println("computing mesh...");
+					switch(function)
+						{
+						case TRANGULOID:
+							func = new TranguloidTrefoil();
+							break;
+						case SINSQUARED:
+							func = new SinDistSquared();
+							break;
+						case STEINER:
+							func = new Steiner();
+							break;
+						case CRESENT:
+							func = new Cresent();
+							break;
+						case KLEINCYCLOID:
+							func = new KleinCycloid(3, 3, 3);
+							break;
+						case TRIAXIAL:
+							func = new Triaxial();
+							break;
+						case HEIGHTMAP:
+							func = new HeightMap();
+							break;
+						case KINECT://FIXME
+							func = new KinectFunc(context);//simpleopenni needs a processing context
+						default:
+							func = new SinDistSquared();
+							break;
+						}
+					if (function != lastFunc)
+						{
+						updateDomain();
+						lastFunc = function;
+						}
+					int nbThread = Runtime.getRuntime().availableProcessors();
+					Thread[] threads = new Thread[nbThread];
+					for(int i = 1; i <= nbThread; i++)
+						{
+						threads[i - 1] = new Thread(new MeshComputeRunnable(i - 1, nbThread, table, uCount, vCount, uMin, uMax, vMin, vMax, func));
+						threads[i - 1].start();
+						}
+					for(int i = 1; i <= nbThread; i++)
+						{
+						try
+							{
+							threads[i - 1].join();
+							}
+						catch (InterruptedException e)
+							{
+							e.printStackTrace();
+							}
+						}
+					System.out.println("finished computing mesh");
+					}
+			});
+		thread.start();
 		}
 	
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
 	
-	private void drawGrid()
+	private void drawGrid()//in main thread but it still has access to table, so synchronized must be set
 		{
 		for(int iv = 0; iv < vCount; iv++)
 			{
@@ -279,7 +312,7 @@ public class ParametricMesh3D implements Mesh3D_I
 	protected PApplet context;
 	protected FunctionR2R3_I func;
 	protected Function lastFunc;
-	
+	protected float distortionFact;
 	//tools
 	protected Vec3D[] table;
 	

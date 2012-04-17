@@ -140,6 +140,13 @@ public class Vec3D
 		return this;
 		}
 	
+	/**
+	 * 
+	 * @param sX
+	 * @param sY
+	 * @param sZ
+	 * @return Vec3D
+	 */
 	public Vec3D scale(float sX, float sY, float sZ)
 		{
 		this.x *= sX;
@@ -148,6 +155,11 @@ public class Vec3D
 		return this;
 		}
 	
+	/**
+	 * 
+	 * @param s
+	 * @return the Vec3D scaled in place 
+	 */
 	public Vec3D scale(float s)
 		{
 		this.x *= s;
@@ -159,6 +171,19 @@ public class Vec3D
 	public float dot(Vec3D v)
 		{
 		return (this.x * v.x + this.y * v.y + this.z * v.z);
+		}
+	
+	/**
+	 * @param v
+	 * @return a new Vec3D
+	 */
+	public Vec3D cross(Vec3D v)
+		{
+		Vec3D vec = new Vec3D();
+		vec.x = (this.y * v.z) - (this.z * v.y);
+		vec.y = (this.z * v.x) - (this.x * v.z);
+		vec.z = (this.x * v.y) - (this.y * v.x);
+		return vec;
 		}
 	
 	public float norm()
