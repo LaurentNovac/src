@@ -7,7 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import ch.supermafia.processing.framework3D.geometry.Vec3D;
+import ch.supermafia.processing.framework3D.geometry.vector.Vec3D;
 import ch.supermafia.processing.framework3D.mathematics.MathUtilities;
 import static ch.supermafia.processing.framework3D.mathematics.MathUtilities.isEqual;
 
@@ -84,6 +84,20 @@ public class TestVec3D
 		assertTrue(isEqual(theoreticalRes.x(), experimentalRes.x(), 1E-5f));
 		assertTrue(isEqual(theoreticalRes.y(), experimentalRes.y(), 1E-5f));
 		assertTrue(isEqual(theoreticalRes.z(), experimentalRes.z(), 1E-5f));
+		}
+	
+	@Test
+	public void testTranslate()
+		{
+		//TODO
+		assertTrue(false);
+		}
+	
+	@Test
+	public void testRotate()
+		{
+		//TODO
+		assertTrue(false);
 		}
 	
 	@Test

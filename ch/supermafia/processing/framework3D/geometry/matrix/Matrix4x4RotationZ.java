@@ -1,71 +1,21 @@
+package ch.supermafia.processing.framework3D.geometry.matrix;
 
-package ch.supermafia.processing.framework3D.geometry;
-
-public class MatrixT
+/**
+ * 
+ * @author Laurent Novac
+ *<pre>
+ *This Matrix has been made for performance reason, we could us Matrix4x4Rotation as well
+ *</pre>
+ */
+public class Matrix4x4RotationZ extends Matrix4x4
 	{
-	
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
-	public MatrixT()
-		{
-		dim = 4;
-		data = new float[dim * dim];//4X4 homogenuous matrix
-		this.identity();
-		}
 	
 	/*------------------------------------------------------------------*\
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
-	public MatrixT rotate(float angle)
-		{
-		//TODO
-		return this;
-		}
-	
-	public MatrixT rotate(float angle, Vec3D center)
-		{
-		//TODO
-		return this;
-		}
-	
-	public MatrixT translate(Vec3D trans)
-		{
-		//TODO
-		return this;
-		}
-	
-	public MatrixT scale(float s)
-		{
-		//TODO
-		return this;
-		}
-	
-	public MatrixT scale(Vec3D s)
-		{
-		//TODO
-		return this;
-		}
-	
-	public MatrixT identity()
-		{
-		for(int y = 0; y < dim; y++)
-			{
-			for(int x = 0; x < dim; x++)
-				{
-				if (x == y)
-					{
-					this.data[index(x, y)] = 1.0f;
-					}
-				else
-					{
-					this.data[index(x, y)] = 0.0f;
-					}
-				}
-			}
-		return this;
-		}
-	
 	
 	/*------------------------------*\
 	|*				Set				*|
@@ -78,16 +28,15 @@ public class MatrixT
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
-	private int index(int x, int y)
+	@Override
+	protected void fill()
 		{
-		return dim * y + x;
+		// TODO Auto-generated method stub
 		}
-	
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
 	
-	private float[] data;
-	private int dim;
-	
+	private float angle;
+
 	}

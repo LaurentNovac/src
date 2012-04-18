@@ -2,7 +2,7 @@
 package ch.supermafia.processing.framework3D.use;
 
 import ch.supermafia.processing.framework3D.geometry.mesh.ParametricMesh3DUnlekker;
-import ch.supermafia.processing.framework3D.mathematics.Function.Function;
+import ch.supermafia.processing.framework3D.mathematics.Function.Function_e;
 import processing.core.PApplet;
 import unlekker.modelbuilder.UNav3D;
 import unlekker.modelbuilder.UVec3;
@@ -97,31 +97,31 @@ public class Sketch3D extends PApplet
 		switch(key)
 			{
 			case '1':
-				mesh.setFunction(Function.SINSQUARED);
+				mesh.setFunction(Function_e.SINSQUARED);
 				reinit();
 				break;
 			case '2':
-				mesh.setFunction(Function.TRANGULOID);
+				mesh.setFunction(Function_e.TRANGULOID);
 				reinit();
 				break;
 			case '3':
-				mesh.setFunction(Function.STEINER);
+				mesh.setFunction(Function_e.STEINER);
 				reinit();
 				break;
 			case '4':
-				mesh.setFunction(Function.CRESENT);
+				mesh.setFunction(Function_e.CRESENT);
 				reinit();
 				break;
 			case '5':
-				mesh.setFunction(Function.KLEINCYCLOID);
+				mesh.setFunction(Function_e.KLEINCYCLOID);
 				reinit();
 				break;
 			case '6':
-				mesh.setFunction(Function.TRIAXIAL);
+				mesh.setFunction(Function_e.TRIAXIAL);
 				reinit();
 				break;
 			case '7':
-				mesh.setFunction(Function.HEIGHTMAP);
+				mesh.setFunction(Function_e.HEIGHTMAP);
 				reinit();
 				break;
 //			case '8':

@@ -11,7 +11,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import ch.supermafia.processing.framework3D.geometry.Vec3D;
+import ch.supermafia.processing.framework3D.geometry.vector.Vec3D;
 import ch.supermafia.processing.framework3D.mathematics.Function.runnable.LoadHeightMapRunnable;
 
 public class HeightMap implements FunctionR2R3_I

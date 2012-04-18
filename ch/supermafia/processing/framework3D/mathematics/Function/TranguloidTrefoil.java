@@ -1,7 +1,7 @@
 
 package ch.supermafia.processing.framework3D.mathematics.Function;
 
-import ch.supermafia.processing.framework3D.geometry.Vec3D;
+import ch.supermafia.processing.framework3D.geometry.vector.Vec3D;
 import static java.lang.Math.sin;
 import static java.lang.Math.cos;
 import static java.lang.Math.PI;

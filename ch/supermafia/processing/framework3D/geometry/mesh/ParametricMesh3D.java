@@ -1,12 +1,12 @@
 
 package ch.supermafia.processing.framework3D.geometry.mesh;
 
-import ch.supermafia.processing.framework3D.geometry.Vec3D;
 import ch.supermafia.processing.framework3D.geometry.mesh.runnable.MeshComputeRunnable;
 import ch.supermafia.processing.framework3D.geometry.mesh.runnable.MeshDistortionRunnable;
+import ch.supermafia.processing.framework3D.geometry.vector.Vec3D;
 import ch.supermafia.processing.framework3D.mathematics.MathUtilities;
 import ch.supermafia.processing.framework3D.mathematics.Function.Cresent;
-import ch.supermafia.processing.framework3D.mathematics.Function.Function;
+import ch.supermafia.processing.framework3D.mathematics.Function.Function_e;
 import ch.supermafia.processing.framework3D.mathematics.Function.FunctionR2R3_I;
 import ch.supermafia.processing.framework3D.mathematics.Function.HeightMap;
 import ch.supermafia.processing.framework3D.mathematics.Function.KinectFunc;
@@ -36,7 +36,7 @@ public class ParametricMesh3D implements Mesh3D_I
 		this.context = context;
 		
 		this.table = new Vec3D[(vCount + 1) * (uCount + 1)];
-		function = Function.TRANGULOID;
+		function = Function_e.TRANGULOID;
 		lastFunc = function;
 		this.distortionFact = 1.0f;
 		computeTable();
@@ -115,7 +115,7 @@ public class ParametricMesh3D implements Mesh3D_I
 		this.vMax = vMax;
 		}
 	
-	public void setFunction(Function function)
+	public void setFunction(Function_e function)
 		{
 		this.function = function;
 		}
@@ -311,10 +311,10 @@ public class ParametricMesh3D implements Mesh3D_I
 	protected float vMax;
 	protected PApplet context;
 	protected FunctionR2R3_I func;
-	protected Function lastFunc;
+	protected Function_e lastFunc;
 	protected float distortionFact;
 	//tools
 	protected Vec3D[] table;
 	
-	protected Function function;
+	protected Function_e function;
 	}

@@ -1,6 +1,8 @@
 
-package ch.supermafia.processing.framework3D.geometry;
+package ch.supermafia.processing.framework3D.geometry.vector;
 
+import ch.supermafia.processing.framework3D.geometry.matrix.Matrix4x4;
+import ch.supermafia.processing.framework3D.geometry.matrix.Matrix4x4Identity;
 import ch.supermafia.processing.framework3D.mathematics.MathUtilities;
 
 public class Vec3D
@@ -14,6 +16,7 @@ public class Vec3D
 		this.x = x;
 		this.y = y;
 		this.z = z;
+		this.transMatrix = new Matrix4x4Identity();
 		}
 	
 	public Vec3D()
@@ -112,6 +115,7 @@ public class Vec3D
 	
 	public Vec3D add(Vec3D v)
 		{
+		//TODO use translate Matrix4x4
 		this.x += v.x;
 		this.y += v.y;
 		this.z += v.z;
@@ -120,6 +124,7 @@ public class Vec3D
 	
 	public Vec3D sub(Vec3D v)
 		{
+		//TODO call translate
 		this.x -= v.x;
 		this.y -= v.y;
 		this.z -= v.z;
@@ -128,6 +133,7 @@ public class Vec3D
 	
 	public Vec3D mult(Vec3D v)
 		{
+		//TODO call scale
 		this.x *= v.x;
 		this.y *= v.y;
 		this.z *= v.z;
@@ -149,10 +155,17 @@ public class Vec3D
 	 */
 	public Vec3D scale(float sX, float sY, float sZ)
 		{
+		//TODO use Matrix4x4
 		this.x *= sX;
 		this.y *= sY;
 		this.z *= sZ;
 		return this;
+		}
+	
+	public Vec3D scale(Vec3D vec)
+		{
+		//TODO 
+		return null;
 		}
 	
 	/**
@@ -162,9 +175,22 @@ public class Vec3D
 	 */
 	public Vec3D scale(float s)
 		{
+		//TODO use Matrix4x4
 		this.x *= s;
 		this.y *= s;
 		this.z *= s;
+		return this;
+		}
+	
+	public Vec3D rotate(float angle)
+		{
+		//TODO
+		return this;
+		}
+	
+	public Vec3D rotate(float angle, Vec3D center)
+		{
+		//TODO
 		return this;
 		}
 	
@@ -232,6 +258,7 @@ public class Vec3D
 	 */
 	public Vec3D projectOn(Vec3D v)
 		{
+		//TODO use Matrix4x4
 		float projNorm = this.dot(v) / v.norm();
 		Vec3D vUnit = v.normalize2();
 		vUnit.mult(projNorm);
@@ -248,10 +275,27 @@ public class Vec3D
 		}
 	
 	/*------------------------------------------------------------------*\
+	|*							Methodes Private						*|
+	\*------------------------------------------------------------------*/
+	
+	private Vec3D transform()
+		{
+		//TODO
+		Vec4D hVec = new Vec4D(this);
+		return hVec.toCartesian();
+		}
+	
+	private Vec4D multiplyLeftByTransMat()
+		{
+		//TODO
+		return null;
+		}
+	
+	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
 	private float x;
 	private float y;
 	private float z;
-	
+	private Matrix4x4 transMatrix;
 	}
