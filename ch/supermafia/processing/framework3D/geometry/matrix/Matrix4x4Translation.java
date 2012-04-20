@@ -10,6 +10,12 @@ public class Matrix4x4Translation extends Matrix4x4
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 	
+	public Matrix4x4Translation(Vec3D transVec)
+		{
+		this.transVec = transVec;
+		fill();
+		}
+	
 	/*------------------------------------------------------------------*\
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
@@ -25,8 +31,8 @@ public class Matrix4x4Translation extends Matrix4x4
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
-	@Override
-	protected void fill()
+
+	private void fill()
 		{
 		data[index(0, 0)] = 1;
 		data[index(0, 1)] = 0;

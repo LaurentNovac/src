@@ -17,14 +17,19 @@ public class Vec4D
 		this.vec = vec;
 		this.x = vec.x();
 		this.y = vec.y();
-		this.z = vec.x();
-		w = 1;
+		this.z = vec.z();
+		this.w = 1.0f;
+		}
+	
+	public Vec4D(Vec4D vec)
+		{
+		this(vec.toCartesian());
 		}
 	
 	/*------------------------------------------------------------------*\
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
-	Vec3D toCartesian()
+	public Vec3D toCartesian()
 		{
 		vec.setX(x / w);
 		vec.setY(y / w);
@@ -32,13 +37,92 @@ public class Vec4D
 		return vec;
 		}
 	
+	public Vec4D cloneOf()
+		{
+		return new Vec4D(this);
+		}
+	
+	@Override
+	public String toString()
+		{
+		StringBuilder builder = new StringBuilder();
+		builder.append("Vec4D [x=");
+		builder.append(x);
+		builder.append(", y=");
+		builder.append(y);
+		builder.append(", z=");
+		builder.append(z);
+		builder.append(", w=");
+		builder.append(w);
+		builder.append("]");
+		return builder.toString();
+		}
+	
 	/*------------------------------*\
 	|*				Set				*|
 	\*------------------------------*/
+	public void setX(float x)
+		{
+		this.x = x;
+		}
+	
+	public void setY(float y)
+		{
+		this.y = y;
+		}
+	
+	public void setZ(float z)
+		{
+		this.z = z;
+		}
+	
+	public void setW(float w)
+		{
+		this.w = w;
+		}
 	
 	/*------------------------------*\
 	|*				Get				*|
 	\*------------------------------*/
+	public float getX()
+		{
+		return x;
+		}
+	
+	public float getY()
+		{
+		return y;
+		}
+	
+	public float getZ()
+		{
+		return z;
+		}
+	
+	public float getW()
+		{
+		return w;
+		}
+	
+	public float x()
+		{
+		return x;
+		}
+	
+	public float y()
+		{
+		return y;
+		}
+	
+	public float z()
+		{
+		return z;
+		}
+	
+	public float w()
+		{
+		return w;
+		}
 	
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|

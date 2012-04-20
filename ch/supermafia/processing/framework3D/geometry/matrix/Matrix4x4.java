@@ -3,12 +3,13 @@ package ch.supermafia.processing.framework3D.geometry.matrix;
 
 import java.util.Arrays;
 
+import ch.supermafia.processing.framework3D.geometry.vector.Vec3D;
 import ch.supermafia.processing.framework3D.geometry.vector.Vec4D;
 
 /**
  * 
  *<pre>
- * This represents the "default matrix" the identy, 
+ * This represents the "default matrix" it is filled with zeros, 
  * subclasses represents transformation matrix
  * such as Rotation or Translation
  * </pre>
@@ -25,7 +26,6 @@ public class Matrix4x4
 		{
 		dim = 4;
 		data = new float[dim * dim];//4X4 homogenuous matrix
-		this.fill();
 		}
 	
 	public Matrix4x4(Matrix4x4 src)
@@ -37,11 +37,6 @@ public class Matrix4x4
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
 	
-	public Matrix4x4 cloneOf()
-		{
-		return new Matrix4x4(this);
-		}
-	
 	@Override
 	public String toString()
 		{
@@ -52,6 +47,11 @@ public class Matrix4x4
 		builder.append(dim);
 		builder.append("]");
 		return builder.toString();
+		}
+	
+	private Matrix4x4 cloneOf()
+		{
+		return new Matrix4x4();
 		}
 	
 	public Matrix4x4 composeTrans(Matrix4x4 matrix)
@@ -75,19 +75,28 @@ public class Matrix4x4
 		return this;
 		}
 	
-	private void scalar(int lineI, int columnJ, Matrix4x4 mat, Matrix4x4 res)
+	public Vec3D transformVec(Vec3D vec)
 		{
-		for(int i = 0; i < dim; i++)
-			{
-			res.data[index(columnJ, lineI)] += this.data[index(i, lineI)] * mat.data[index(columnJ, i)];
-			}
+		
+		Vec4D vecH = new Vec4D(vec);
+		Vec4D res = vecH.cloneOf();
+		res.setX(scalar(vecH, 0));
+		res.setY(scalar(vecH, 1));
+		res.setZ(scalar(vecH, 2));
+		res.setW(scalar(vecH, 3));
+		
+		vecH.setX(res.x());
+		vecH.setY(res.y());
+		vecH.setZ(res.z());
+		vecH.setW(res.w());
+		return vecH.toCartesian();
 		}
 	
 	public boolean isEqual(Matrix4x4 mat, float epsilon)
 		{
 		for(int i = 0; i < dim * dim; i++)
 			{
-			if ((data[i] - mat.data[i]) >= epsilon) { return false; }
+			if ((data[i] - mat.data[i]) > epsilon) { return false; }
 			}
 		return true;
 		}
@@ -100,12 +109,22 @@ public class Matrix4x4
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
 	
-	protected void fill()
+	private void scalar(int lineI, int columnJ, Matrix4x4 mat, Matrix4x4 res)
 		{
 		for(int i = 0; i < dim; i++)
 			{
-			data[i] = 0;
+			res.data[index(columnJ, lineI)] += this.data[index(i, lineI)] * mat.data[index(columnJ, i)];
 			}
+		}
+	
+	private float scalar(Vec4D res, int lineI)
+		{
+		int s = 0;
+		s += this.data[index(0, lineI)] * res.getX();
+		s += this.data[index(1, lineI)] * res.getY();
+		s += this.data[index(2, lineI)] * res.getZ();
+		s += this.data[index(3, lineI)] * res.getW();
+		return s;
 		}
 	
 	protected int index(int x, int y)

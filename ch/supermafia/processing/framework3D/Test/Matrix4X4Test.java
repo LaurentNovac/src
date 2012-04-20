@@ -12,7 +12,6 @@ public class Matrix4X4Test extends Matrix4x4
 	
 	public Matrix4X4Test(float[] dataIn)
 		{
-		// TODO Auto-generated constructor stub
 		fill(dataIn);
 		}
 	
@@ -26,12 +25,6 @@ public class Matrix4X4Test extends Matrix4x4
 			{
 			data[i] = dataIn[i];
 			}
-		}
-	
-	@Override
-	protected void fill()
-		{
-		
 		}
 	
 	/*------------------------------------------------------------------*\

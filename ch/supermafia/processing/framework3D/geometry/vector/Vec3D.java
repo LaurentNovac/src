@@ -113,6 +113,11 @@ public class Vec3D
 		return builder.toString();
 		}
 	
+	public Vec3D cloneOf()
+		{
+		return new Vec3D(this);
+		}
+	
 	public Vec3D add(Vec3D v)
 		{
 		//TODO use translate Matrix4x4
@@ -281,8 +286,7 @@ public class Vec3D
 	private Vec3D transform()
 		{
 		//TODO
-		Vec4D hVec = new Vec4D(this);
-		return hVec.toCartesian();
+		return this;
 		}
 	
 	private Vec4D multiplyLeftByTransMat()

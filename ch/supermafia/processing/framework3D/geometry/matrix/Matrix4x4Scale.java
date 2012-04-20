@@ -9,6 +9,11 @@ public class Matrix4x4Scale extends Matrix4x4
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
+	public Matrix4x4Scale(Vec3D scaleVec)
+		{
+		this.scaleVec = scaleVec;
+		fill();
+		}
 	
 	/*------------------------------------------------------------------*\
 	|*							Methodes Public							*|
@@ -25,8 +30,8 @@ public class Matrix4x4Scale extends Matrix4x4
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
-	@Override
-	protected void fill()
+
+	private void fill()
 		{
 		for(int y = 0; y < dim; y++)
 			{
