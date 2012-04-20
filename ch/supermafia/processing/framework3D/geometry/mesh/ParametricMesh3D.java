@@ -131,6 +131,26 @@ public class ParametricMesh3D implements Mesh3D_I
 		}
 	
 	@Override
+	public Mesh3D_I translate(Vec3D transVec)
+		{
+		for(int i = 0; i < vCount * uCount; i++)
+			{
+			table[i].translate(transVec);
+			}
+		return this;
+		}
+	
+	@Override
+	public Mesh3D_I scale(float s)
+		{
+		for(int i = 0; i < vCount * uCount; i++)
+			{
+			table[i].scale(s);
+			}
+		return this;
+		}
+	
+	@Override
 	public String toString()
 		{
 		StringBuilder builder = new StringBuilder();

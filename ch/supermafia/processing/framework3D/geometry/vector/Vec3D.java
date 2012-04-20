@@ -3,6 +3,8 @@ package ch.supermafia.processing.framework3D.geometry.vector;
 
 import ch.supermafia.processing.framework3D.geometry.matrix.Matrix4x4;
 import ch.supermafia.processing.framework3D.geometry.matrix.Matrix4x4Identity;
+import ch.supermafia.processing.framework3D.geometry.matrix.Matrix4x4Scale;
+import ch.supermafia.processing.framework3D.geometry.matrix.Matrix4x4Translation;
 import ch.supermafia.processing.framework3D.mathematics.MathUtilities;
 
 public class Vec3D
@@ -118,12 +120,11 @@ public class Vec3D
 		return new Vec3D(this);
 		}
 	
-	public Vec3D add(Vec3D v)
+	public Vec3D translate(Vec3D v)
 		{
-		//TODO use translate Matrix4x4
-		this.x += v.x;
-		this.y += v.y;
-		this.z += v.z;
+		Matrix4x4Translation mat = new Matrix4x4Translation(v);
+		this.transMatrix.multRight(mat);
+		transform();
 		return this;
 		}
 	
@@ -160,17 +161,15 @@ public class Vec3D
 	 */
 	public Vec3D scale(float sX, float sY, float sZ)
 		{
-		//TODO use Matrix4x4
-		this.x *= sX;
-		this.y *= sY;
-		this.z *= sZ;
+		Matrix4x4Scale mat = new Matrix4x4Scale(new Vec3D(sX, sY, sZ));
+		this.transMatrix.multRight(mat);
+		transform();
 		return this;
 		}
 	
 	public Vec3D scale(Vec3D vec)
 		{
-		//TODO 
-		return null;
+		return scale(vec.x, vec.y, vec.z);
 		}
 	
 	/**
@@ -180,11 +179,7 @@ public class Vec3D
 	 */
 	public Vec3D scale(float s)
 		{
-		//TODO use Matrix4x4
-		this.x *= s;
-		this.y *= s;
-		this.z *= s;
-		return this;
+		return scale(s,s,s);
 		}
 	
 	public Vec3D rotate(float angle)
@@ -285,15 +280,10 @@ public class Vec3D
 	
 	private Vec3D transform()
 		{
-		//TODO
+		this.transMatrix.transformVec(this);
 		return this;
 		}
-	
-	private Vec4D multiplyLeftByTransMat()
-		{
-		//TODO
-		return null;
-		}
+
 	
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|

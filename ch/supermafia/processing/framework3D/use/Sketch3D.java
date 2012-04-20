@@ -2,6 +2,7 @@
 package ch.supermafia.processing.framework3D.use;
 
 import ch.supermafia.processing.framework3D.geometry.mesh.ParametricMesh3DUnlekker;
+import ch.supermafia.processing.framework3D.geometry.vector.Vec3D;
 import ch.supermafia.processing.framework3D.mathematics.Function.Function_e;
 import processing.core.PApplet;
 import unlekker.modelbuilder.UNav3D;
@@ -25,7 +26,7 @@ public class Sketch3D extends PApplet
 		
 		try
 			{
-			mesh = new ParametricMesh3DUnlekker(100, 100, this);
+			mesh = new ParametricMesh3DUnlekker(80, 80, this);
 			uMin = mesh.getuMin();
 			uMax = mesh.getuMax();
 			vMin = mesh.getvMin();
@@ -124,13 +125,18 @@ public class Sketch3D extends PApplet
 				mesh.setFunction(Function_e.HEIGHTMAP);
 				reinit();
 				break;
-//			case '8':
-//				mesh.setFunction(Function.KINECT);
-//				reinit();
-//				break;
+			//			case '8':
+			//				mesh.setFunction(Function.KINECT);
+			//				reinit();
+			//				break;
 			case 'p':
 				isPrint = true;
 				break;
+			case 's':
+				mesh.scale(2.0f);
+				break;
+			case 't':
+				mesh.translate(new Vec3D(10.0f, 0, 0));
 			default:
 				break;
 			}

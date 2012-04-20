@@ -71,12 +71,16 @@ public class TestMatrixT
 		Matrix4X4Test theoreticalMat = new Matrix4X4Test(data);
 		Matrix4x4Identity identity = new Matrix4x4Identity();
 		assertTrue(identity.isEqual(theoreticalMat, 0));
+		
+		Vec3D v=new Vec3D(1.0f, 2.0f, 3.0f);
+		identity.transformVec(v);
+		Vec3D theoreticalVec=new Vec3D(1.0f, 2.0f, 3.0f);
+		assertTrue(v.isEqual(theoreticalVec, 0));
 		}
 	
 	@Test
 	public void testMultRight()
 		{
-		// TODO
 		float[] data = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
 		Matrix4X4Test m1 = new Matrix4X4Test(data);
 		float[] data2 = { 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 };
@@ -90,7 +94,6 @@ public class TestMatrixT
 	@Test
 	public void testTransformVec()
 		{
-		// TODO 
 		Matrix4x4Identity identity = new Matrix4x4Identity();
 		Vec3D vec = new Vec3D(12, 23, 33);
 		Vec3D theoreticalRes = new Vec3D(12, 23, 33);

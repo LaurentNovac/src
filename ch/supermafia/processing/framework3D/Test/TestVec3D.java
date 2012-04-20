@@ -87,13 +87,6 @@ public class TestVec3D
 		}
 	
 	@Test
-	public void testTranslate()
-		{
-		//TODO
-		assertTrue(false);
-		}
-	
-	@Test
 	public void testRotate()
 		{
 		//TODO
@@ -114,8 +107,9 @@ public class TestVec3D
 	public void testAdd()
 		{
 		Vec3D v1 = new Vec3D(1.0f, 1.0f, 1.0f);
-		v1.add(v1);
-		Vec3D theoreticalRes = new Vec3D(2.0f, 2.0f, 2.0f);
+		Vec3D v2 = new Vec3D(2.0f, 3.0f, 4.0f);
+		v1.translate(v2);
+		Vec3D theoreticalRes = new Vec3D(3.0f, 4.0f, 5.0f);
 		assertTrue(v1.isEqual(theoreticalRes, 1E-15f));
 		}
 	
