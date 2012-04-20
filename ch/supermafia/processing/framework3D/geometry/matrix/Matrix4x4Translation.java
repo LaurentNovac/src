@@ -31,28 +31,29 @@ public class Matrix4x4Translation extends Matrix4x4
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
-
+	
 	private void fill()
 		{
-		data[index(0, 0)] = 1;
-		data[index(0, 1)] = 0;
-		data[index(0, 2)] = 0;
-		data[index(0, 3)] = 0;
+		data[index(0, 0)] = 1.0f;
+		data[index(0, 1)] = 0.0f;
+		data[index(0, 2)] = 0.0f;
+		data[index(0, 3)] = 0.0f;
 		
-		data[index(1, 0)] = 0;
-		data[index(1, 1)] = 1;
-		data[index(1, 2)] = 0;
-		data[index(1, 3)] = 0;
+		data[index(1, 0)] = 0.0f;
+		data[index(1, 1)] = 1.0f;
+		data[index(1, 2)] = 0.0f;
+		data[index(1, 3)] = 0.0f;
 		
-		data[index(2, 0)] = 0;
-		data[index(2, 1)] = 0;
-		data[index(2, 2)] = 1;
-		data[index(2, 3)] = 0;
+		data[index(2, 0)] = 0.0f;
+		data[index(2, 1)] = 0.0f;
+		data[index(2, 2)] = 1.0f;
+		data[index(2, 3)] = 0.0f;
 		
 		data[index(3, 0)] = transVec.x();
 		data[index(3, 1)] = transVec.y();
 		data[index(3, 2)] = transVec.z();
-		data[index(3, 3)] = 1;
+		data[index(3, 3)] = 1.0f;
+		
 		}
 	
 	/*------------------------------------------------------------------*\

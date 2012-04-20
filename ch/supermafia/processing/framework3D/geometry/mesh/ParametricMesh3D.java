@@ -129,7 +129,15 @@ public class ParametricMesh3D implements Mesh3D_I
 		{
 		drawGrid();
 		}
-	
+	@Override
+	public Mesh3D_I applyIdentity()
+		{
+		for(int i = 0; i < vCount * uCount; i++)
+			{
+			table[i].applyIdentity();
+			}
+		return this;
+		}
 	@Override
 	public Mesh3D_I translate(Vec3D transVec)
 		{

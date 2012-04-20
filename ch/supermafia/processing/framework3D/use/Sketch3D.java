@@ -26,7 +26,7 @@ public class Sketch3D extends PApplet
 		
 		try
 			{
-			mesh = new ParametricMesh3DUnlekker(80, 80, this);
+			mesh = new ParametricMesh3DUnlekker(10, 10, this);
 			uMin = mesh.getuMin();
 			uMax = mesh.getuMax();
 			vMin = mesh.getvMin();
@@ -70,6 +70,7 @@ public class Sketch3D extends PApplet
 		background(255);
 		lights();
 		noStroke();
+		
 		scale(scl);
 		updateColor();
 		if (distortionFactor > 1.0f)
@@ -136,7 +137,11 @@ public class Sketch3D extends PApplet
 				mesh.scale(2.0f);
 				break;
 			case 't':
-				mesh.translate(new Vec3D(10.0f, 0, 0));
+				mesh.translate(new Vec3D(1.0f, 0.0f, 0.0f));
+				break;
+			case 'i':
+				mesh.applyIdentity();
+				break;
 			default:
 				break;
 			}

@@ -85,11 +85,7 @@ public class Matrix4x4
 		res.setZ(scalar(vecH, 2));
 		res.setW(scalar(vecH, 3));
 		
-		vecH.setX(res.x());
-		vecH.setY(res.y());
-		vecH.setZ(res.z());
-		vecH.setW(res.w());
-		return vecH.toCartesian();
+		return res.toCartesian();
 		}
 	
 	public boolean isEqual(Matrix4x4 mat, float epsilon)
@@ -119,7 +115,7 @@ public class Matrix4x4
 	
 	private float scalar(Vec4D res, int lineI)
 		{
-		int s = 0;
+		float s = 0.0f;
 		s += this.data[index(0, lineI)] * res.getX();
 		s += this.data[index(1, lineI)] * res.getY();
 		s += this.data[index(2, lineI)] * res.getZ();

@@ -10,6 +10,7 @@ public interface Mesh3D_I
 	\*------------------------------------------------------------------*/
 
 	public void draw() throws InterruptedException;
+	public Mesh3D_I applyIdentity();
 	public Mesh3D_I translate(Vec3D transVec);
 	public Mesh3D_I scale(float s);
 

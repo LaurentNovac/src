@@ -19,6 +19,7 @@ public class Vec3D
 		this.y = y;
 		this.z = z;
 		this.transMatrix = new Matrix4x4Identity();
+		transform();
 		}
 	
 	public Vec3D()
@@ -120,10 +121,17 @@ public class Vec3D
 		return new Vec3D(this);
 		}
 	
+	public Vec3D applyIdentity()
+		{
+		System.out.println("Hello identity");
+		this.transMatrix = new Matrix4x4Identity();
+		transform();
+		return this;
+		}
+	
 	public Vec3D translate(Vec3D v)
 		{
-		Matrix4x4Translation mat = new Matrix4x4Translation(v);
-		this.transMatrix.multRight(mat);
+		this.transMatrix = new Matrix4x4Translation(v);
 		transform();
 		return this;
 		}
@@ -137,15 +145,21 @@ public class Vec3D
 		return this;
 		}
 	
+	/**
+	 * 
+	 * @param v
+	 * @return the Vec3D scaled in place
+	 */
 	public Vec3D mult(Vec3D v)
 		{
-		//TODO call scale
-		this.x *= v.x;
-		this.y *= v.y;
-		this.z *= v.z;
-		return this;
+		return scale(v);
 		}
 	
+	/**
+	 * 
+	 * @param m
+	 * @return the Vec3D scaled in place
+	 */
 	public Vec3D mult(float m)
 		{
 		this.scale(m);
@@ -157,16 +171,21 @@ public class Vec3D
 	 * @param sX
 	 * @param sY
 	 * @param sZ
-	 * @return Vec3D
+	 * @return the Vec3D scaled in place 
 	 */
 	public Vec3D scale(float sX, float sY, float sZ)
 		{
-		Matrix4x4Scale mat = new Matrix4x4Scale(new Vec3D(sX, sY, sZ));
-		this.transMatrix.multRight(mat);
+		this.transMatrix = new Matrix4x4Scale(new Vec3D(sX, sY, sZ));
+		
 		transform();
 		return this;
 		}
 	
+	/**
+	 * 
+	 * @param vec
+	 * @return the Vec3D scaled in place 
+	 */
 	public Vec3D scale(Vec3D vec)
 		{
 		return scale(vec.x, vec.y, vec.z);
@@ -179,9 +198,14 @@ public class Vec3D
 	 */
 	public Vec3D scale(float s)
 		{
-		return scale(s,s,s);
+		return scale(s, s, s);
 		}
 	
+	/**
+	 * 
+	 * @param angle
+	 * @return the vector rotated around the z-axis in place
+	 */
 	public Vec3D rotate(float angle)
 		{
 		//TODO
@@ -283,7 +307,6 @@ public class Vec3D
 		this.transMatrix.transformVec(this);
 		return this;
 		}
-
 	
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|

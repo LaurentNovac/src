@@ -54,10 +54,7 @@ public class TestVec3D
 		float experimentalResult = v.norm();
 		assertTrue(isEqual(experimentalResult, theoreticalResult, 1E-5f));
 		Vec3D v2 = new Vec3D(v).scale(10);
-		System.out.println(v2);
 		v2.normalize();
-		System.out.println(v2);
-		
 		}
 	
 	@Test
@@ -72,6 +69,15 @@ public class TestVec3D
 		experimentalResult = unitVec.norm();
 		theoreticalResult = 1.0f;
 		assertTrue(MathUtilities.isEqual(experimentalResult, experimentalResult, 1E-5f));
+		}
+	
+	@Test
+	public void testIdentity()
+		{
+		Vec3D vec = new Vec3D(1.0f, 3.5f, 3.0f);
+		vec.applyIdentity();
+		Vec3D theoreticalRes = new Vec3D(1.0f, 3.5f, 3.0f);
+		assertTrue(vec.isEqual(theoreticalRes, 0));
 		}
 	
 	@Test
@@ -104,12 +110,12 @@ public class TestVec3D
 		}
 	
 	@Test
-	public void testAdd()
+	public void testTranslate()
 		{
-		Vec3D v1 = new Vec3D(1.0f, 1.0f, 1.0f);
-		Vec3D v2 = new Vec3D(2.0f, 3.0f, 4.0f);
+		Vec3D v1 = new Vec3D(1.0f, 1.0f, 1.003f);
+		Vec3D v2 = new Vec3D(2.0f, 3.0f, 4.002f);
 		v1.translate(v2);
-		Vec3D theoreticalRes = new Vec3D(3.0f, 4.0f, 5.0f);
+		Vec3D theoreticalRes = new Vec3D(3.0f, 4.0f, 5.005f);
 		assertTrue(v1.isEqual(theoreticalRes, 1E-15f));
 		}
 	
