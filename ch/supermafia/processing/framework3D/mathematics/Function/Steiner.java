@@ -46,5 +46,12 @@ public class Steiner implements FunctionR2R3_I
 		{
 		return (float)Math.PI;
 		}
+
+	@Override
+	public void setLerpParam(float lerpParam)
+		{
+		// TODO Auto-generated method stub
+		
+		}
 	
 	}

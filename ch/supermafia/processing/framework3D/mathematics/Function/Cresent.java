@@ -46,4 +46,11 @@ public class Cresent implements FunctionR2R3_I
 		{
 		return 1;
 		}
+
+	@Override
+	public void setLerpParam(float lerpParam)
+		{
+		// TODO Auto-generated method stub
+		
+		}
 	}

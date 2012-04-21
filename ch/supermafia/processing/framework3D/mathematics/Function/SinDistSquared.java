@@ -43,6 +43,13 @@ public class SinDistSquared implements FunctionR2R3_I
 		{
 		return 10;
 		}
+
+	@Override
+	public void setLerpParam(float lerpParam)
+		{
+		// TODO Auto-generated method stub
+		
+		}
 	
 	/*------------------------------------------------------------------*\
 	|*							Methodes Public							*|

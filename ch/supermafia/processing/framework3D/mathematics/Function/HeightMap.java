@@ -137,5 +137,11 @@ public class HeightMap implements FunctionR2R3_I
 	
 	private BufferedImage image;
 	private float[] hMap;
+	@Override
+	public void setLerpParam(float lerpParam)
+		{
+		// TODO Auto-generated method stub
+		
+		}
 	
 	}

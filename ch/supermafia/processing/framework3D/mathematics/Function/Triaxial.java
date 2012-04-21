@@ -51,5 +51,12 @@ public class Triaxial implements FunctionR2R3_I
 		{
 		return (float)(2 * Math.PI);
 		}
+
+	@Override
+	public void setLerpParam(float lerpParam)
+		{
+		// TODO Auto-generated method stub
+		
+		}
 	
 	}

@@ -107,5 +107,11 @@ public class KinectFunc implements FunctionR2R3_I
 	private Kinect kinect;
 	private int[] rawDepth;
 	private PApplet context;
+	@Override
+	public void setLerpParam(float lerpParam)
+		{
+		// TODO Auto-generated method stub
+		
+		}
 	
 	}

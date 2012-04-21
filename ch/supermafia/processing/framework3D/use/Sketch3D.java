@@ -3,7 +3,14 @@ package ch.supermafia.processing.framework3D.use;
 
 import ch.supermafia.processing.framework3D.geometry.mesh.ParametricMesh3DUnlekker;
 import ch.supermafia.processing.framework3D.geometry.vector.Vec3D;
-import ch.supermafia.processing.framework3D.mathematics.Function.Function_e;
+import ch.supermafia.processing.framework3D.mathematics.Function.Cresent;
+import ch.supermafia.processing.framework3D.mathematics.Function.KleinCycloid;
+import ch.supermafia.processing.framework3D.mathematics.Function.SinDistSquared;
+import ch.supermafia.processing.framework3D.mathematics.Function.SinDistSquaredToTranguloid;
+import ch.supermafia.processing.framework3D.mathematics.Function.Steiner;
+import ch.supermafia.processing.framework3D.mathematics.Function.TranguloidToTriaxial;
+import ch.supermafia.processing.framework3D.mathematics.Function.TranguloidTrefoil;
+import ch.supermafia.processing.framework3D.mathematics.Function.Triaxial;
 import processing.core.PApplet;
 import unlekker.modelbuilder.UNav3D;
 import unlekker.modelbuilder.UVec3;
@@ -36,6 +43,8 @@ public class Sketch3D extends PApplet
 			lastuMax = uMax;
 			lastvMax = vMax;
 			distortionFactor = 1.0f;
+			lerpParam=0.0f;
+			lastLerpParam=lerpParam;
 			}
 		catch (InterruptedException e)
 			{
@@ -92,6 +101,7 @@ public class Sketch3D extends PApplet
 		
 		gui.draw();
 		colorTool.drawColors(this, 0, height - 100);
+		text(frameRate+"",width-100,height-10);
 		}
 	
 	public void keyPressed()
@@ -99,41 +109,37 @@ public class Sketch3D extends PApplet
 		switch(key)
 			{
 			case '1':
-				mesh.setFunction(Function_e.SINSQUARED);
+				mesh.setFunc(new SinDistSquared());
 				reinit();
 				break;
 			case '2':
-				mesh.setFunction(Function_e.TRANGULOID);
+				mesh.setFunc(new TranguloidTrefoil());
 				reinit();
 				break;
 			case '3':
-				mesh.setFunction(Function_e.STEINER);
+				mesh.setFunc(new Steiner());
 				reinit();
 				break;
 			case '4':
-				mesh.setFunction(Function_e.CRESENT);
+				mesh.setFunc(new Cresent());
 				reinit();
 				break;
 			case '5':
-				mesh.setFunction(Function_e.KLEINCYCLOID);
+				mesh.setFunc(new KleinCycloid(3, 3, 3));
 				reinit();
 				break;
 			case '6':
-				mesh.setFunction(Function_e.TRIAXIAL);
+				mesh.setFunc(new Triaxial());
 				reinit();
 				break;
 			case '7':
-				mesh.setFunction(Function_e.HEIGHTMAP);
+				mesh.setFunc(new TranguloidToTriaxial());
 				reinit();
 				break;
 			case '8':
-				mesh.setFunction(Function_e.TRANGULOIDTOTRIAXIAL);
+				mesh.setFunc(new SinDistSquaredToTranguloid());
 				reinit();
 				break;
-			//			case '9':
-			//				mesh.setFunction(Function.KINECT);
-			//				reinit();
-			//				break;
 			case 'p':
 				isPrint = true;
 				break;
@@ -191,12 +197,18 @@ public class Sketch3D extends PApplet
 		gui.addSlider("vMax", vMax, mesh.getvMin(), mesh.getvMax());
 		gui.addSlider("distortionFactor", distortionFactor, 0.0f, 3.0f);
 		gui.addSlider("scl", scl, 10, width);
+		gui.addSlider("lerpParam", lerpParam, 0.0f, 1.0f);
 		gui.addButton("toSTL");
-		
 		}
 	
 	private void updateMesh()
 		{
+		if(lerpParam!=lastLerpParam)
+			{
+			mesh.getFunction().setLerpParam(lerpParam);
+			lastLerpParam=lerpParam;
+			reinit();
+			}
 		if (uMin != lastuMin)
 			{
 			mesh.setuMin(uMin);
@@ -287,4 +299,6 @@ public class Sketch3D extends PApplet
 	private int t;
 	private UVec3 speedRotCam;
 	private boolean isPrint;
+	private float lerpParam;
+	private float lastLerpParam;
 	}

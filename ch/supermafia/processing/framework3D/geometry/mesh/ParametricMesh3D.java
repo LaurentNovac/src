@@ -37,8 +37,8 @@ public class ParametricMesh3D implements Mesh3D_I
 		this.context = context;
 		
 		this.table = new Vec3D[(vCount + 1) * (uCount + 1)];
-		function = Function_e.TRANGULOID;
-		lastFunc = function;
+		func = new TranguloidTrefoil();
+		lastFunc = func;
 		this.distortionFact = 0.0f;
 		computeTable();
 		}
@@ -116,9 +116,9 @@ public class ParametricMesh3D implements Mesh3D_I
 		this.vMax = vMax;
 		}
 	
-	public void setFunction(Function_e function)
+	public void setFunc(FunctionR2R3_I func)
 		{
-		this.function = function;
+		this.func = func;
 		}
 	
 	/*------------------------------------------------------------------*\
@@ -180,7 +180,7 @@ public class ParametricMesh3D implements Mesh3D_I
 		builder.append(", distortionFact=");
 		builder.append(distortionFact);
 		builder.append(", function=");
-		builder.append(function);
+		//builder.append(function);
 		builder.append("]");
 		return builder.toString();
 		}
@@ -225,42 +225,11 @@ public class ParametricMesh3D implements Mesh3D_I
 				public void run()
 					{
 					System.out.println("computing mesh...");
-					switch(function)
-						{
-						case TRANGULOID:
-							func = new TranguloidTrefoil();
-							break;
-						case SINSQUARED:
-							func = new SinDistSquared();
-							break;
-						case STEINER:
-							func = new Steiner();
-							break;
-						case CRESENT:
-							func = new Cresent();
-							break;
-						case KLEINCYCLOID:
-							func = new KleinCycloid(3, 3, 3);
-							break;
-						case TRIAXIAL:
-							func = new Triaxial();
-							break;
-						case HEIGHTMAP:
-							func = new HeightMap();
-							break;
-						case KINECT://FIXME
-							func = new KinectFunc(context);//simpleopenni needs a processing context
-						case TRANGULOIDTOTRIAXIAL:
-							func = new TranguloidToTriaxial();
-							break;
-						default:
-							func = new SinDistSquared();
-							break;
-						}
-					if (function != lastFunc)
+					
+					if (func != lastFunc)
 						{
 						updateDomain();
-						lastFunc = function;
+						lastFunc = func;
 						}
 					int nbThread = Runtime.getRuntime().availableProcessors();
 					Thread[] threads = new Thread[nbThread];
@@ -345,10 +314,9 @@ public class ParametricMesh3D implements Mesh3D_I
 	protected float vMax;
 	protected PApplet context;
 	protected FunctionR2R3_I func;
-	protected Function_e lastFunc;
+	protected FunctionR2R3_I lastFunc;	
 	protected float distortionFact;
 	//tools
 	protected Vec3D[] table;
 	
-	protected Function_e function;
 	}

@@ -19,4 +19,6 @@ public interface FunctionR2R3_I
 	public float getVmin();
 	
 	public float getVMax();
+	
+	public void setLerpParam(float lerpParam);
 	}

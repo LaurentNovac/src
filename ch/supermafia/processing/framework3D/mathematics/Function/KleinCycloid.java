@@ -60,5 +60,12 @@ public class KleinCycloid implements FunctionR2R3_I
 		{
 		return (float)(4 * Math.PI);
 		}
+
+	@Override
+	public void setLerpParam(float lerpParam)
+		{
+		// TODO Auto-generated method stub
+		
+		}
 	
 	}
