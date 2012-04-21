@@ -49,9 +49,10 @@ public class MeshDistortionRunnable implements Runnable
 		{
 		while(tid < (uCount + 1 * vCount + 1))
 			{
-			table[tid].setX(distortionFactor * pApplet.random(-1.0f, 1.0f));
-			table[tid].setY(distortionFactor * pApplet.random(-1.0f, 1.0f));
-			table[tid].setZ(distortionFactor * pApplet.random(-1.0f, 1.0f));
+			float r=distortionFactor * pApplet.random(-1.0f, 1.0f);
+			table[tid].setX(table[tid].getX()+r);
+			table[tid].setY(table[tid].getY()+r);
+			//table[tid].setZ(table[tid].getZ()+r);
 			
 			tid += nbThread;
 			}

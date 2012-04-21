@@ -26,7 +26,7 @@ public class Sketch3D extends PApplet
 		
 		try
 			{
-			mesh = new ParametricMesh3DUnlekker(10, 10, this);
+			mesh = new ParametricMesh3DUnlekker(100, 100, this);
 			uMin = mesh.getuMin();
 			uMax = mesh.getuMax();
 			vMin = mesh.getvMin();
@@ -126,7 +126,11 @@ public class Sketch3D extends PApplet
 				mesh.setFunction(Function_e.HEIGHTMAP);
 				reinit();
 				break;
-			//			case '8':
+			case '8':
+				mesh.setFunction(Function_e.TRANGULOIDTOTRIAXIAL);
+				reinit();
+				break;
+			//			case '9':
 			//				mesh.setFunction(Function.KINECT);
 			//				reinit();
 			//				break;
@@ -185,7 +189,7 @@ public class Sketch3D extends PApplet
 		gui.addSlider("uMax", uMax, mesh.getuMin(), mesh.getuMax());
 		gui.addSlider("vMin", vMin, mesh.getvMin(), mesh.getvMax());
 		gui.addSlider("vMax", vMax, mesh.getvMin(), mesh.getvMax());
-		gui.addSlider("distortionFactor", distortionFactor, 1.0f, 3.0f);
+		gui.addSlider("distortionFactor", distortionFactor, 0.0f, 3.0f);
 		gui.addSlider("scl", scl, 10, width);
 		gui.addButton("toSTL");
 		

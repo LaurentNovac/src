@@ -13,6 +13,7 @@ import ch.supermafia.processing.framework3D.mathematics.Function.KinectFunc;
 import ch.supermafia.processing.framework3D.mathematics.Function.KleinCycloid;
 import ch.supermafia.processing.framework3D.mathematics.Function.SinDistSquared;
 import ch.supermafia.processing.framework3D.mathematics.Function.Steiner;
+import ch.supermafia.processing.framework3D.mathematics.Function.TranguloidToTriaxial;
 import ch.supermafia.processing.framework3D.mathematics.Function.TranguloidTrefoil;
 import ch.supermafia.processing.framework3D.mathematics.Function.Triaxial;
 import processing.core.PApplet;
@@ -38,7 +39,7 @@ public class ParametricMesh3D implements Mesh3D_I
 		this.table = new Vec3D[(vCount + 1) * (uCount + 1)];
 		function = Function_e.TRANGULOID;
 		lastFunc = function;
-		this.distortionFact = 1.0f;
+		this.distortionFact = 0.0f;
 		computeTable();
 		}
 	
@@ -129,6 +130,7 @@ public class ParametricMesh3D implements Mesh3D_I
 		{
 		drawGrid();
 		}
+	
 	@Override
 	public Mesh3D_I applyIdentity()
 		{
@@ -138,6 +140,7 @@ public class ParametricMesh3D implements Mesh3D_I
 			}
 		return this;
 		}
+	
 	@Override
 	public Mesh3D_I translate(Vec3D transVec)
 		{
@@ -247,6 +250,9 @@ public class ParametricMesh3D implements Mesh3D_I
 							break;
 						case KINECT://FIXME
 							func = new KinectFunc(context);//simpleopenni needs a processing context
+						case TRANGULOIDTOTRIAXIAL:
+							func = new TranguloidToTriaxial();
+							break;
 						default:
 							func = new SinDistSquared();
 							break;
