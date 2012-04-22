@@ -11,6 +11,7 @@ import ch.supermafia.processing.framework3D.mathematics.Function.Steiner;
 import ch.supermafia.processing.framework3D.mathematics.Function.TranguloidToTriaxial;
 import ch.supermafia.processing.framework3D.mathematics.Function.TranguloidTrefoil;
 import ch.supermafia.processing.framework3D.mathematics.Function.Triaxial;
+import ch.supermafia.processing.framework3D.processing.ProcessingGfx;
 import processing.core.PApplet;
 import unlekker.modelbuilder.UNav3D;
 import unlekker.modelbuilder.UVec3;
@@ -27,7 +28,8 @@ public class Sketch3D extends PApplet
 	
 	public void setup()
 		{
-		size(800, 600, P3D);
+		size(1024, 768, P3D);
+		gfx=new ProcessingGfx(this);
 		nav = new UNav3D(this);
 		nav.setTranslation(width / 2, height / 2, 0);
 		
@@ -86,7 +88,7 @@ public class Sketch3D extends PApplet
 			{
 			distortMesh();
 			}
-		mesh.draw();
+		gfx.parametricMesh(mesh);
 		popMatrix();
 		hint(DISABLE_DEPTH_TEST);
 		
@@ -301,4 +303,5 @@ public class Sketch3D extends PApplet
 	private boolean isPrint;
 	private float lerpParam;
 	private float lastLerpParam;
+	private ProcessingGfx gfx;
 	}

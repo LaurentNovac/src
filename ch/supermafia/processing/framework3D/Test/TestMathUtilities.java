@@ -7,6 +7,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import ch.supermafia.processing.framework3D.mathematics.MathUtilities;
+
 import static ch.supermafia.processing.framework3D.mathematics.MathUtilities.map;
 import static ch.supermafia.processing.framework3D.mathematics.MathUtilities.isEqual;
 
@@ -61,8 +63,11 @@ public class TestMathUtilities
 	@Test
 	public void testLinearInterpolate()
 		{
-		//TODO
-		assertTrue(false);
+		float x1=1.0f;
+		float x2=2.0f;
+		float theoreticalRes=1.5f;
+		float experimentylRes=MathUtilities.linearInterpolate(x1, x2, 0.5f);
+		assertTrue(MathUtilities.isEqual(theoreticalRes, experimentylRes, 0));
 		}
 	
 	@Test

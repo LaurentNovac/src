@@ -5,18 +5,8 @@ import ch.supermafia.processing.framework3D.geometry.mesh.runnable.MeshComputeRu
 import ch.supermafia.processing.framework3D.geometry.mesh.runnable.MeshDistortionRunnable;
 import ch.supermafia.processing.framework3D.geometry.vector.Vec3D;
 import ch.supermafia.processing.framework3D.mathematics.MathUtilities;
-import ch.supermafia.processing.framework3D.mathematics.Function.Cresent;
-import ch.supermafia.processing.framework3D.mathematics.Function.Function_e;
 import ch.supermafia.processing.framework3D.mathematics.Function.FunctionR2R3_I;
-import ch.supermafia.processing.framework3D.mathematics.Function.HeightMap;
-import ch.supermafia.processing.framework3D.mathematics.Function.KinectFunc;
-import ch.supermafia.processing.framework3D.mathematics.Function.KleinCycloid;
-import ch.supermafia.processing.framework3D.mathematics.Function.SinDistSquared;
-import ch.supermafia.processing.framework3D.mathematics.Function.Steiner;
-import ch.supermafia.processing.framework3D.mathematics.Function.TranguloidToTriaxial;
 import ch.supermafia.processing.framework3D.mathematics.Function.TranguloidTrefoil;
-import ch.supermafia.processing.framework3D.mathematics.Function.Triaxial;
-import processing.core.PApplet;
 
 public class ParametricMesh3D implements Mesh3D_I
 	{
@@ -24,7 +14,7 @@ public class ParametricMesh3D implements Mesh3D_I
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
-	public ParametricMesh3D(int xCount, int yCount, PApplet context) throws InterruptedException
+	public ParametricMesh3D(int xCount, int yCount) throws InterruptedException
 		{
 		this.uCount = xCount;
 		uMin = (float)(-Math.PI * 2);
@@ -34,8 +24,6 @@ public class ParametricMesh3D implements Mesh3D_I
 		vMin = (float)(-Math.PI * 2);
 		vMax = (float)(Math.PI * 2);
 		
-		this.context = context;
-		
 		this.table = new Vec3D[(vCount + 1) * (uCount + 1)];
 		func = new TranguloidTrefoil();
 		lastFunc = func;
@@ -43,14 +31,14 @@ public class ParametricMesh3D implements Mesh3D_I
 		computeTable();
 		}
 	
-	public ParametricMesh3D(PApplet context) throws InterruptedException
+	public ParametricMesh3D() throws InterruptedException
 		{
-		this(3, 2, context);
+		this(3, 2);
 		}
 	
 	public ParametricMesh3D(ParametricMesh3D src) throws InterruptedException
 		{
-		this(src.uCount, src.vCount, src.context);
+		this(src.uCount, src.vCount);
 		}
 	
 	/*------------------------------*\
@@ -80,6 +68,21 @@ public class ParametricMesh3D implements Mesh3D_I
 	public FunctionR2R3_I getFunction()
 		{
 		return func;
+		}
+	
+	public int getuCount()
+		{
+		return uCount;
+		}
+	
+	public int getvCount()
+		{
+		return vCount;
+		}
+	
+	public Vec3D[] getTable()
+		{
+		return table;
 		}
 	
 	/*------------------------------*\
@@ -124,12 +127,6 @@ public class ParametricMesh3D implements Mesh3D_I
 	/*------------------------------------------------------------------*\
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
-	
-	@Override
-	public void draw()
-		{
-		drawGrid();
-		}
 	
 	@Override
 	public Mesh3D_I applyIdentity()
@@ -259,20 +256,6 @@ public class ParametricMesh3D implements Mesh3D_I
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
 	
-	private void drawGrid()//in main thread but it still has access to table, so synchronized must be set
-		{
-		for(int iv = 0; iv < vCount; iv++)
-			{
-			context.beginShape(PApplet.QUAD_STRIP);
-			for(int iu = 0; iu < uCount; iu++)
-				{
-				context.vertex(table[index(iu, iv)].x(), table[index(iu, iv)].y(), table[index(iu, iv)].z());
-				context.vertex(table[index(iu, iv + 1)].x(), table[index(iu, iv + 1)].y(), table[index(iu, iv + 1)].z());
-				}
-			context.endShape();
-			}
-		}
-	
 	@SuppressWarnings("unused")
 	private void computeTableIter()
 		{
@@ -312,9 +295,8 @@ public class ParametricMesh3D implements Mesh3D_I
 	protected float uMax;
 	protected float vMin;
 	protected float vMax;
-	protected PApplet context;
 	protected FunctionR2R3_I func;
-	protected FunctionR2R3_I lastFunc;	
+	protected FunctionR2R3_I lastFunc;
 	protected float distortionFact;
 	//tools
 	protected Vec3D[] table;

@@ -14,9 +14,10 @@ public class ParametricMesh3DUnlekker extends ParametricMesh3D
 	\*------------------------------------------------------------------*/
 	public ParametricMesh3DUnlekker(int xCount, int yCount, PApplet context) throws InterruptedException
 		{
-		super(xCount, yCount, context);
+		super(xCount, yCount);
 		//uVertexList = new UVertexList();
 		addTableToUVertexList();
+		this.context = context;
 		}
 	
 	/*------------------------------------------------------------------*\
@@ -24,7 +25,7 @@ public class ParametricMesh3DUnlekker extends ParametricMesh3D
 	\*------------------------------------------------------------------*/
 	public void toSTL(final String filename)
 		{
-		Thread t=new Thread(new Runnable()
+		Thread t = new Thread(new Runnable()
 			{
 				
 				@Override
@@ -59,5 +60,5 @@ public class ParametricMesh3DUnlekker extends ParametricMesh3D
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
 	private UGeometry geom;
-	
+	private PApplet context;
 	}

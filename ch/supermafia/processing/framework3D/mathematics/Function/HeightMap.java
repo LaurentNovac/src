@@ -59,7 +59,8 @@ public class HeightMap implements FunctionR2R3_I
 		return op.filter(source, null);
 		}
 	
-	private float[] loadHeightMap(float minHeight, float maxHeight) throws IOException
+	@SuppressWarnings("unused")
+	private float[] loadHeightMapIter(float minHeight, float maxHeight) throws IOException
 		{
 		image.getSubimage(0, 0, 10, 10);
 		final float[] mapping = new float[image.getWidth() * image.getHeight()];
