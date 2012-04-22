@@ -28,4 +28,17 @@ public final class MathUtilities
 		
 		}
 	
+	public static float linearInterpolate(float x1, float x2, float mu)
+		{
+		return x1 * (1 - mu) + x2 * mu;
+		}
+	
+	public static float cosineInterpolate(float y1, float y2, float mu)
+		{
+		float mu2;
+		
+		mu2 = (float)((1 - Math.cos(mu * Math.PI)) / 2);
+		return (y1 * (1 - mu2) + y2 * mu2);
+		}
+	
 	}

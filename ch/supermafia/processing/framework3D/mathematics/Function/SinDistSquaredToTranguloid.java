@@ -4,8 +4,8 @@ package ch.supermafia.processing.framework3D.mathematics.Function;
 import static java.lang.Math.PI;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
-import processing.core.PApplet;
 import ch.supermafia.processing.framework3D.geometry.vector.Vec3D;
+import ch.supermafia.processing.framework3D.mathematics.MathUtilities;
 
 public class SinDistSquaredToTranguloid implements FunctionR2R3_I
 	{
@@ -28,9 +28,9 @@ public class SinDistSquaredToTranguloid implements FunctionR2R3_I
 		{
 		Vec3D tt = tranguloid(x, y);
 		Vec3D t = sinDistSquared(x, y);
-		float x_ = PApplet.lerp(t.x(), tt.x(), lerpParam);
-		float y_ = PApplet.lerp(t.y(), tt.y(), lerpParam);
-		float z_ = PApplet.lerp(t.z(), tt.z(), lerpParam);
+		float x_ = MathUtilities.linearInterpolate(t.x(), tt.x(), lerpParam);
+		float y_ = MathUtilities.linearInterpolate(t.y(), tt.y(), lerpParam);
+		float z_ = MathUtilities.linearInterpolate(t.z(), tt.z(), lerpParam);
 		
 		return new Vec3D(x_, y_, z_);
 		}

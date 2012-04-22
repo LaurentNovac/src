@@ -58,6 +58,19 @@ public class TestMathUtilities
 		assertTrue(theoreticalResult == experimentalResult);
 		}
 	
+	@Test
+	public void testLinearInterpolate()
+		{
+		//TODO
+		assertTrue(false);
+		}
+	
+	@Test
+	public void testCosineInterpolate()
+		{
+		//TODO
+		assertTrue(false);
+		}
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
