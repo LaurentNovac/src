@@ -4,7 +4,6 @@ package ch.supermafia.processing.waves.ripplingEffect;
 import ch.supermafia.processing.framework3D.geometry.mesh.ParametricMesh3DUnlekker;
 import ch.supermafia.processing.framework3D.mathematics.Function.Cresent;
 import ch.supermafia.processing.framework3D.mathematics.Function.Rippling;
-import ch.supermafia.processing.framework3D.mathematics.Function.Triaxial;
 import ch.supermafia.processing.framework3D.processing.ProcessingGfx;
 import processing.core.PApplet;
 import unlekker.modelbuilder.UNav3D;
