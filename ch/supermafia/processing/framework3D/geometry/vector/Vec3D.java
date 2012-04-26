@@ -123,7 +123,6 @@ public class Vec3D
 	
 	public Vec3D applyIdentity()
 		{
-		System.out.println("Hello identity");
 		this.transMatrix = new Matrix4x4Identity();
 		transform();
 		return this;

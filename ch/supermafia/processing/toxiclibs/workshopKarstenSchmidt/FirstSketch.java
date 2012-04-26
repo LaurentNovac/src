@@ -31,7 +31,7 @@ public class FirstSketch extends PApplet
 	public void setup()
 		{
 		size(800, 800, P3D);
-		
+		textMode(SCREEN);
 		smooth();
 		fill(0);
 		gfx = new ToxiclibsSupport(this);

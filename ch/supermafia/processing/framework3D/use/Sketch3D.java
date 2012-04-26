@@ -29,13 +29,14 @@ public class Sketch3D extends PApplet
 	public void setup()
 		{
 		size(1024, 768, P3D);
-		gfx=new ProcessingGfx(this);
+		textMode(SCREEN);
+		gfx = new ProcessingGfx(this);
 		nav = new UNav3D(this);
 		nav.setTranslation(width / 2, height / 2, 0);
 		
 		try
 			{
-			mesh = new ParametricMesh3DUnlekker(100, 100, this);
+			mesh = new ParametricMesh3DUnlekker(50, 50, new TranguloidTrefoil(), this);
 			uMin = mesh.getuMin();
 			uMax = mesh.getuMax();
 			vMin = mesh.getvMin();
@@ -45,8 +46,8 @@ public class Sketch3D extends PApplet
 			lastuMax = uMax;
 			lastvMax = vMax;
 			distortionFactor = 1.0f;
-			lerpParam=0.0f;
-			lastLerpParam=lerpParam;
+			lerpParam = 0.0f;
+			lastLerpParam = lerpParam;
 			}
 		catch (InterruptedException e)
 			{
@@ -73,15 +74,14 @@ public class Sketch3D extends PApplet
 		pushMatrix();
 		updateMesh();
 		
-		speedRotCam.x = sin(t * 1 / 10000);
-		speedRotCam.y = sin(t * 1 / 10000);
-		speedRotCam.z = sin(t * 1 / 10000);
-		//nav.rot.add(speedRotCam);
+//		speedRotCam.x = sin(t * 1 / 10000);
+//		speedRotCam.y = sin(t * 1 / 10000);
+//		speedRotCam.z = sin(t * 1 / 10000);
+//		nav.rot.add(speedRotCam);
 		nav.doTransforms();
 		background(255);
 		lights();
 		noStroke();
-		
 		scale(scl);
 		updateColor();
 		if (distortionFactor > 1.0f)
@@ -103,7 +103,7 @@ public class Sketch3D extends PApplet
 		
 		gui.draw();
 		colorTool.drawColors(this, 0, height - 100);
-		text(frameRate+"",width-100,height-10);
+		text(frameRate + "", width - 100, height - 10);
 		}
 	
 	public void keyPressed()
@@ -205,10 +205,10 @@ public class Sketch3D extends PApplet
 	
 	private void updateMesh()
 		{
-		if(lerpParam!=lastLerpParam)
+		if (lerpParam != lastLerpParam)
 			{
 			mesh.getFunction().setLerpParam(lerpParam);
-			lastLerpParam=lerpParam;
+			lastLerpParam = lerpParam;
 			reinit();
 			}
 		if (uMin != lastuMin)

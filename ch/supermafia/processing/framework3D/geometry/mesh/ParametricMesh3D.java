@@ -1,12 +1,14 @@
 
 package ch.supermafia.processing.framework3D.geometry.mesh;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import ch.supermafia.processing.framework3D.geometry.mesh.runnable.MeshComputeRunnable;
 import ch.supermafia.processing.framework3D.geometry.mesh.runnable.MeshDistortionRunnable;
 import ch.supermafia.processing.framework3D.geometry.vector.Vec3D;
 import ch.supermafia.processing.framework3D.mathematics.MathUtilities;
 import ch.supermafia.processing.framework3D.mathematics.Function.FunctionR2R3_I;
-import ch.supermafia.processing.framework3D.mathematics.Function.TranguloidTrefoil;
 
 public class ParametricMesh3D implements Mesh3D_I
 	{
@@ -14,31 +16,28 @@ public class ParametricMesh3D implements Mesh3D_I
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
-	public ParametricMesh3D(int xCount, int yCount) throws InterruptedException
+	public ParametricMesh3D(int xCount, int yCount, FunctionR2R3_I func) throws InterruptedException
 		{
 		this.uCount = xCount;
-		uMin = (float)(-Math.PI * 2);
-		uMax = (float)(Math.PI * 2);
 		
 		this.vCount = yCount;
-		vMin = (float)(-Math.PI * 2);
-		vMax = (float)(Math.PI * 2);
-		
+
+		this.func = func;
 		this.table = new Vec3D[(vCount + 1) * (uCount + 1)];
-		func = new TranguloidTrefoil();
 		lastFunc = func;
 		this.distortionFact = 0.0f;
+		updateDomain();
 		computeTable();
 		}
 	
 	public ParametricMesh3D() throws InterruptedException
 		{
-		this(3, 2);
+		this(3, 2,null);
 		}
 	
 	public ParametricMesh3D(ParametricMesh3D src) throws InterruptedException
 		{
-		this(src.uCount, src.vCount);
+		this(src.uCount, src.vCount,src.func);
 		}
 	
 	/*------------------------------*\
@@ -122,6 +121,7 @@ public class ParametricMesh3D implements Mesh3D_I
 	public void setFunc(FunctionR2R3_I func)
 		{
 		this.func = func;
+		updateDomain();
 		}
 	
 	/*------------------------------------------------------------------*\
@@ -216,6 +216,10 @@ public class ParametricMesh3D implements Mesh3D_I
 	
 	synchronized public void computeTable()
 		{
+		if (func == null)
+			{
+			Logger.getLogger("mesh computation").log(Level.SEVERE, "A parametric mesh must receive FunctionR2R3_I");
+			}
 		Thread thread = new Thread(new Runnable()
 			{
 				

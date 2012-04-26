@@ -1,6 +1,7 @@
 
 package ch.supermafia.processing.framework3D.geometry.mesh;
 
+import ch.supermafia.processing.framework3D.mathematics.Function.FunctionR2R3_I;
 import processing.core.PApplet;
 import unlekker.modelbuilder.UGeometry;
 import unlekker.modelbuilder.UVec3;
@@ -12,9 +13,9 @@ public class ParametricMesh3DUnlekker extends ParametricMesh3D
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
-	public ParametricMesh3DUnlekker(int xCount, int yCount, PApplet context) throws InterruptedException
+	public ParametricMesh3DUnlekker(int xCount, int yCount, FunctionR2R3_I func, PApplet context) throws InterruptedException
 		{
-		super(xCount, yCount);
+		super(xCount, yCount, func);
 		//uVertexList = new UVertexList();
 		addTableToUVertexList();
 		this.context = context;

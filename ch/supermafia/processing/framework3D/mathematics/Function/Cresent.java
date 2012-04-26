@@ -16,7 +16,8 @@ public class Cresent implements FunctionR2R3_I
 		float x_ = (float)((2 + Math.sin(2 * Math.PI * x) * Math.sin(Math.PI * 2 * y)) * Math.sin(3 * Math.PI * y));
 		float y_ = (float)((2 + Math.sin(2 * Math.PI * x) * Math.sin(Math.PI * 2 * y)) * Math.cos(3 * Math.PI * y));
 		float z_ = (float)(Math.cos(Math.PI * 2 * x) * Math.sin(Math.PI * y) + 4 * y - 2);
-		return new Vec3D(x_, y_, z_);
+		Vec3D v = new Vec3D(x_, y_, z_);
+		return v;
 		}
 	
 	/*------------------------------*\
