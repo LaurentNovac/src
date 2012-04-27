@@ -1,14 +1,13 @@
 
-package ch.supermafia.processing.waves.ripplingEffect;
+package ch.supermafia.processing.framework3D.use;
 
 import ch.supermafia.processing.framework3D.geometry.mesh.ParametricMesh3D;
-import ch.supermafia.processing.framework3D.mathematics.Function.Rippling;
+import ch.supermafia.processing.framework3D.mathematics.Function.KinectFunc;
 import ch.supermafia.processing.framework3D.processing.ProcessingGfx;
 import processing.core.PApplet;
-import unlekker.modelbuilder.UNav3D;
 
 @SuppressWarnings("serial")
-public class RipplingEffect3D extends PApplet
+public class KinectSketch extends PApplet
 	{
 	
 	/*------------------------------------------------------------------*\
@@ -17,49 +16,33 @@ public class RipplingEffect3D extends PApplet
 	
 	public void setup()
 		{
-		size(1024, 768, P3D);
-		smooth();
-		uNav3D = new UNav3D(this);
+		kinect = new KinectFunc(this);
 		gfx = new ProcessingGfx(this);
-		rippling = new Rippling(0, 600);
 		try
 			{
-			parametricMesh3D = new ParametricMesh3D(80, 80,rippling);
-			parametricMesh3D.computeTable();
-			parametricMesh3D.applyIdentity();
+			kinectMesh = new ParametricMesh3D(50, 50, kinect);
+			kinectMesh.computeTable();
 			}
 		catch (InterruptedException e)
 			{
 			e.printStackTrace();
 			}
-		textMode(SCREEN);
 		}
 	
 	public void draw()
 		{
 		background(0);
 		lights();
-		pushMatrix();
-		int t = millis() / 10;
-		rippling.setT(t);
-		parametricMesh3D.computeTable();
-		uNav3D.doTransforms();
-		
+		kinectMesh.computeTable();
 		noFill();
 		stroke(255);
-		strokeWeight(2.0f);
-		gfx.parametricMeshPoint(parametricMesh3D);
-		
-		popMatrix();
-		fill(255);
-		text(""+frameRate, width-100, height-30);
+		gfx.parametricMesh(kinectMesh);
 		}
 	
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
+	private ParametricMesh3D kinectMesh;
+	private KinectFunc kinect;
 	private ProcessingGfx gfx;
-	private Rippling rippling;
-	private ParametricMesh3D parametricMesh3D;
-	private UNav3D uNav3D;
 	}

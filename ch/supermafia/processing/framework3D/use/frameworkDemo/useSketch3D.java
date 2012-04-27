@@ -1,12 +1,12 @@
 
-package ch.supermafia.processing.framework3D.use;
+package ch.supermafia.processing.framework3D.use.frameworkDemo;
 
-import javax.swing.JFrame;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import ch.supermafia.processing.framework3D.use.view.JFrameMain;
+import processing.core.PApplet;
 
-
-public class UseJFrameParametricMesh extends JFrame
+public class useSketch3D
 	{
 	
 	/*------------------------------------------------------------------*\
@@ -20,7 +20,14 @@ public class UseJFrameParametricMesh extends JFrame
 	
 	public static void main()
 		{
-		new JFrameMain();
+		try
+			{
+			PApplet.main(new String[] { "--present", "ch.supermafia.processing.framework3D.use.Sketch3D" });
+			}
+		catch (Exception e)
+			{
+			Logger.getLogger("Skecth3D").log(Level.SEVERE, e.getMessage());
+			}
 		}
 	
 	/*------------------------------------------------------------------*\

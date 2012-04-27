@@ -20,5 +20,5 @@ public interface FunctionR2R3_I
 	
 	public float getVMax();
 	
-	public void setLerpParam(float lerpParam);
+	public void setLerpParam(float lerpParam);//TODO remove from interface and usw downcast in Sketch3D demo
 	}

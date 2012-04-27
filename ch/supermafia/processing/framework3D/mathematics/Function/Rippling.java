@@ -31,9 +31,8 @@ public class Rippling implements FunctionR2R3_I
 		float d1=(float)Math.cos((d/10.0f)-(t/7.0f));
 		float d2=(d/10.0f)+1.0f;
 		float f_z=128.0f+127.0f*(d1/d2);
-		Vec3D v = new Vec3D(x, y,f_z);
-		//System.out.println(v);
-		return v;	
+
+		return new Vec3D(x, y,f_z);	
 		}
 	
 	/*------------------------------*\

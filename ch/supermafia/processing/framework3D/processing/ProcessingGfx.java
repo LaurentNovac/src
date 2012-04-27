@@ -23,6 +23,12 @@ public class ProcessingGfx
 		drawGrid(parametricMesh3D);
 		}
 	
+	public void parametricMeshPoint(ParametricMesh3D parametricMesh3D)
+		{
+		drawGridPoint(parametricMesh3D);
+		}
+	
+
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
@@ -38,6 +44,20 @@ public class ProcessingGfx
 				}
 			context.endShape();
 			}
+		}
+	
+	private void drawGridPoint(ParametricMesh3D parametricMesh3D)
+		{
+		for(int iv = 0; iv < parametricMesh3D.getvCount(); iv++)
+			{
+			context.beginShape(PApplet.POINTS);
+			for(int iu = 0; iu < parametricMesh3D.getuCount(); iu++)
+				{
+				context.vertex(parametricMesh3D.getTable()[index(iu, iv, parametricMesh3D.getuCount())].x(), parametricMesh3D.getTable()[index(iu, iv, parametricMesh3D.getuCount())].y(), parametricMesh3D.getTable()[index(iu, iv, parametricMesh3D.getuCount())].z());
+				context.vertex(parametricMesh3D.getTable()[index(iu, iv + 1, parametricMesh3D.getuCount())].x(), parametricMesh3D.getTable()[index(iu, iv + 1, parametricMesh3D.getuCount())].y(), parametricMesh3D.getTable()[index(iu, iv + 1, parametricMesh3D.getuCount())].z());
+				}
+			context.endShape();
+			}		
 		}
 	
 	private int index(int x, int y, int uCount)

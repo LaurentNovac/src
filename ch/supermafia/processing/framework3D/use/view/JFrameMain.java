@@ -6,7 +6,7 @@ import java.awt.BorderLayout;
 import javax.swing.Box;
 import javax.swing.JFrame;
 
-import ch.supermafia.processing.framework3D.use.Sketch3D;
+import ch.supermafia.processing.framework3D.use.frameworkDemo.Sketch3D;
 
 public class JFrameMain extends JFrame
 	{
