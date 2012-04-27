@@ -40,16 +40,15 @@ public class RipplingEffect3D extends PApplet
 		background(0);
 		lights();
 		pushMatrix();
-		int t = millis() / 10;
+		int t = millis()/10;
 		rippling.setT(t);
 		parametricMesh3D.computeTable();
 		uNav3D.doTransforms();
 		
 		noFill();
 		stroke(255);
-		strokeWeight(2.0f);
-		gfx.parametricMeshPoint(parametricMesh3D);
-		
+		//strokeWeight(2.0f);
+		gfx.parametricMeshLines(parametricMesh3D);
 		popMatrix();
 		fill(255);
 		text(""+frameRate, width-100, height-30);
