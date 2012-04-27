@@ -23,7 +23,7 @@ public class HeightMap implements FunctionR2R3_I
 			{
 			image = ImageIO.read(new File(filename));
 			System.out.println("loading heightMap");
-			loadHeightMapP(0, 255);//FIXME not working great
+			loadHeightMapP(0, 255);
 			System.out.println("finished loading heightMap");
 			}
 		catch (IOException e)
@@ -62,7 +62,7 @@ public class HeightMap implements FunctionR2R3_I
 	@SuppressWarnings("unused")
 	private float[] loadHeightMapIter(float minHeight, float maxHeight) throws IOException
 		{
-		image.getSubimage(0, 0, 10, 10);
+		//image.getSubimage(0, 0, 10, 10);
 		final float[] mapping = new float[image.getWidth() * image.getHeight()];
 		for(int x = 0; x < image.getWidth(); x++)
 			{

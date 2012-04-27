@@ -4,6 +4,7 @@ package ch.supermafia.processing.framework3D.use;
 import ch.supermafia.processing.framework3D.geometry.mesh.ParametricMesh3DUnlekker;
 import ch.supermafia.processing.framework3D.geometry.vector.Vec3D;
 import ch.supermafia.processing.framework3D.mathematics.Function.Cresent;
+import ch.supermafia.processing.framework3D.mathematics.Function.HeightMap;
 import ch.supermafia.processing.framework3D.mathematics.Function.KleinCycloid;
 import ch.supermafia.processing.framework3D.mathematics.Function.SinDistSquared;
 import ch.supermafia.processing.framework3D.mathematics.Function.SinDistSquaredToTranguloid;
@@ -36,7 +37,7 @@ public class Sketch3D extends PApplet
 		
 		try
 			{
-			mesh = new ParametricMesh3DUnlekker(50, 50, new TranguloidTrefoil(), this);
+			mesh = new ParametricMesh3DUnlekker(100, 100, new TranguloidTrefoil(), this);
 			uMin = mesh.getuMin();
 			uMax = mesh.getuMax();
 			vMin = mesh.getvMin();
@@ -140,6 +141,11 @@ public class Sketch3D extends PApplet
 				break;
 			case '8':
 				mesh.setFunc(new SinDistSquaredToTranguloid());
+				reinit();
+				break;
+			case '9':
+				mesh.setFunc(new HeightMap());
+				scl=1;
 				reinit();
 				break;
 			case 'p':

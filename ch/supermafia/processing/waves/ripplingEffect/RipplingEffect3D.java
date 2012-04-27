@@ -1,8 +1,7 @@
 
 package ch.supermafia.processing.waves.ripplingEffect;
 
-import ch.supermafia.processing.framework3D.geometry.mesh.ParametricMesh3DUnlekker;
-import ch.supermafia.processing.framework3D.mathematics.Function.Cresent;
+import ch.supermafia.processing.framework3D.geometry.mesh.ParametricMesh3D;
 import ch.supermafia.processing.framework3D.mathematics.Function.Rippling;
 import ch.supermafia.processing.framework3D.processing.ProcessingGfx;
 import processing.core.PApplet;
@@ -18,15 +17,15 @@ public class RipplingEffect3D extends PApplet
 	
 	public void setup()
 		{
-		size(600, 600, P3D);
+		size(1024, 768, P3D);
 		smooth();
 		uNav3D = new UNav3D(this);
-		uNav3D.setTranslation(width/2,height/2,0);
+		//uNav3D.setTranslation(width/2,height/2,0);
 		gfx = new ProcessingGfx(this);
-		rippling = new Rippling(0, width);
+		rippling = new Rippling(0, 600);
 		try
 			{
-			parametricMesh3D = new ParametricMesh3DUnlekker(50, 50, new Cresent(), this);
+			parametricMesh3D = new ParametricMesh3D(80, 80,rippling);
 			parametricMesh3D.computeTable();
 			parametricMesh3D.applyIdentity();
 			}
@@ -38,16 +37,15 @@ public class RipplingEffect3D extends PApplet
 	
 	public void draw()
 		{
-		background(255);
-		System.out.println("Hello");
+		background(0);
 		lights();
-//		int t = millis() / 100;
-//		rippling.setT(t);
-//		parametricMesh3D.computeTable();
+		int t = millis() / 10;
+		rippling.setT(t);
+		parametricMesh3D.computeTable();
 		uNav3D.doTransforms();
 		
-		fill(255, 0, 0);
-		scale(100.0f);
+		noFill();
+		stroke(255);
 		gfx.parametricMesh(parametricMesh3D);
 		
 		}
@@ -57,6 +55,6 @@ public class RipplingEffect3D extends PApplet
 	\*------------------------------------------------------------------*/
 	private ProcessingGfx gfx;
 	private Rippling rippling;
-	private ParametricMesh3DUnlekker parametricMesh3D;
+	private ParametricMesh3D parametricMesh3D;
 	private UNav3D uNav3D;
 	}

@@ -21,7 +21,7 @@ public class ParametricMesh3D implements Mesh3D_I
 		this.uCount = xCount;
 		
 		this.vCount = yCount;
-
+		
 		this.func = func;
 		this.table = new Vec3D[(vCount + 1) * (uCount + 1)];
 		lastFunc = func;
@@ -32,12 +32,12 @@ public class ParametricMesh3D implements Mesh3D_I
 	
 	public ParametricMesh3D() throws InterruptedException
 		{
-		this(3, 2,null);
+		this(3, 2, null);
 		}
 	
 	public ParametricMesh3D(ParametricMesh3D src) throws InterruptedException
 		{
-		this(src.uCount, src.vCount,src.func);
+		this(src.uCount, src.vCount, src.func);
 		}
 	
 	/*------------------------------*\
@@ -220,40 +220,34 @@ public class ParametricMesh3D implements Mesh3D_I
 			{
 			Logger.getLogger("mesh computation").log(Level.SEVERE, "A parametric mesh must receive FunctionR2R3_I");
 			}
-		Thread thread = new Thread(new Runnable()
+		
+		System.out.println("computing mesh...");
+		
+		if (func != lastFunc)
 			{
-				
-				public void run()
-					{
-					System.out.println("computing mesh...");
-					
-					if (func != lastFunc)
-						{
-						updateDomain();
-						lastFunc = func;
-						}
-					int nbThread = Runtime.getRuntime().availableProcessors();
-					Thread[] threads = new Thread[nbThread];
-					for(int i = 1; i <= nbThread; i++)
-						{
-						threads[i - 1] = new Thread(new MeshComputeRunnable(i - 1, nbThread, table, uCount, vCount, uMin, uMax, vMin, vMax, func));
-						threads[i - 1].start();
-						}
-					for(int i = 1; i <= nbThread; i++)
-						{
-						try
-							{
-							threads[i - 1].join();
-							}
-						catch (InterruptedException e)
-							{
-							e.printStackTrace();
-							}
-						}
-					System.out.println("finished computing mesh");
-					}
-			});
-		thread.start();
+			updateDomain();
+			lastFunc = func;
+			}
+		int nbThread = Runtime.getRuntime().availableProcessors();
+		Thread[] threads = new Thread[nbThread];
+		for(int i = 1; i <= nbThread; i++)
+			{
+			threads[i - 1] = new Thread(new MeshComputeRunnable(i - 1, nbThread, table, uCount, vCount, uMin, uMax, vMin, vMax, func));
+			threads[i - 1].start();
+			}
+		for(int i = 1; i <= nbThread; i++)
+			{
+			try
+				{
+				threads[i - 1].join();
+				}
+			catch (InterruptedException e)
+				{
+				e.printStackTrace();
+				}
+			}
+		System.out.println("finished computing mesh");
+		
 		}
 	
 	/*------------------------------------------------------------------*\

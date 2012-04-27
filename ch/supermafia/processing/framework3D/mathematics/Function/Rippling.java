@@ -32,7 +32,7 @@ public class Rippling implements FunctionR2R3_I
 		float d2=(d/10.0f)+1.0f;
 		float f_z=128.0f+127.0f*(d1/d2);
 		Vec3D v = new Vec3D(x, y,f_z);
-		System.out.println(v);
+		//System.out.println(v);
 		return v;	
 		}
 	
@@ -49,7 +49,7 @@ public class Rippling implements FunctionR2R3_I
 	@Override
 	public float getUMax()
 		{
-		return (float)(2*Math.PI);
+		return 600;
 		}
 	
 	@Override
@@ -61,7 +61,7 @@ public class Rippling implements FunctionR2R3_I
 	@Override
 	public float getVMax()
 		{
-		return (float)(2*Math.PI);
+		return 600;
 		}
 	
 	/*------------------------------*\
