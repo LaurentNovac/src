@@ -48,7 +48,7 @@ public class RipplingEffect3D extends PApplet
 		noFill();
 		stroke(255);
 		//strokeWeight(2.0f);
-		gfx.parametricMesh(parametricMesh3D);
+		gfx.parametricMeshLines(parametricMesh3D);
 		popMatrix();
 		fill(255);
 		text(""+frameRate, width-100, height-30);
