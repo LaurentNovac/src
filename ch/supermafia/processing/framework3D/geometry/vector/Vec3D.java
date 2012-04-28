@@ -27,6 +27,11 @@ public class Vec3D
 		this(0, 0, 0);
 		}
 	
+	public Vec3D(float x, float y)
+		{
+		this(x, y, 0);
+		}
+	
 	public Vec3D(Vec3D src)
 		{
 		this(src.x, src.y, src.z);
@@ -114,6 +119,11 @@ public class Vec3D
 		builder.append(norm());
 		builder.append("]");
 		return builder.toString();
+		}
+	
+	public float distanceTo(Vec3D v)
+		{
+		return (float)(Math.sqrt((v.x - this.x) * (v.x - this.x) + (v.y - this.y) * (v.y - this.y) + (v.z - this.z) * (v.z - this.z)));
 		}
 	
 	public Vec3D cloneOf()

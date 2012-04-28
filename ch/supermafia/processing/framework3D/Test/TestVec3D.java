@@ -35,7 +35,12 @@ public class TestVec3D
 	/*------------------------------------------------------------------*\
 	 |*							Methodes Public							*|
 	 \*-----------------------------------------------------------------*/
-	
+	@Test
+	public void testdistanceTo()
+		{
+		//TODO
+		assertTrue(false);
+		}	
 	@Test
 	public void testNorm()
 		{
