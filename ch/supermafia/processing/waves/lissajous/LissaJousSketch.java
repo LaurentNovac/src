@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import ch.supermafia.processing.framework3D.geometry.vector.Vec3D;
+import ch.supermafia.processing.waves.lissajous.runnable.LissajousRunnable;
 
 import ddf.minim.AudioPlayer;
 import ddf.minim.Minim;
@@ -22,7 +23,8 @@ public class LissaJousSketch extends PApplet
 	
 	public void setup()
 		{
-		size(1024, 768, P3D);
+		size(1280, 720, P3D);
+		textMode(SCREEN);
 		smooth();
 		initMinim();
 		frequX = 1;
@@ -39,16 +41,21 @@ public class LissaJousSketch extends PApplet
 		fft = new FFT(song.bufferSize(), song.sampleRate());
 		listBand = new ArrayList<Float>();
 		lissajousPoints = new Vec3D[pointCount];
+		connectionRadius = 100;
 		frequXFactor = 40.0f;
 		frequYFactor = 40.0f;
 		isDrawFFT = false;
 		isAnim2 = false;
 		strokeWeight(1.0f);
+		bezierCoeffArray = new float[4];
+		bezierCoeffArray[0] = 1;
+		bezierCoeffArray[1] = random(0.5f, 1.5f) * 100;
+		bezierCoeffArray[2] = random(0.5f, 1.5f) * 100;
+		bezierCoeffArray[3] = 1;
 		}
 	
 	public void draw()
 		{
-		//background(255);
 		fill(0, 0, 0, 40);
 		noStroke();
 		rect(0, 0, width, height);
@@ -60,14 +67,23 @@ public class LissaJousSketch extends PApplet
 			{
 			drawFFT();
 			}
-		
+		pushMatrix();
 		translate(width / 2, height / 2);
 		frequX = listBand.get(listBand.size() - 2) / frequXFactor;
 		frequY = listBand.get(listBand.size() - 3) / frequYFactor;
-		frequCarrier=listBand.get(listBand.size() - 4) / frequXFactor;
-		calculateLissajous();
+		frequCarrier = listBand.get(listBand.size() - 4) / frequXFactor;
+		try
+			{
+			calculateLissajous();
+			}
+		catch (InterruptedException e)
+			{
+			e.printStackTrace();
+			}
 		drawLissajous();
-		System.out.println(frameRate);
+		popMatrix();
+		fill(255);
+		text(frameRate, width - 60, height - 20);
 		}
 	
 	public void keyPressed()
@@ -124,21 +140,36 @@ public class LissaJousSketch extends PApplet
 		listBand.clear();
 		}
 	
-	private void calculateLissajous()
+	@SuppressWarnings("unused")
+	private void calculateLissajousIter()
 		{
 		for(int i = 0; i < pointCount; i++)
 			{
 			float angle = map(i, 0, pointCount, 0, TWO_PI);
-			float x = factorX * sin(angle * frequX + radians(phi))*cos(angle*frequCarrier);
-			float y = factorY * sin(angle * frequY)*cos(angle*frequCarrier);
+			float x = factorX * sin(angle * frequX + radians(phi)) * cos(angle * frequCarrier);
+			float y = factorY * sin(angle * frequY) * cos(angle * frequCarrier);
 			Vec3D v = new Vec3D(x, y);
 			lissajousPoints[i] = v;
 			}
 		}
 	
+	private void calculateLissajous() throws InterruptedException
+		{
+		int nbThread = Runtime.getRuntime().availableProcessors();
+		Thread[] threads = new Thread[nbThread];
+		for(int i = 0; i < nbThread; i++)
+			{
+			threads[i] = new Thread(new LissajousRunnable(i, nbThread,lissajousPoints, pointCount, factorX, factorY, frequX, frequY, frequCarrier, phi));
+			threads[i].start();
+			}
+		for(int i = 0; i < nbThread; i++)
+			{
+			threads[i].join();
+			}
+		}
+	
 	private void drawLissajous()
 		{
-		float connectionRadius = 200;
 		float d;
 		float a;
 		Vec3D v1;
@@ -179,16 +210,6 @@ public class LissaJousSketch extends PApplet
 	|*				Get				*|
 	\*------------------------------*/
 	
-	public float getFrequX()
-		{
-		return frequX;
-		}
-	
-	public float getFrequY()
-		{
-		return frequY;
-		}
-	
 	public float getPhi()
 		{
 		return phi;
@@ -198,14 +219,9 @@ public class LissaJousSketch extends PApplet
 	|*				Set				*|
 	\*------------------------------*/
 	
-	public void setFrequX(float frequX)
+	public void setConnectionRadius(int connectionRadius)
 		{
-		this.frequX = frequX;
-		}
-	
-	public void setFrequY(float frequY)
-		{
-		this.frequY = frequY;
+		this.connectionRadius = connectionRadius;
 		}
 	
 	public void setPhi(int phi)
@@ -226,6 +242,7 @@ public class LissaJousSketch extends PApplet
 	private int factorY;
 	private Float frequXFactor;
 	private Float frequYFactor;
+	private int connectionRadius;
 	
 	@SuppressWarnings("unused")
 	private JFrameLissajous jFrameLissajous;
@@ -237,4 +254,6 @@ public class LissaJousSketch extends PApplet
 	private boolean isDrawFFT;
 	private Vec3D[] lissajousPoints;
 	private boolean isAnim2;
+	
+	private float[] bezierCoeffArray;
 	}

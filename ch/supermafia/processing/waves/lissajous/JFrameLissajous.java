@@ -41,13 +41,25 @@ public class JFrameLissajous extends JFrame
 					sketch.setPhi(JFrameLissajous.this.phiSlider.getValue());
 					}
 			});
+		
+		connectionRadiusSlider.addChangeListener(new ChangeListener()
+			{
+				
+				@Override
+				public void stateChanged(ChangeEvent arg0)
+					{
+					sketch.setConnectionRadius(JFrameLissajous.this.connectionRadiusSlider.getValue());
+					}
+			});
 		}
 	
 	private void creerComposant()
 		{
-		
 		phiLabel = new JLabel("phi");
 		phiSlider = new JSlider();
+		
+		connectionRadiusLabel = new JLabel("connection radius");
+		connectionRadiusSlider = new JSlider();
 		}
 	
 	private void addComposant()
@@ -59,6 +71,12 @@ public class JFrameLissajous extends JFrame
 		phiSlider.setMaximum(360);
 		phiSlider.setValue((int)sketch.getPhi());
 		add(phiSlider);
+		
+		add(connectionRadiusLabel);
+		connectionRadiusSlider.setMinimum(50);
+		connectionRadiusSlider.setMaximum(600);
+		connectionRadiusSlider.setValue(200);
+		add(connectionRadiusSlider);
 		}
 	
 	private void setPropriete()
@@ -79,4 +97,7 @@ public class JFrameLissajous extends JFrame
 	
 	private JLabel phiLabel;
 	private JSlider phiSlider;
+	
+	private JLabel connectionRadiusLabel;
+	private JSlider connectionRadiusSlider;
 	}
