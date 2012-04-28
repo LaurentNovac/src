@@ -25,7 +25,7 @@ public class LissaJousSketch extends PApplet
 		{
 		size(1280, 720, P3D);
 		textMode(SCREEN);
-		smooth();
+		//smooth();
 		initMinim();
 		frequX = 1;
 		frequY = 1;
@@ -159,7 +159,7 @@ public class LissaJousSketch extends PApplet
 		Thread[] threads = new Thread[nbThread];
 		for(int i = 0; i < nbThread; i++)
 			{
-			threads[i] = new Thread(new LissajousRunnable(i, nbThread,lissajousPoints, pointCount, factorX, factorY, frequX, frequY, frequCarrier, phi));
+			threads[i] = new Thread(new LissajousRunnable(i, nbThread, lissajousPoints, pointCount, factorX, factorY, frequX, frequY, frequCarrier, phi));
 			threads[i].start();
 			}
 		for(int i = 0; i < nbThread; i++)
