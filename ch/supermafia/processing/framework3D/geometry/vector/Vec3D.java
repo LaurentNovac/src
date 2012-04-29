@@ -298,6 +298,13 @@ public class Vec3D
 		return vUnit;
 		}
 	
+	public Vec3D computeNormal()
+		{
+		//TODO
+		normal = new Vec3D(0, 0, 0);
+		return normal;
+		}
+	
 	public boolean isEqual(Vec3D v, float epsilon)
 		{
 		boolean bX = MathUtilities.isEqual(this.x, v.x, epsilon);
@@ -324,4 +331,5 @@ public class Vec3D
 	private float y;
 	private float z;
 	private Matrix4x4 transMatrix;
+	private Vec3D normal;
 	}

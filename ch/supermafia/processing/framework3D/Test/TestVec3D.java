@@ -40,7 +40,15 @@ public class TestVec3D
 		{
 		//TODO
 		assertTrue(false);
-		}	
+		}
+	
+	@Test
+	public void testComputeNormal()
+		{
+		//TODO
+		assertTrue(false);
+		}
+	
 	@Test
 	public void testNorm()
 		{
