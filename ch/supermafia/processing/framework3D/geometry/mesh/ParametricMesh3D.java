@@ -177,7 +177,6 @@ public class ParametricMesh3D implements Mesh3D_I
 		builder.append(", distortionFact=");
 		builder.append(distortionFact);
 		builder.append(", function=");
-		//builder.append(function);
 		builder.append("]");
 		return builder.toString();
 		}
@@ -221,7 +220,7 @@ public class ParametricMesh3D implements Mesh3D_I
 			Logger.getLogger("mesh computation").log(Level.SEVERE, "A parametric mesh must receive FunctionR2R3_I");
 			}
 		
-		System.out.println("computing mesh...");
+		//Logger.getLogger("mesh computation").log(Level.INFO, "Computing mesh");
 		
 		if (func != lastFunc)
 			{
@@ -246,7 +245,7 @@ public class ParametricMesh3D implements Mesh3D_I
 				e.printStackTrace();
 				}
 			}
-		System.out.println("finished computing mesh");
+		//Logger.getLogger("mesh computation").log(Level.INFO, "Done Computing mesh");
 		
 		}
 	

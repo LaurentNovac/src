@@ -1,6 +1,9 @@
 
 package ch.supermafia.processing.framework3D.geometry.mesh;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import ch.supermafia.processing.framework3D.mathematics.Function.FunctionR2R3_I;
 import processing.core.PApplet;
 import unlekker.modelbuilder.UGeometry;
@@ -17,7 +20,6 @@ public class ParametricMesh3DUnlekker extends ParametricMesh3D
 		{
 		super(xCount, yCount, func);
 		//uVertexList = new UVertexList();
-		addTableToUVertexList();
 		this.context = context;
 		}
 	
@@ -32,7 +34,9 @@ public class ParametricMesh3DUnlekker extends ParametricMesh3D
 				@Override
 				public void run()
 					{
+					Logger.getLogger("Unlekker").log(Level.INFO, "adding vertex to list");
 					addTableToUVertexList();
+					Logger.getLogger("Unlekker").log(Level.INFO, "Done adding vertex to list");
 					geom.writeSTL(context, filename);
 					}
 			});

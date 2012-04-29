@@ -24,15 +24,26 @@ public class KinectFunc implements FunctionR2R3_I
 	@Override
 	public Vec3D f(float x, float y)
 		{
-		compute();
 		int index = (int)(y * getUMax() + x);
 		int depth = rawDepth[index];
-		return depthToWorld(x, y, depth);
+		Vec3D v = depthToWorld(x, y, depth);
+		int facteur = 400;
+		v.setX(facteur * v.x());
+		v.setY(facteur * v.y());
+		v.setZ(facteur - v.z() * facteur);
+		return v;
+		
 		}
 	
 	public void compute()
 		{
 		rawDepth = kinect.getRawDepth();
+		}
+	
+	@SuppressWarnings("deprecation")
+	public void stop()
+		{
+		kinect.stop();
 		}
 	
 	/*------------------------------------------------------------------*\
@@ -84,7 +95,7 @@ public class KinectFunc implements FunctionR2R3_I
 	@Override
 	public float getUMax()
 		{
-		return 640-1;
+		return 640 - 1;
 		}
 	
 	@Override
@@ -96,7 +107,7 @@ public class KinectFunc implements FunctionR2R3_I
 	@Override
 	public float getVMax()
 		{
-		return 480-1;
+		return 480 - 1;
 		}
 	
 	/*------------------------------------------------------------------*\

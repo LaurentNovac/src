@@ -37,7 +37,7 @@ public class Sketch3D extends PApplet
 		
 		try
 			{
-			mesh = new ParametricMesh3DUnlekker(50, 50, new TranguloidTrefoil(), this);
+			mesh = new ParametricMesh3DUnlekker(100, 100, new TranguloidTrefoil(), this);
 			uMin = mesh.getuMin();
 			uMax = mesh.getuMax();
 			vMin = mesh.getvMin();
@@ -55,7 +55,6 @@ public class Sketch3D extends PApplet
 			e.printStackTrace();
 			}
 		scl = 40.0f;
-		smooth();
 		initColor();
 		isColReverse = false;
 		t = 0;

@@ -76,7 +76,6 @@ public class MeshComputeRunnable implements Runnable
 	private int tid;
 	private int nbThread;
 	private Vec3D[] table;
-	//private PVector[] table;
 	private int uCount;
 	private int vCount;
 	private float uMin;

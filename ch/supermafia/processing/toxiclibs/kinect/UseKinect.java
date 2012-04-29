@@ -30,7 +30,7 @@ public class UseKinect extends PApplet
 		background(0);
 		stroke(255);
 		translate(width/2, height/2);
-		rotateY(mouseX * 0.1f);
+		//rotateY(mouseX * 0.1f);
 		int rawDepth[] = kinect.getRawDepth();
 		beginShape(POINTS);
 		int step = 1;
