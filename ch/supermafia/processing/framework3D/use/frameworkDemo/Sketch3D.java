@@ -34,10 +34,10 @@ public class Sketch3D extends PApplet
 		gfx = new ProcessingGfx(this);
 		nav = new UNav3D(this);
 		nav.setTranslation(width / 2, height / 2, 0);
-		
+		//smooth();
 		try
 			{
-			mesh = new ParametricMesh3DUnlekker(100, 100, new TranguloidTrefoil(), this);
+			mesh = new ParametricMesh3DUnlekker(80, 80, new TranguloidTrefoil(), this);
 			uMin = mesh.getuMin();
 			uMax = mesh.getuMax();
 			vMin = mesh.getvMin();
@@ -68,8 +68,6 @@ public class Sketch3D extends PApplet
 	
 	public void draw()
 		{
-		float t = millis() / 500;
-		//t=3000*sin(2*PI*(float)(millis()%1000)/100000);
 		hint(ENABLE_DEPTH_TEST);
 		pushMatrix();
 		updateMesh();
