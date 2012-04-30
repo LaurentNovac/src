@@ -69,9 +69,9 @@ public class LissaJousSketch extends PApplet
 			}
 		pushMatrix();
 		translate(width / 2, height / 2);
-		frequX = listBand.get(listBand.size() - 2) / frequXFactor;
-		frequY = listBand.get(listBand.size() - 3) / frequYFactor;
-		frequCarrier = listBand.get(listBand.size() - 4) / frequXFactor;
+		frequX = listBand.get(listBand.size() - 5) / frequXFactor;
+		frequY = listBand.get(listBand.size() - 6) / frequYFactor;
+		frequCarrier = listBand.get(listBand.size() - 7) / frequXFactor;
 		try
 			{
 			calculateLissajous();
