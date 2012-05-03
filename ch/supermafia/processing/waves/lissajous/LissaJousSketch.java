@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import ch.supermafia.processing.framework3D.geometry.vector.Vec3D;
+import ch.supermafia.framework3D.geometry.vector.Vec3D;
 import ch.supermafia.processing.waves.lissajous.runnable.LissajousRunnable;
 
 import ddf.minim.AudioPlayer;

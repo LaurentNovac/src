@@ -1,9 +1,9 @@
 
 package ch.supermafia.processing.waves.ripplingEffect;
 
-import ch.supermafia.processing.framework3D.geometry.mesh.ParametricMesh3D;
-import ch.supermafia.processing.framework3D.mathematics.Function.Rippling;
-import ch.supermafia.processing.framework3D.processing.ProcessingGfx;
+import ch.supermafia.framework3D.geometry.mesh.ParametricMesh3D;
+import ch.supermafia.framework3D.mathematics.Function.Rippling;
+import ch.supermafia.framework3D.processing.ProcessingGfx;
 import processing.core.PApplet;
 import unlekker.modelbuilder.UNav3D;
 

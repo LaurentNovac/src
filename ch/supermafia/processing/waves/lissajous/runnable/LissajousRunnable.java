@@ -3,7 +3,7 @@ package ch.supermafia.processing.waves.lissajous.runnable;
 
 import processing.core.PApplet;
 
-import ch.supermafia.processing.framework3D.geometry.vector.Vec3D;
+import ch.supermafia.framework3D.geometry.vector.Vec3D;
 import ch.supermafia.processing.waves.lissajous.LissaJousSketch;
 
 public class LissajousRunnable implements Runnable
