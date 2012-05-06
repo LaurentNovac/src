@@ -159,6 +159,36 @@ public class ParametricMesh3D implements Mesh3D_I
 		}
 	
 	@Override
+	public Mesh3D_I rotateX(float angle)
+		{
+		for(int i = 0; i < vCount * uCount; i++)
+			{
+			table[i].rotateX(angle);
+			}
+		return this;
+		}
+	
+	@Override
+	public Mesh3D_I rotateY(float angle)
+		{
+		for(int i = 0; i < vCount * uCount; i++)
+			{
+			table[i].rotateY(angle);
+			}
+		return this;
+		}
+	
+	@Override
+	public Mesh3D_I rotateZ(float angle)
+		{
+		for(int i = 0; i < vCount * uCount; i++)
+			{
+			table[i].rotateZ(angle);
+			}
+		return this;
+		}
+	
+	@Override
 	public String toString()
 		{
 		StringBuilder builder = new StringBuilder();

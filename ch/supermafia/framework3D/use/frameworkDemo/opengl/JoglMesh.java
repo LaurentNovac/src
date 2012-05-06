@@ -50,12 +50,12 @@ public class JoglMesh extends JoglTemplate
 		try
 			{
 			mesh = new ParametricMesh3D(500, 500, new FlatFunction());
-			//			pointCloud = new PointCloud();
-			//			Vec3D[] t = mesh.getTable();
-			//			for(Vec3D vec3d:t)
-			//				{
-			//				pointCloud.addPoint(vec3d);
-			//				}
+//			pointCloud = new PointCloud();
+//			Vec3D[] t = mesh.getTable();
+//			for(Vec3D vec3d:t)
+//				{
+//				pointCloud.addPoint(vec3d);
+//				}
 			}
 		catch (InterruptedException e)
 			{
@@ -72,8 +72,7 @@ public class JoglMesh extends JoglTemplate
 		
 		gl.glColor3d(0.5f, 0.5f, 0.8f);
 		gl.glRotatef(rotY, 0, 1, 0);
-		gfx.parametricMeshPoint(mesh, gl, pointSize);
-		//gfx.pointCloudMesh(pointCloud, gl);
+//		gfx.parametricMeshPoint(mesh, gl, pointSize);
 		}
 	
 	/*------------------------------------------------------------------*\
@@ -199,7 +198,7 @@ public class JoglMesh extends JoglTemplate
 	private OpenglGfx gfx;
 	private float rotY;
 	private ParametricMesh3D mesh;
-	//	private PointCloud pointCloud;//FIXME
+//	private PointCloud pointCloud;//FIXME
 	private float pointSize;
 	
 	}

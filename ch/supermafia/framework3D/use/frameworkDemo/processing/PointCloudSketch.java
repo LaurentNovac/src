@@ -4,7 +4,6 @@ package ch.supermafia.framework3D.use.frameworkDemo.processing;
 import ch.supermafia.framework3D.geometry.mesh.PointCloud;
 import ch.supermafia.framework3D.geometry.vector.Vec3D;
 import ch.supermafia.framework3D.mathematics.Function.Rippling;
-import ch.supermafia.framework3D.mathematics.Function.SinDistSquared;
 import ch.supermafia.framework3D.processing.ProcessingGfx;
 import geomerative.RG;
 import geomerative.RPoint;

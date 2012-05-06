@@ -71,7 +71,7 @@ public class Sketch3D extends PApplet
 		hint(ENABLE_DEPTH_TEST);
 		pushMatrix();
 		updateMesh();
-
+		
 		nav.doTransforms();
 		background(255);
 		lights();
@@ -136,7 +136,7 @@ public class Sketch3D extends PApplet
 				break;
 			case '9':
 				mesh.setFunc(new HeightMap());
-				scl=1;
+				scl = 1;
 				reinit();
 				break;
 			case 'p':
@@ -147,6 +147,15 @@ public class Sketch3D extends PApplet
 				break;
 			case 't':
 				mesh.translate(new Vec3D(1.0f, 0.0f, 0.0f));
+				break;
+			case 'x':
+				mesh.rotateX(radians(90));
+				break;
+			case 'y':
+				mesh.rotateY(radians(90));
+				break;
+			case 'z':
+				mesh.rotateZ(radians(90));
 				break;
 			case 'i':
 				mesh.applyIdentity();

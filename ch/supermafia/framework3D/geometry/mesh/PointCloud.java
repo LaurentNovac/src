@@ -69,6 +69,27 @@ public class PointCloud implements Mesh3D_I ,Iterable<Vec3D>
 		return this;
 		}
 	
+	@Override
+	public Mesh3D_I rotateX(float angle)
+		{
+		// TODO Auto-generated method stub
+		return null;
+		}
+	
+	@Override
+	public Mesh3D_I rotateY(float angle)
+		{
+		// TODO Auto-generated method stub
+		return null;
+		}
+	
+	@Override
+	public Mesh3D_I rotateZ(float angle)
+		{
+		// TODO Auto-generated method stub
+		return null;
+		}
+	
 	public PointCloud applyFunction(FunctionR2R3_I function)//TODO make parallel
 		{
 		float minX = computeMinX();
@@ -173,4 +194,5 @@ public class PointCloud implements Mesh3D_I ,Iterable<Vec3D>
 	\*------------------------------------------------------------------*/
 	
 	private List<Vec3D> pointCloudList;
+	
 	}

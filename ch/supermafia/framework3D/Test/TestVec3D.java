@@ -116,9 +116,9 @@ public class TestVec3D
 	public void testRotateX()
 		{
 		float angle = (float)(Math.PI / 2);
-		Vec3D vec = new Vec3D(1.0f, 0.0f, 0.0f);
+		Vec3D vec = new Vec3D(0.0f, 0.0f, 1.0f);
 		vec.rotateX(angle);
-		Vec3D theoreticalRes = new Vec3D(1.0f, 0.0f, 0.0f);
+		Vec3D theoreticalRes = new Vec3D(0.0f, -1.0f, 0.0f);
 		assertTrue(vec.isEqual(theoreticalRes, 1E-5f));
 		}
 	
@@ -126,9 +126,9 @@ public class TestVec3D
 	public void testRotateY()
 		{
 		float angle = (float)(Math.PI / 2);
-		Vec3D vec = new Vec3D(0.0f, 1.0f, 0.0f);
+		Vec3D vec = new Vec3D(1.0f, 0.0f, 0.0f);
 		vec.rotateY(angle);
-		Vec3D theoreticalRes = new Vec3D(0.0f, 1.0f, 0.0f);
+		Vec3D theoreticalRes = new Vec3D(0.0f, 0.0f, -1.0f);
 		assertTrue(vec.isEqual(theoreticalRes, 1E-5f));
 		}
 	
@@ -136,10 +136,10 @@ public class TestVec3D
 	public void testRotateZ()
 		{
 		float angle = (float)(Math.PI / 2);
-		Vec3D vec = new Vec3D(0.0f, 0.0f, 1.0f);
+		Vec3D vec = new Vec3D(0.0f, 1.0f, 0.0f);
 		vec.rotateZ(angle);
-		Vec3D theoreticalRes = new Vec3D(0.0f, 0.0f, 1.0f);
-		assertTrue(vec.isEqual(theoreticalRes, 1E-5f));
+		Vec3D theoreticalRes = new Vec3D(-1.0f, 0.0f, 0.0f);
+		assertTrue(vec.isEqual(theoreticalRes, 1E-2f));
 		}
 	
 	@Test
