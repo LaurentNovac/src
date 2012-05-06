@@ -41,4 +41,13 @@ public final class MathUtilities
 		return (y1 * (1 - mu2) + y2 * mu2);
 		}
 	
+	public static float min(float a, float b)
+		{
+		return (a <= b ? a : b);
+		}
+	
+	public static float max(float a, float b)
+		{
+		return (a > b ? a : b);
+		}
 	}

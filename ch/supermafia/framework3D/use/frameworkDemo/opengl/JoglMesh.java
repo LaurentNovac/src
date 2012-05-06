@@ -7,6 +7,7 @@ import java.awt.event.KeyListener;
 import javax.media.opengl.GLAutoDrawable;
 
 import ch.supermafia.framework3D.geometry.mesh.ParametricMesh3D;
+import ch.supermafia.framework3D.geometry.mesh.PointCloud;
 import ch.supermafia.framework3D.geometry.vector.Vec3D;
 import ch.supermafia.framework3D.mathematics.Function.Cresent;
 import ch.supermafia.framework3D.mathematics.Function.FlatFunction;
@@ -48,7 +49,13 @@ public class JoglMesh extends JoglTemplate
 		gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		try
 			{
-			mesh = new ParametricMesh3D(150, 150, new FlatFunction());
+			mesh = new ParametricMesh3D(500, 500, new FlatFunction());
+			//			pointCloud = new PointCloud();
+			//			Vec3D[] t = mesh.getTable();
+			//			for(Vec3D vec3d:t)
+			//				{
+			//				pointCloud.addPoint(vec3d);
+			//				}
 			}
 		catch (InterruptedException e)
 			{
@@ -66,6 +73,7 @@ public class JoglMesh extends JoglTemplate
 		gl.glColor3d(0.5f, 0.5f, 0.8f);
 		gl.glRotatef(rotY, 0, 1, 0);
 		gfx.parametricMeshPoint(mesh, gl, pointSize);
+		//gfx.pointCloudMesh(pointCloud, gl);
 		}
 	
 	/*------------------------------------------------------------------*\
@@ -191,6 +199,7 @@ public class JoglMesh extends JoglTemplate
 	private OpenglGfx gfx;
 	private float rotY;
 	private ParametricMesh3D mesh;
+	//	private PointCloud pointCloud;//FIXME
 	private float pointSize;
 	
 	}

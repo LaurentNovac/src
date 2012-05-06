@@ -41,8 +41,8 @@ public class TestMathUtilities
 		float x1 = 1.40002f;
 		float x2 = 1.40003f;
 		assertTrue(isEqual(x1, x2, 1E-5f));
-		x1=12.0f;
-		x2=12.1f;
+		x1 = 12.0f;
+		x2 = 12.1f;
 		assertFalse(isEqual(x1, x2, 1E-5F));
 		}
 	
@@ -63,10 +63,10 @@ public class TestMathUtilities
 	@Test
 	public void testLinearInterpolate()
 		{
-		float x1=1.0f;
-		float x2=2.0f;
-		float theoreticalRes=1.5f;
-		float experimentylRes=MathUtilities.linearInterpolate(x1, x2, 0.5f);
+		float x1 = 1.0f;
+		float x2 = 2.0f;
+		float theoreticalRes = 1.5f;
+		float experimentylRes = MathUtilities.linearInterpolate(x1, x2, 0.5f);
 		assertTrue(MathUtilities.isEqual(theoreticalRes, experimentylRes, 0));
 		}
 	
@@ -75,6 +75,28 @@ public class TestMathUtilities
 		{
 		//TODO
 		assertTrue(false);
+		}
+	
+	@Test
+	public void testMin()
+		{
+		float a = 1.3f;
+		float b = 2.1f;
+		
+		float theoreticalRes = 1.3f;
+		float experimentalRes = MathUtilities.min(a, b);
+		assertTrue(theoreticalRes == experimentalRes);
+		}
+	
+	@Test
+	public void testMax()
+		{
+		float a = 1.3f;
+		float b = 2.1f;
+		
+		float theoreticalRes = 2.1f;
+		float experimentalRes = MathUtilities.max(a, b);
+		assertTrue(theoreticalRes == experimentalRes);
 		}
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|

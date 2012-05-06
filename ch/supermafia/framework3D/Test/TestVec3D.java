@@ -159,7 +159,7 @@ public class TestVec3D
 		Vec3D v2 = new Vec3D(2.0f, 3.0f, 4.002f);
 		v1.translate(v2);
 		Vec3D theoreticalRes = new Vec3D(3.0f, 4.0f, 5.005f);
-		assertTrue(v1.isEqual(theoreticalRes, 1E-15f));
+		assertTrue(v1.isEqual(theoreticalRes, 1E-5f));
 		}
 	
 	@Test

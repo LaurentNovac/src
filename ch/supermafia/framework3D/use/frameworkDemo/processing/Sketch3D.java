@@ -34,10 +34,9 @@ public class Sketch3D extends PApplet
 		gfx = new ProcessingGfx(this);
 		nav = new UNav3D(this);
 		nav.setTranslation(width / 2, height / 2, 0);
-		//smooth();
 		try
 			{
-			mesh = new ParametricMesh3DUnlekker(80, 80, new TranguloidTrefoil(), this);
+			mesh = new ParametricMesh3DUnlekker(200, 200, new TranguloidTrefoil(), this);
 			uMin = mesh.getuMin();
 			uMax = mesh.getuMax();
 			vMin = mesh.getvMin();
@@ -64,6 +63,7 @@ public class Sketch3D extends PApplet
 		speedRotCam.z = random(0, PI / 20);
 		isPrint = false;
 		updateGui();
+		strokeWeight(1.0f);
 		}
 	
 	public void draw()
@@ -71,27 +71,21 @@ public class Sketch3D extends PApplet
 		hint(ENABLE_DEPTH_TEST);
 		pushMatrix();
 		updateMesh();
-		
-//		speedRotCam.x = sin(t * 1 / 10000);
-//		speedRotCam.y = sin(t * 1 / 10000);
-//		speedRotCam.z = sin(t * 1 / 10000);
-//		nav.rot.add(speedRotCam);
+
 		nav.doTransforms();
 		background(255);
 		lights();
-		noStroke();
 		scale(scl);
 		updateColor();
 		if (distortionFactor > 1.0f)
 			{
 			distortMesh();
 			}
-		gfx.parametricMesh(mesh);
+		gfx.parametricMeshPoints(mesh);
 		popMatrix();
 		hint(DISABLE_DEPTH_TEST);
 		
 		noLights();
-		noStroke();
 		
 		if (isPrint)
 			{
@@ -273,11 +267,13 @@ public class Sketch3D extends PApplet
 		if (isColReverse)
 			{
 			fill(colorTool.colors[t]);
+			stroke(colorTool.colors[t]);
 			t--;
 			}
 		else
 			{
 			fill(colorTool.colors[t]);
+			stroke(colorTool.colors[t]);
 			t++;
 			}
 		}

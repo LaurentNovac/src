@@ -19,7 +19,7 @@ public class UseGeomerative extends PApplet
 		size(800, 600, P3D);
 		strokeWeight(3);
 		RG.init(this);
-		grp = RG.getText("Hello world!", "FreeSans.ttf", 72, CENTER);
+		grp = RG.getText("Hello world!", "Georgia.ttf", 72, CENTER);
 		}
 	
 	public void draw()

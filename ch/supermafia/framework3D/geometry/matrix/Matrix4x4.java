@@ -116,10 +116,10 @@ public class Matrix4x4
 	private float scalar(Vec4D res, int lineI)
 		{
 		float s = 0.0f;
-		s += this.data[index(0, lineI)] * res.getX();
-		s += this.data[index(1, lineI)] * res.getY();
-		s += this.data[index(2, lineI)] * res.getZ();
-		s += this.data[index(3, lineI)] * res.getW();
+		s += this.data[index(lineI, 0)] * res.getX();
+		s += this.data[index(lineI, 1)] * res.getY();
+		s += this.data[index(lineI, 2)] * res.getZ();
+		s += this.data[index(lineI, 3)] * res.getW();
 		return s;
 		}
 	
