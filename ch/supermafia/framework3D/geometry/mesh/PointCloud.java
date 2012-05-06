@@ -72,22 +72,34 @@ public class PointCloud implements Mesh3D_I ,Iterable<Vec3D>
 	@Override
 	public Mesh3D_I rotateX(float angle)
 		{
-		// TODO Auto-generated method stub
-		return null;
+		Iterator<Vec3D> it = iterator();
+		while(it.hasNext())
+			{
+			it.next().rotateX(angle);
+			}
+		return this;
 		}
 	
 	@Override
 	public Mesh3D_I rotateY(float angle)
 		{
-		// TODO Auto-generated method stub
-		return null;
+		Iterator<Vec3D> it = iterator();
+		while(it.hasNext())
+			{
+			it.next().rotateY(angle);
+			}
+		return this;
 		}
 	
 	@Override
 	public Mesh3D_I rotateZ(float angle)
 		{
-		// TODO Auto-generated method stub
-		return null;
+		Iterator<Vec3D> it = iterator();
+		while(it.hasNext())
+			{
+			it.next().rotateZ(angle);
+			}
+		return this;
 		}
 	
 	public PointCloud applyFunction(FunctionR2R3_I function)//TODO make parallel

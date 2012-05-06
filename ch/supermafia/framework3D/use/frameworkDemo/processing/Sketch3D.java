@@ -36,7 +36,7 @@ public class Sketch3D extends PApplet
 		nav.setTranslation(width / 2, height / 2, 0);
 		try
 			{
-			mesh = new ParametricMesh3DUnlekker(200, 200, new TranguloidTrefoil(), this);
+			mesh = new ParametricMesh3DUnlekker(300, 300, new TranguloidTrefoil(), this);
 			uMin = mesh.getuMin();
 			uMax = mesh.getuMax();
 			vMin = mesh.getvMin();
@@ -135,7 +135,7 @@ public class Sketch3D extends PApplet
 				reinit();
 				break;
 			case '9':
-				mesh.setFunc(new HeightMap());
+				mesh.setFunc(new HeightMap("heightmapCapa.jpg"));
 				scl = 1;
 				reinit();
 				break;
