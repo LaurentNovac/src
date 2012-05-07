@@ -20,9 +20,9 @@ public class UseGeomerativeFontMorphing extends PApplet
 		size(800, 600);
 		RG.init(this);
 		RG.setPolygonizer(RG.UNIFORMLENGTH);
-		RG.setPolygonizerLength(2);
-		shapeFont1 = RG.getText("Hello World", "Georgia.ttf", 72, CENTER);
-		shapeFont2 = RG.getText("Hello World", "FreeSans.ttf", 72, CENTER);
+		RG.setPolygonizerLength(1);
+		shapeFont1 = RG.getText("Camille", "Georgia.ttf", 72, CENTER);
+		shapeFont2 = RG.getText("Camille", "FreeSans.ttf", 72, CENTER);
 		rgPointsF1 = shapeFont1.getPoints();
 		rgPointsF2 = shapeFont2.getPoints();
 		mu = 0.0f;
