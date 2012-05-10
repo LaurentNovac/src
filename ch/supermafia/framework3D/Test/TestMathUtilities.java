@@ -71,7 +71,21 @@ public class TestMathUtilities
 		}
 	
 	@Test
+	public void testLinearInterpolateVec3D()
+		{
+		//TODO
+		assertTrue(false);
+		}
+	
+	@Test
 	public void testCosineInterpolate()
+		{
+		//TODO
+		assertTrue(false);
+		}
+	
+	@Test
+	public void testCosineInterpolateVec3D()
 		{
 		//TODO
 		assertTrue(false);
