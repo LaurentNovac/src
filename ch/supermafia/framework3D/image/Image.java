@@ -1,41 +1,31 @@
 
 package ch.supermafia.framework3D.image;
-/**
- * 
- * using the chain of responsibility pattern
- *
- */
-abstract public class ImageProcessor
+
+public class Image
 	{
 	
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 	
-	public ImageProcessor()
-		{
-		}
-	
 	/*------------------------------------------------------------------*\
-	|*						Methodes Protected							*|
+	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
 	
-	protected void process(Image image)
-		{
-		processor(image);
-		if (next != null)
-			{
-			next.process(image);
-			}
-		}
+	/*------------------------------*\
+	|*				Set				*|
+	\*------------------------------*/
 	
-	abstract protected void processor(Image image);
+	/*------------------------------*\
+	|*				Get				*|
+	\*------------------------------*/
 	
+	/*------------------------------------------------------------------*\
+	|*							Methodes Private						*|
+	\*------------------------------------------------------------------*/
 	
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
-	
-	private ImageProcessor next;
 	
 	}

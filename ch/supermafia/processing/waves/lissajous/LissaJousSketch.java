@@ -5,13 +5,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import codeanticode.syphon.SyphonServer;
+
 import ch.supermafia.framework3D.geometry.vector.Vec3D;
 import ch.supermafia.processing.waves.lissajous.runnable.LissajousRunnable;
 
 import ddf.minim.AudioPlayer;
 import ddf.minim.Minim;
 import ddf.minim.analysis.FFT;
-import processing.core.PApplet;
+import processing.core.*;
 
 @SuppressWarnings("serial")
 public class LissaJousSketch extends PApplet
@@ -23,9 +25,8 @@ public class LissaJousSketch extends PApplet
 	
 	public void setup()
 		{
-		size(1280, 720, P3D);
-		textMode(SCREEN);
-		//smooth();
+		size(800,600, P3D);
+//		smooth();
 		initMinim();
 		frequX = 1;
 		frequY = 1;
@@ -52,10 +53,14 @@ public class LissaJousSketch extends PApplet
 		bezierCoeffArray[1] = random(0.5f, 1.5f) * 100;
 		bezierCoeffArray[2] = random(0.5f, 1.5f) * 100;
 		bezierCoeffArray[3] = 1;
+		
+		canvas = createGraphics(width, height, P3D);
+		syphonServer = new SyphonServer(this, "Lissajous");
 		}
 	
 	public void draw()
 		{
+		canvas.beginDraw();
 		fill(0, 0, 0, 40);
 		noStroke();
 		rect(0, 0, width, height);
@@ -84,6 +89,9 @@ public class LissaJousSketch extends PApplet
 		popMatrix();
 		fill(255);
 		text(frameRate, width - 60, height - 20);
+		canvas.endDraw();
+		syphonServer.sendImage(canvas);
+		image(canvas, 0, 0);
 		}
 	
 	public void keyPressed()
@@ -256,4 +264,7 @@ public class LissaJousSketch extends PApplet
 	private boolean isAnim2;
 	
 	private float[] bezierCoeffArray;
+	private PGraphics canvas;
+	private SyphonServer syphonServer;
+	
 	}

@@ -24,7 +24,7 @@ public class OpenglGfx
 	
 	public void parametricMeshPoint(ParametricMesh3D parametricMesh3D, GL2 gl, float pointSize)
 		{
-		drawGridPoints(parametricMesh3D, gl, pointSize);
+		drawGridPointsVBO(parametricMesh3D, gl, pointSize);
 		}
 	
 	public void parametricMeshLines(ParametricMesh3D parametricMesh3D, GL2 gl)
@@ -94,6 +94,43 @@ public class OpenglGfx
 		gl.glEnableClientState(GL2.GL_VERTEX_ARRAY);
 		gl.glVertexPointer(3, GL2.GL_FLOAT, 0, points);
 		gl.glDrawArrays(GL2.GL_POINTS, 0, parametricMesh3D.getuCount() * parametricMesh3D.getvCount() * 2);
+		gl.glDisableClientState(GL2.GL_VERTEX_ARRAY);
+		}
+	
+	private void drawGridPointsVBO(ParametricMesh3D parametricMesh3D, GL2 gl, float pointSize)//in main thread but it still has access to table, so synchronized must be set
+		{
+		gl.glPointSize(pointSize);
+		FloatBuffer points = Buffers.newDirectFloatBuffer(new float[parametricMesh3D.getuCount() * parametricMesh3D.getvCount() * 3 * 2]);
+		points.rewind();
+		for(int iv = 0; iv < parametricMesh3D.getvCount(); iv++)
+			{
+			for(int iu = 0; iu < parametricMesh3D.getuCount(); iu++)
+				{
+				points.put(parametricMesh3D.getTable()[index(iu, iv, parametricMesh3D.getuCount())].x());
+				points.put(parametricMesh3D.getTable()[index(iu, iv, parametricMesh3D.getuCount())].y());
+				points.put(parametricMesh3D.getTable()[index(iu, iv, parametricMesh3D.getuCount())].z());
+				}
+			}
+		points.rewind();
+		
+		//VBO creation
+		int nbVBO = 1;
+		int[] VBO = new int[nbVBO];
+		gl.glGenBuffers(nbVBO, VBO, 0);
+		
+		//state machine
+		gl.glEnableClientState(GL2.GL_VERTEX_ARRAY);
+		
+		// Init VBOs and transfer data.
+		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, VBO[0]);
+		//transfer data to device
+		gl.glBufferData(GL2.GL_ARRAY_BUFFER, parametricMesh3D.getuCount() * parametricMesh3D.getvCount() * 2, points, GL2.GL_DYNAMIC_DRAW);
+		
+		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, VBO[0]);
+		gl.glVertexPointer(3, GL2.GL_FLOAT, 0, points);
+		gl.glDrawArrays(GL2.GL_POINTS, 0, parametricMesh3D.getuCount() * parametricMesh3D.getvCount() * 2);
+		
+		gl.glDeleteBuffers(nbVBO, VBO, 0);
 		gl.glDisableClientState(GL2.GL_VERTEX_ARRAY);
 		}
 	

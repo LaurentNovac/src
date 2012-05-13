@@ -72,7 +72,8 @@ public class JoglMesh extends JoglTemplate
 		
 		gl.glColor3d(0.5f, 0.5f, 0.8f);
 		gl.glRotatef(rotY, 0, 1, 0);
-//		gfx.parametricMeshPoint(mesh, gl, pointSize);
+		//mesh.rotateY(rotY);
+		gfx.parametricMeshPoint(mesh, gl, pointSize);
 		}
 	
 	/*------------------------------------------------------------------*\

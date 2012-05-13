@@ -23,6 +23,7 @@ public class MeshTriangle extends PApplet
 	
 	public void draw()
 		{
+		background(255);
 		gfx.mesh(triMesh,true);
 		}
 	
