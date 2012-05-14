@@ -24,7 +24,7 @@ public class OpenglGfx
 	
 	public void parametricMeshPoint(ParametricMesh3D parametricMesh3D, GL2 gl, float pointSize)
 		{
-		drawGridPointsVBO(parametricMesh3D, gl, pointSize);
+		drawGridPoints(parametricMesh3D, gl, pointSize);
 		}
 	
 	public void parametricMeshLines(ParametricMesh3D parametricMesh3D, GL2 gl)

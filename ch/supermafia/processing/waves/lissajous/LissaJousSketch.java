@@ -14,6 +14,7 @@ import ddf.minim.AudioPlayer;
 import ddf.minim.Minim;
 import ddf.minim.analysis.FFT;
 import processing.core.*;
+import processing.opengl.*;
 
 @SuppressWarnings("serial")
 public class LissaJousSketch extends PApplet
@@ -25,7 +26,7 @@ public class LissaJousSketch extends PApplet
 	
 	public void setup()
 		{
-		size(800,600, P3D);
+		size(800,600, OPENGL);
 //		smooth();
 		initMinim();
 		frequX = 1;
@@ -54,7 +55,7 @@ public class LissaJousSketch extends PApplet
 		bezierCoeffArray[2] = random(0.5f, 1.5f) * 100;
 		bezierCoeffArray[3] = 1;
 		
-		canvas = createGraphics(width, height, P3D);
+		canvas = createGraphics(width, height, OPENGL);
 		syphonServer = new SyphonServer(this, "Lissajous");
 		}
 	
@@ -87,11 +88,11 @@ public class LissaJousSketch extends PApplet
 			}
 		drawLissajous();
 		popMatrix();
-		fill(255);
-		text(frameRate, width - 60, height - 20);
 		canvas.endDraw();
 		syphonServer.sendImage(canvas);
 		image(canvas, 0, 0);
+		fill(255);
+		text(frameRate, width - 60, height - 20);
 		}
 	
 	public void keyPressed()
