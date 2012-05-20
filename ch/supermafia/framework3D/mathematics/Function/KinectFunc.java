@@ -27,7 +27,7 @@ public class KinectFunc implements FunctionR2R3_I
 		int index = (int)(y * getUMax() + x);
 		int depth = rawDepth[index];
 		Vec3D v = depthToWorld(x, y, depth);
-		int facteur = 400;
+		float facteur = 400;
 		v.setX(facteur * v.x());
 		v.setY(facteur * v.y());
 		v.setZ(facteur - v.z() * facteur);

@@ -3,8 +3,6 @@ package ch.supermafia.framework3D.geometry.mesh.runnable;
 
 import ch.supermafia.framework3D.geometry.vector.Vec3D;
 import processing.core.PApplet;
-import processing.core.PVector;
-import static ch.supermafia.framework3D.mathematics.MathUtilities.map;
 
 public class MeshDistortionRunnable implements Runnable
 	{

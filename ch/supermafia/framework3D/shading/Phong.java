@@ -13,7 +13,7 @@ public class Phong
 	/*------------------------------------------------------------------*\
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
-	public float intensity(Vec3D point)
+	public static float intensity(Vec3D point, Vec3D camera)
 		{
 		//TODO returns the intensity of the vector using phong model
 		return 1.0f;
@@ -33,7 +33,5 @@ public class Phong
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
-	
-	private Vec3D position;
-	
+		
 	}

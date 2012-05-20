@@ -1,10 +1,15 @@
 
 package ch.supermafia.framework3D.processing;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import ch.supermafia.framework3D.geometry.mesh.CubicZone;
 import ch.supermafia.framework3D.geometry.mesh.ParametricMesh3D;
 import ch.supermafia.framework3D.geometry.mesh.PointCloud;
 import ch.supermafia.framework3D.geometry.vector.Vec3D;
 import processing.core.PApplet;
+import processing.core.PConstants;
 
 public class ProcessingGfx
 	{
@@ -20,34 +25,77 @@ public class ProcessingGfx
 	/*------------------------------------------------------------------*\
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
-	public void parametricMesh(ParametricMesh3D parametricMesh3D)
+	public void mesh(ParametricMesh3D parametricMesh3D)
 		{
 		drawGrid(parametricMesh3D);
 		}
 	
-	public void parametricMeshLines(ParametricMesh3D parametricMesh3D)
+	public void meshLines(ParametricMesh3D parametricMesh3D)
 		{
 		drawGridLines(parametricMesh3D);
 		}
 	
-	public void parametricMeshPoints(ParametricMesh3D parametricMesh3D)
+	public void meshPoints(ParametricMesh3D parametricMesh3D)
 		{
 		drawGridPoint(parametricMesh3D);
 		}
 	
-	public void pointCloudMeshPoints(PointCloud pointCloud)
+	public void meshPoints(PointCloud pointCloud)
 		{
 		drawPointCloudPoint(pointCloud);
 		}
 	
-	public void pointCloudMeshLines(PointCloud pointCloud)
+	public void meshLines(PointCloud pointCloud)
 		{
 		drawPointCloudLines(pointCloud);
 		}
-
-	public void pointCloudMeshQuads(PointCloud pointCloud)
+	
+	public void mesh(PointCloud pointCloud)
 		{
 		drawPointCloudQuads(pointCloud);
+		}
+	
+	public void zone(CubicZone cubicZone)
+		{
+		Vec3D[] v = cubicZone.getVertices();
+		context.beginShape(PApplet.QUAD);
+		//rear
+		context.vertex(v[0].x(), v[0].y(), v[0].z());
+		context.vertex(v[1].x(), v[1].y(), v[1].z());
+		context.vertex(v[2].x(), v[2].y(), v[2].z());
+		context.vertex(v[3].x(), v[3].y(), v[3].z());
+		
+		//front
+		context.vertex(v[4].x(), v[4].y(), v[4].z());
+		context.vertex(v[5].x(), v[5].y(), v[5].z());
+		context.vertex(v[6].x(), v[6].y(), v[6].z());
+		context.vertex(v[7].x(), v[7].y(), v[7].z());
+		
+		//top
+		context.vertex(v[0].x(), v[0].y(), v[0].z());
+		context.vertex(v[4].x(), v[4].y(), v[4].z());
+		context.vertex(v[7].x(), v[7].y(), v[7].z());
+		context.vertex(v[1].x(), v[1].y(), v[1].z());
+		
+		//bottom
+		context.vertex(v[3].x(), v[3].y(), v[3].z());
+		context.vertex(v[2].x(), v[2].y(), v[2].z());
+		context.vertex(v[6].x(), v[6].y(), v[6].z());
+		context.vertex(v[5].x(), v[5].y(), v[5].z());
+		
+		//right
+		context.vertex(v[0].x(), v[0].y(), v[0].z());
+		context.vertex(v[3].x(), v[3].y(), v[3].z());
+		context.vertex(v[5].x(), v[5].y(), v[5].z());
+		context.vertex(v[4].x(), v[4].y(), v[4].z());
+		
+		//left
+		context.vertex(v[7].x(), v[7].y(), v[7].z());
+		context.vertex(v[6].x(), v[6].y(), v[6].z());
+		context.vertex(v[2].x(), v[2].y(), v[2].z());
+		context.vertex(v[1].x(), v[1].y(), v[1].z());
+		
+		context.endShape();
 		}
 	
 	/*------------------------------------------------------------------*\
@@ -111,7 +159,7 @@ public class ProcessingGfx
 			{
 			context.vertex(points.x(), points.y(), points.z());
 			}
-		context.endShape();		
+		context.endShape();
 		}
 	
 	private void drawPointCloudQuads(PointCloud pointCloud)
@@ -121,9 +169,9 @@ public class ProcessingGfx
 			{
 			context.vertex(points.x(), points.y(), points.z());
 			}
-		context.endShape();			
+		context.endShape();
 		}
-
+	
 	private int index(int x, int y, int uCount)
 		{
 		return uCount * y + x;

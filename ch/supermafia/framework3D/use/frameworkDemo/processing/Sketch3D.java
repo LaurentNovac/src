@@ -18,6 +18,7 @@ import unlekker.modelbuilder.UNav3D;
 import unlekker.modelbuilder.UVec3;
 import unlekker.util.UColorTool;
 import unlekker.util.USimpleGUI;
+import processing.opengl.*;
 
 @SuppressWarnings("serial")
 public class Sketch3D extends PApplet
@@ -29,14 +30,14 @@ public class Sketch3D extends PApplet
 	
 	public void setup()
 		{
-		size(1024, 768, P3D);
-		textMode(SCREEN);
+		size(1024, 768, OPENGL);
+		//textMode(SCREEN);
 		gfx = new ProcessingGfx(this);
 		nav = new UNav3D(this);
 		nav.setTranslation(width / 2, height / 2, 0);
 		try
 			{
-			mesh = new ParametricMesh3DUnlekker(300, 300, new TranguloidTrefoil(), this);
+			mesh = new ParametricMesh3DUnlekker(200, 200, new TranguloidTrefoil(), this);
 			uMin = mesh.getuMin();
 			uMax = mesh.getuMax();
 			vMin = mesh.getvMin();
@@ -81,7 +82,7 @@ public class Sketch3D extends PApplet
 			{
 			distortMesh();
 			}
-		gfx.parametricMeshPoints(mesh);
+		gfx.meshPoints(mesh);
 		popMatrix();
 		hint(DISABLE_DEPTH_TEST);
 		
@@ -89,11 +90,11 @@ public class Sketch3D extends PApplet
 		
 		if (isPrint)
 			{
-			saveFrame("image-###.png");
+			toSTL();
 			isPrint = false;
 			}
 		
-		gui.draw();
+		//gui.draw();
 		colorTool.drawColors(this, 0, height - 100);
 		text(frameRate + "", width - 100, height - 10);
 		}
@@ -138,6 +139,20 @@ public class Sketch3D extends PApplet
 				mesh.setFunc(new HeightMap("heightmapCapa.jpg"));
 				scl = 1;
 				reinit();
+				break;
+			case '+':
+				lerpParam += 0.1f;
+				if (lerpParam >= 1.0f)
+					{
+					lerpParam = 1.0f;
+					}
+				break;
+			case '-':
+				lerpParam -= 0.1f;
+				if (lerpParam <= 0.0f)
+					{
+					lerpParam = 0.0f;
+					}
 				break;
 			case 'p':
 				isPrint = true;

@@ -27,7 +27,6 @@ public class UseGeomerativeFontMorphing extends PApplet
 		rgPointsF2 = shapeFont2.getPoints();
 		mu = 0.0f;
 		morphedShape = new RShape();
-
 		}
 	
 	public void draw()

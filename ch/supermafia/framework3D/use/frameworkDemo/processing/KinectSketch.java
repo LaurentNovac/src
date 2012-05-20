@@ -1,13 +1,13 @@
 
-package ch.supermafia.framework3D.useKinect;
+package ch.supermafia.framework3D.use.frameworkDemo.processing;
 
-import ch.supermafia.framework3D.geometry.mesh.ParametricMesh3DUnlekker;
+import ch.supermafia.framework3D.geometry.mesh.ParametricMesh3D;
 import ch.supermafia.framework3D.mathematics.Function.KinectFunc;
 import ch.supermafia.framework3D.processing.ProcessingGfx;
 import processing.core.PApplet;
+import processing.opengl.*;
 import unlekker.modelbuilder.UNav3D;
 
-@SuppressWarnings("serial")
 public class KinectSketch extends PApplet
 	{
 	
@@ -17,17 +17,14 @@ public class KinectSketch extends PApplet
 	
 	public void setup()
 		{
-		size(800, 600, P3D);
-		textMode(SCREEN);
-		kinect = new KinectFunc(this);
-		gfx = new ProcessingGfx(this);
+		size(1024, 768, OPENGL);
 		nav = new UNav3D(this);
 		nav.setTranslation(width / 2, height / 2, 0);
+		gfx = new ProcessingGfx(this);
 		try
 			{
-			kinectMesh = new ParametricMesh3DUnlekker(80, 60, kinect, this);
-			kinectMesh.computeTable();
-			kinectMesh.applyIdentity();
+			kinectF = new KinectFunc(this);
+			kinectMesh = new ParametricMesh3D(200, 200, kinectF);
 			}
 		catch (InterruptedException e)
 			{
@@ -38,36 +35,23 @@ public class KinectSketch extends PApplet
 	public void draw()
 		{
 		background(0);
-		pushMatrix();
-		//translate(width / 2, height / 2, 0);
-		kinect.compute();
-		kinectMesh.computeTable();
 		nav.doTransforms();
-		lights();
-		
-		noFill();
 		stroke(255);
+		kinectF.compute();
+		kinectMesh.computeTable();
 		gfx.meshPoints(kinectMesh);
-		popMatrix();
-		fill(255);
-		text("" + frameRate, width - 50, height - 50);
 		}
 	
 	public void stop()
 		{
-		kinect.stop();
-		}
-	
-	public void keyPressed()
-		{
-		if (key == 'p') kinectMesh.toSTL("kinect.stl");
+		kinectF.stop();
 		}
 	
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
-	private ParametricMesh3DUnlekker kinectMesh;
-	private KinectFunc kinect;
+	private ParametricMesh3D kinectMesh;
 	private ProcessingGfx gfx;
+	private KinectFunc kinectF;
 	private UNav3D nav;
 	}

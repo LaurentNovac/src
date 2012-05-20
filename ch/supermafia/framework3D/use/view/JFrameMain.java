@@ -2,10 +2,14 @@
 package ch.supermafia.framework3D.use.view;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 
 import javax.swing.Box;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JSlider;
 
+import ch.supermafia.framework3D.geometry.mesh.ParametricMesh3DUnlekker;
 import ch.supermafia.framework3D.use.frameworkDemo.processing.Sketch3D;
 
 @SuppressWarnings("serial")
@@ -16,22 +20,19 @@ public class JFrameMain extends JFrame
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 	
-	public JFrameMain()
+	public JFrameMain(Sketch3D sketch3d)
 		{
+		this.sketch3d = sketch3d;
 		d_createComponent();
 		d_addComponent();
 		d_addListener();
 		d_setProperties();
 		}
+	
 	/*------------------------------*\
 	|*				Get				*|
 	\*------------------------------*/
 	
-	public Sketch3D getSketch3d()
-		{
-		return sketch3d;
-		}
-
 	/*------------------------------------------------------------------*\
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
@@ -55,27 +56,56 @@ public class JFrameMain extends JFrame
 	
 	private void d_addComponent()
 		{
-		setLayout(new BorderLayout());
-		this.add(boxEast, BorderLayout.EAST);
-		this.add(sketch3d,BorderLayout.CENTER);
+		ParametricMesh3DUnlekker m = sketch3d.getMesh();
+		setLayout(new FlowLayout());
+		
 		}
 	
 	private void d_createComponent()
 		{
+		uMinSlider = new JSlider();
+		uMinLabel = new JLabel("u min");
 		
-		jPanelControls = new JPanelControls();
-		sketch3d=new Sketch3D();
-		sketch3d.init();
-		boxEast = Box.createVerticalBox();
+		uMaxSlider = new JSlider();
+		uMaxLabel = new JLabel("u max");
 		
-		boxEast.add(jPanelControls);
+		vMinSlider = new JSlider();
+		vMinLabel = new JLabel("v min");
+		
+		vMaxSlider = new JSlider();
+		vMaxLabel = new JLabel("v max");
+		
+		lerpSlider = new JSlider();
+		lerpLabel = new JLabel("interpolation");
+		
 		}
 	
-
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
-	private JPanelControls jPanelControls;//EAST
 	private Sketch3D sketch3d;
-	private Box boxEast;
+	private JSlider uMinSlider;
+	private JLabel uMinLabel;
+	
+	private JSlider uMaxSlider;
+	private JLabel uMaxLabel;
+	
+	private JSlider vMinSlider;
+	private JLabel vMinLabel;
+	
+	private JSlider vMaxSlider;
+	private JLabel vMaxLabel;
+	
+	private JSlider lerpSlider;
+	private JLabel lerpLabel;
+	/*
+	 * 		gui.addSlider("uMin", uMin, mesh.getuMin(), mesh.getuMax());
+		gui.addSlider("uMax", uMax, mesh.getuMin(), mesh.getuMax());
+		gui.addSlider("vMin", vMin, mesh.getvMin(), mesh.getvMax());
+		gui.addSlider("vMax", vMax, mesh.getvMin(), mesh.getvMax());
+		gui.addSlider("distortionFactor", distortionFactor, 0.0f, 3.0f);
+		gui.addSlider("scl", scl, 10, width);
+		gui.addSlider("lerpParam", lerpParam, 0.0f, 1.0f);
+		gui.addButton("toSTL");
+	 */
 	}

@@ -10,6 +10,7 @@ import codeanticode.syphon.SyphonServer;
 import ch.supermafia.framework3D.geometry.vector.Vec3D;
 import ch.supermafia.processing.waves.lissajous.runnable.LissajousRunnable;
 
+import ddf.minim.AudioInput;
 import ddf.minim.AudioPlayer;
 import ddf.minim.Minim;
 import ddf.minim.analysis.FFT;
@@ -26,9 +27,10 @@ public class LissaJousSketch extends PApplet
 	
 	public void setup()
 		{
-		size(800,600, OPENGL);
-//		smooth();
+		size(1024, 768, OPENGL);
+		//		smooth();
 		initMinim();
+		isTest = true;
 		frequX = 1;
 		frequY = 1;
 		frequCarrier = 1;
@@ -38,14 +40,23 @@ public class LissaJousSketch extends PApplet
 		phi = 0;
 		pointCount = width / 4;
 		jFrameLissajous = new JFrameLissajous(this);
-		song = minim.loadFile("mySong.wav", 512);
-		song.play();
-		fft = new FFT(song.bufferSize(), song.sampleRate());
+		if (isTest)
+			{
+			song = minim.loadFile("mySong.wav", 512);
+			song.play();
+			fft = new FFT(song.bufferSize(), song.sampleRate());
+			}
+		else
+			{
+			audioInput = minim.getLineIn(Minim.STEREO, 512);
+			fft = new FFT(audioInput.bufferSize(), audioInput.sampleRate());
+			}
+		
 		listBand = new ArrayList<Float>();
 		lissajousPoints = new Vec3D[pointCount];
 		connectionRadius = 100;
-		frequXFactor = 40.0f;
-		frequYFactor = 40.0f;
+		frequXFactor = 100.0f;
+		frequYFactor = 100.0f;
 		isDrawFFT = false;
 		isAnim2 = false;
 		strokeWeight(1.0f);
@@ -67,7 +78,14 @@ public class LissaJousSketch extends PApplet
 		rect(0, 0, width, height);
 		noFill();
 		clearBandList();
-		fft.forward(song.mix);
+		if (isTest)
+			{
+			fft.forward(song.mix);
+			}
+		else
+			{
+			fft.forward(audioInput.mix);
+			}
 		sortFFTHistogram();
 		if (isDrawFFT)
 			{
@@ -75,8 +93,8 @@ public class LissaJousSketch extends PApplet
 			}
 		pushMatrix();
 		translate(width / 2, height / 2);
-		frequX = listBand.get(listBand.size() - 5) / frequXFactor;
-		frequY = listBand.get(listBand.size() - 6) / frequYFactor;
+		frequX = listBand.get(listBand.size() - 1) / frequXFactor;
+		frequY = listBand.get(listBand.size() - 2) / frequYFactor;
 		frequCarrier = listBand.get(listBand.size() - 7) / frequXFactor;
 		try
 			{
@@ -113,7 +131,8 @@ public class LissaJousSketch extends PApplet
 	public void stop()
 		{
 		minim.stop();
-		song.close();
+		if (isTest) song.close();
+		else audioInput.close();
 		super.stop();
 		}
 	
@@ -131,7 +150,7 @@ public class LissaJousSketch extends PApplet
 		stroke(255);
 		for(int i = 0; i < fft.specSize(); i++)
 			{
-			line(i, height, i, height - fft.getBand(i) * 4);
+			line(i, height, i, height - fft.getBand(i) * 8);
 			}
 		}
 	
@@ -155,8 +174,8 @@ public class LissaJousSketch extends PApplet
 		for(int i = 0; i < pointCount; i++)
 			{
 			float angle = map(i, 0, pointCount, 0, TWO_PI);
-			float x = factorX * sin(angle * frequX + radians(phi)) * cos(angle * frequCarrier);
-			float y = factorY * sin(angle * frequY) * cos(angle * frequCarrier);
+			float x = factorX * sin(angle * frequX + radians(phi));// * cos(angle * frequCarrier);
+			float y = factorY * sin(angle * frequY); //* cos(angle * frequCarrier);
 			Vec3D v = new Vec3D(x, y);
 			lissajousPoints[i] = v;
 			}
@@ -258,12 +277,13 @@ public class LissaJousSketch extends PApplet
 	
 	private Minim minim;
 	private AudioPlayer song;
+	private AudioInput audioInput;
 	private FFT fft;
 	private List<Float> listBand;
 	private boolean isDrawFFT;
 	private Vec3D[] lissajousPoints;
 	private boolean isAnim2;
-	
+	private boolean isTest;
 	private float[] bezierCoeffArray;
 	private PGraphics canvas;
 	private SyphonServer syphonServer;
