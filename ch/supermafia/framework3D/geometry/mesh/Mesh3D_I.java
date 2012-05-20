@@ -15,10 +15,13 @@ public interface Mesh3D_I
 	public Mesh3D_I translate(Vec3D transVec);
 	
 	public Mesh3D_I scale(float s);
-		
+	
 	public Mesh3D_I rotateX(float angle);
 	
 	public Mesh3D_I rotateY(float angle);
 	
 	public Mesh3D_I rotateZ(float angle);
+	
+	public Mesh3D_I polygonize();
+	
 	}

@@ -12,13 +12,18 @@ public class Vec4D
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
+	public Vec4D(float x, float y, float z, float w)
+		{
+		this.x = x;
+		this.y = y;
+		this.z = z;
+		this.w = w;
+		}
+	
 	public Vec4D(Vec3D vec)
 		{
+		this(vec.x(), vec.y(), vec.z(), 1.0f);
 		this.vec = vec;
-		this.x = vec.x();
-		this.y = vec.y();
-		this.z = vec.z();
-		this.w = 1.0f;
 		}
 	
 	public Vec4D(Vec4D vec)
@@ -28,8 +33,9 @@ public class Vec4D
 	
 	public Vec4D()
 		{
-		this(new Vec3D(0.0f, 0.0f, 0.0f));
+		this(0.0f, 0.0f, 0.0f, 0.0f);
 		}
+	
 	/*------------------------------------------------------------------*\
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/

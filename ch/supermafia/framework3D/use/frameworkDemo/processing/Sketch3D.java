@@ -1,6 +1,7 @@
 
 package ch.supermafia.framework3D.use.frameworkDemo.processing;
 
+import ch.supermafia.framework3D.geometry.matrix.Matrix4x4Rotation;
 import ch.supermafia.framework3D.geometry.mesh.ParametricMesh3DUnlekker;
 import ch.supermafia.framework3D.geometry.vector.Vec3D;
 import ch.supermafia.framework3D.mathematics.Function.Cresent;
@@ -31,13 +32,12 @@ public class Sketch3D extends PApplet
 	public void setup()
 		{
 		size(1024, 768, OPENGL);
-		//textMode(SCREEN);
 		gfx = new ProcessingGfx(this);
 		nav = new UNav3D(this);
 		nav.setTranslation(width / 2, height / 2, 0);
 		try
 			{
-			mesh = new ParametricMesh3DUnlekker(200, 200, new TranguloidTrefoil(), this);
+			mesh = new ParametricMesh3DUnlekker(100, 100, new TranguloidTrefoil(), this);
 			uMin = mesh.getuMin();
 			uMax = mesh.getuMax();
 			vMin = mesh.getvMin();
@@ -58,12 +58,9 @@ public class Sketch3D extends PApplet
 		initColor();
 		isColReverse = false;
 		t = 0;
-		speedRotCam = new UVec3();
-		speedRotCam.x = random(0, PI / 20);
-		speedRotCam.y = random(0, PI / 20);
-		speedRotCam.z = random(0, PI / 20);
 		isPrint = false;
 		updateGui();
+		rotY = 0.0f;
 		strokeWeight(1.0f);
 		}
 	
@@ -72,7 +69,6 @@ public class Sketch3D extends PApplet
 		hint(ENABLE_DEPTH_TEST);
 		pushMatrix();
 		updateMesh();
-		
 		nav.doTransforms();
 		background(255);
 		lights();
@@ -322,9 +318,9 @@ public class Sketch3D extends PApplet
 	private UColorTool colorTool;
 	private boolean isColReverse;
 	private int t;
-	private UVec3 speedRotCam;
 	private boolean isPrint;
 	private float lerpParam;
 	private float lastLerpParam;
 	private ProcessingGfx gfx;
+	private float rotY;
 	}

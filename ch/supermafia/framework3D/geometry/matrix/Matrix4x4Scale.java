@@ -23,6 +23,12 @@ public class Matrix4x4Scale extends Matrix4x4
 	|*				Set				*|
 	\*------------------------------*/
 	
+	public void setScaleVec(Vec3D scaleVec)
+		{
+		this.scaleVec = scaleVec;
+		fill();
+		}
+	
 	/*------------------------------*\
 	|*				Get				*|
 	\*------------------------------*/
@@ -30,7 +36,7 @@ public class Matrix4x4Scale extends Matrix4x4
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
-
+	
 	private void fill()
 		{
 		for(int y = 0; y < dim; y++)

@@ -23,6 +23,11 @@ public class Matrix4x4Translation extends Matrix4x4
 	/*------------------------------*\
 	|*				Set				*|
 	\*------------------------------*/
+	public void setTransVec(Vec3D transVec)
+		{
+		this.transVec = transVec;
+		fill();
+		}
 	
 	/*------------------------------*\
 	|*				Get				*|

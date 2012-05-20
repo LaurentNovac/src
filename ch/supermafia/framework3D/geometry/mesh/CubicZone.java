@@ -1,6 +1,8 @@
 
 package ch.supermafia.framework3D.geometry.mesh;
 
+import java.util.Arrays;
+
 import ch.supermafia.framework3D.geometry.vector.Vec3D;
 
 public class CubicZone implements Zone_I
@@ -45,6 +47,20 @@ public class CubicZone implements Zone_I
 	/*------------------------------*\
 	|*				Get				*|
 	\*------------------------------*/
+	
+	@Override
+	public String toString()
+		{
+		StringBuilder builder = new StringBuilder();
+		builder.append("CubicZone [topLeft=");
+		builder.append(topLeft);
+		builder.append(", edgeLength=");
+		builder.append(edgeLength);
+		builder.append(", vertices=");
+		builder.append(Arrays.toString(vertices));
+		builder.append("]");
+		return builder.toString();
+		}
 	
 	public Vec3D[] getVertices()
 		{

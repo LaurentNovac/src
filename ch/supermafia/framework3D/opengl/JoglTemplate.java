@@ -1,5 +1,5 @@
 
-package ch.supermafia.jogl;
+package ch.supermafia.framework3D.opengl;
 
 import java.awt.Dimension;
 

@@ -6,9 +6,11 @@ import java.awt.event.KeyListener;
 
 import javax.media.opengl.GLAutoDrawable;
 
+import ch.supermafia.framework3D.geometry.matrix.Matrix4x4Rotation;
+import ch.supermafia.framework3D.geometry.matrix.Matrix4x4Scale;
 import ch.supermafia.framework3D.geometry.mesh.ParametricMesh3D;
-import ch.supermafia.framework3D.geometry.mesh.PointCloud;
 import ch.supermafia.framework3D.geometry.vector.Vec3D;
+import ch.supermafia.framework3D.geometry.vector.Vec4D;
 import ch.supermafia.framework3D.mathematics.Function.Cresent;
 import ch.supermafia.framework3D.mathematics.Function.FlatFunction;
 import ch.supermafia.framework3D.mathematics.Function.HeightMap;
@@ -19,9 +21,9 @@ import ch.supermafia.framework3D.mathematics.Function.Steiner;
 import ch.supermafia.framework3D.mathematics.Function.TranguloidToTriaxial;
 import ch.supermafia.framework3D.mathematics.Function.TranguloidTrefoil;
 import ch.supermafia.framework3D.mathematics.Function.Triaxial;
+import ch.supermafia.framework3D.opengl.JoglTemplate;
 import ch.supermafia.framework3D.opengl.OpenglGfx;
 import ch.supermafia.framework3D.opengl.ShaderControl;
-import ch.supermafia.jogl.JoglTemplate;
 
 @SuppressWarnings("serial")
 public class JoglMesh extends JoglTemplate
@@ -37,6 +39,11 @@ public class JoglMesh extends JoglTemplate
 		rotY = 0;
 		addListener();
 		pointSize = 1.0f;
+		color = new Vec4D(0.0f, 0.0f, 0.0f, 1.0f);
+		rotationMat = new Matrix4x4Rotation(new Vec3D(0.0f, 0.0f, 1.0f), rotY);
+		scl = 1.0f;
+		sclVec = new Vec3D(scl, scl, scl);
+		scaleMat = new Matrix4x4Scale(sclVec);
 		}
 	
 	/*------------------------------------------------------------------*\
@@ -57,9 +64,10 @@ public class JoglMesh extends JoglTemplate
 			{
 			e.printStackTrace();
 			}
+		
 		shader = new ShaderControl();
-		shader.vsrc = shader.loadShader("ambiantV.txt");
-		shader.fsrc = shader.loadShader("ambiant.txt");
+		shader.setVsrc(shader.loadShader("ambiant.vert"));
+		shader.setFsrc(shader.loadShader("ambiant.frag"));
 		shader.init(gl);
 		}
 	
@@ -67,12 +75,21 @@ public class JoglMesh extends JoglTemplate
 	public void display(GLAutoDrawable drawable)
 		{
 		super.display(drawable);
-		rotY += 1f;
+		//rotY += 0.1f;
+		
 		gl.glTranslatef(-1.5f, 0.0f, -30.0f); // translate left and into the screen
 		
-		gl.glColor3d(0.5f, 0.5f, 0.8f);
-		gl.glRotatef(rotY, 0, 1, 0);
+		rotationMat.setAngle(rotY);
+		sclVec.setX(scl);
+		sclVec.setY(scl);
+		sclVec.setZ(scl);
+		scaleMat.setScaleVec(sclVec);
 		shader.useShader(gl);
+		
+		shader.writeUniform(gl, "color", color);
+		shader.writeUniform(gl, "scaleMatrix", scaleMat);
+		shader.writeUniform(gl, "rotationMatrix", rotationMat);
+		
 		gfx.parametricMeshPoint(mesh, gl, pointSize);
 		shader.dontUseShader(gl);
 		}
@@ -149,10 +166,10 @@ public class JoglMesh extends JoglTemplate
 							reinit();
 							break;
 						case 's':
-							mesh.scale(2.0f);
+							scl *= 2.0f;
 							break;
 						case 'a':
-							mesh.scale(0.5f);
+							scl *= 0.5f;
 							break;
 						case 't':
 							mesh.translate(new Vec3D(1.0f, 0.0f, 0.0f));
@@ -205,5 +222,9 @@ public class JoglMesh extends JoglTemplate
 	//	private PointCloud pointCloud;//FIXME
 	private float pointSize;
 	private ShaderControl shader;
-	
+	private Vec4D color;
+	private Matrix4x4Rotation rotationMat;
+	private Matrix4x4Scale scaleMat;
+	private Vec3D sclVec;
+	float scl = 1.0f;
 	}
