@@ -20,7 +20,7 @@ public class RowMajorTest extends PApplet
 	
 	public void setup()
 		{
-		size(800, 600, P3D);
+		size(1024, 600, P3D);
 		smooth();
 		scaleX = (float)width / (RESX - 1);
 		scaleY = (float)width / (RESY - 1);
@@ -28,7 +28,7 @@ public class RowMajorTest extends PApplet
 		physics = new VerletPhysics3D();
 		springStrength = 0.8f;
 		createParticles();
-		//lockCornerParticles();
+		lockCornerParticles();
 		}
 	
 	public void draw()
@@ -37,18 +37,18 @@ public class RowMajorTest extends PApplet
 		pushMatrix();
 		translate(width / 2, height / 2, 0);
 		rotateX(mouseY * 0.1f);
-		rotateY(mouseX*0.1f);
+		rotateY(mouseX * 0.1f);
 		gfx.fill(TColor.WHITE);
 		gfx.stroke(TColor.WHITE);
 		
 		physics.update();
 		//drawParticles();
-		angle+=0.2;
-		rotateZ(radians(-angle));
+		angle += 0.2;
+		//rotateZ(radians(-angle));
+		//drawSprings();
+		//rotateZ(radians(angle));
 		drawSprings();
-		rotateZ(radians(angle));
-		drawSprings();
-		//jitter();
+		jitter();
 		popMatrix();
 		}
 	
@@ -73,7 +73,7 @@ public class RowMajorTest extends PApplet
 		{
 		for(VerletParticle3D p:physics.particles)
 			{
-			gfx.box(new AABB(p, 3));
+			gfx.box(new AABB(p, 1));
 			}
 		}
 	
@@ -114,7 +114,7 @@ public class RowMajorTest extends PApplet
 	
 	private void jitter()
 		{
-		if(MathUtils.randomChance(0.5f))
+		if (MathUtils.randomChance(0.5f))
 			{
 			physics.particles.get(MathUtils.random(RESX * RESY)).jitter(60);
 			}

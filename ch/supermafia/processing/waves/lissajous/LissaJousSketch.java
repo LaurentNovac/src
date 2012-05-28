@@ -30,7 +30,7 @@ public class LissaJousSketch extends PApplet
 		size(1024, 768, OPENGL);
 		//		smooth();
 		initMinim();
-		isTest = true;
+		isTest = false;
 		frequX = 1;
 		frequY = 1;
 		frequCarrier = 1;
