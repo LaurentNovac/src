@@ -28,19 +28,17 @@ public class CASketch2D extends PApplet
 		if (step < height)
 			{
 			step++;
+			if (thread != null) try
+				{
+				thread.join();
+				}
+			catch (InterruptedException e)
+				{
+				e.printStackTrace();
+				}
 			stepRule942();
 			image(imageDst, 0, 0);
 			}
-		else
-			{
-			step = 0;
-			initialState();
-			}
-		
-		}
-	
-	public void mousePressed()
-		{
 		
 		}
 	
@@ -85,6 +83,7 @@ public class CASketch2D extends PApplet
 	
 	private void stepRule942()
 		{
+		System.out.println("render");
 		for(int i = 1; i < width - 1; i++)
 			{
 			for(int j = 1; j < height - 1; j++)
@@ -121,13 +120,22 @@ public class CASketch2D extends PApplet
 	
 	private void saveStep()
 		{
-		for(int i = 0; i < width; i++)
-			{
-			for(int j = 0; j < height; j++)
-				{
-				imageSrc.set(i, j, imageDst.get(i, j));
-				}
-			}
+		System.out.println("save");
+		thread = new Thread(new Runnable()
+			{	
+				@Override
+				public void run()
+					{
+					for(int i = 0; i < width; i++)
+						{
+						for(int j = 0; j < height; j++)
+							{
+							imageSrc.set(i, j, imageDst.get(i, j));
+							}
+						}
+					}
+			});
+		thread.start();
 		}
 	
 	/*------------------------------------------------------------------*\
@@ -138,4 +146,5 @@ public class CASketch2D extends PApplet
 	private int black;
 	private int white;
 	private int step;
+	private Thread thread;
 	}
