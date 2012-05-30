@@ -211,13 +211,6 @@ public class ParametricMesh3D implements Mesh3D_I
 		return builder.toString();
 		}
 	
-	@Override
-	public Mesh3D_I polygonize()
-		{
-		// TODO Auto-generated method stub
-		return null;
-		}
-	
 	synchronized public void distort(float distortionFactor)
 		{
 		this.distortionFact = distortionFactor;

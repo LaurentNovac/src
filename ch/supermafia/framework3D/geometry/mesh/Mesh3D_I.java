@@ -22,6 +22,4 @@ public interface Mesh3D_I
 	
 	public Mesh3D_I rotateZ(float angle);
 	
-	public Mesh3D_I polygonize();
-	
 	}

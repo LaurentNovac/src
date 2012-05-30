@@ -78,7 +78,6 @@ public class JoglMesh extends JoglTemplate
 		//rotY += 0.1f;
 		
 		gl.glTranslatef(-1.5f, 0.0f, -30.0f); // translate left and into the screen
-		
 		rotationMat.setAngle(rotY);
 		sclVec.setX(scl);
 		sclVec.setY(scl);

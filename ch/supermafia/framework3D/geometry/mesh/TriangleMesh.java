@@ -81,12 +81,6 @@ public class TriangleMesh implements Mesh3D_I
 		return null;
 		}
 	
-	@Override
-	public Mesh3D_I polygonize()
-		{
-		// TODO Auto-generated method stub
-		return null;
-		}
 	
 	/*------------------------------*\
 	|*				Set				*|

@@ -26,14 +26,14 @@ public class OpenglGfx
 	\*------------------------------------------------------------------*/
 	public void createParametricMeshVBO(ParametricMesh3D parametricMesh3D, GL2 gl)
 		{
-		points = Buffers.newDirectFloatBuffer(new float[parametricMesh3D.getuCount() * parametricMesh3D.getvCount() * 3 * 2]);
+		points = Buffers.newDirectFloatBuffer(new float[parametricMesh3D.getuCount() * parametricMesh3D.getvCount() * 3 * 3]);
 		
 		//VBO creation
 		gl.glGenBuffers(1, VBOId, 0);
 		
 		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, VBOId[0]); //we bind the VBO as we want to modify it
 		
-		gl.glBufferData(GL2.GL_ARRAY_BUFFER, parametricMesh3D.getuCount() * parametricMesh3D.getvCount() * 2, points, GL2.GL_STREAM_DRAW);//memory allocation, GL_STREAM_DRAW is good when we update the datas at each frame
+		gl.glBufferData(GL2.GL_ARRAY_BUFFER, parametricMesh3D.getuCount() * parametricMesh3D.getvCount() * 3 * 3, points, GL2.GL_STREAM_DRAW);//memory allocation, GL_STREAM_DRAW is good when we update the datas at each frame
 		
 		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, 0);//unbind buffer
 		}
@@ -65,6 +65,7 @@ public class OpenglGfx
 	private void drawGridQuad(ParametricMesh3D parametricMesh3D, GL2 gl)//in main thread but it still has access to table, so synchronized must be set
 		{
 		FloatBuffer points = Buffers.newDirectFloatBuffer(new float[parametricMesh3D.getuCount() * parametricMesh3D.getvCount() * 3 * 2]);
+		
 		points.rewind();
 		for(int iv = 0; iv < parametricMesh3D.getvCount(); iv++)
 			{
@@ -148,7 +149,7 @@ public class OpenglGfx
 	private void uploadDataToDevice(ParametricMesh3D parametricMesh3D, GL2 gl)
 		{
 		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, VBOId[0]);
-		gl.glBufferSubData(GL2.GL_ARRAY_BUFFER, 0, parametricMesh3D.getuCount() * parametricMesh3D.getvCount() * 2, points);//transfer data to device
+		gl.glBufferSubData(GL2.GL_ARRAY_BUFFER, 0, parametricMesh3D.getuCount() * parametricMesh3D.getvCount() * 3 * 3, points);//transfer data to device
 		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, 0);
 		}
 	
@@ -157,7 +158,7 @@ public class OpenglGfx
 		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, VBOId[0]);
 		gl.glEnableClientState(GL2.GL_VERTEX_ARRAY);//activation
 		gl.glVertexPointer(3, GL2.GL_FLOAT, 0, VBOId[0]);//data specification
-		gl.glDrawArrays(GL2.GL_POINTS, 0, parametricMesh3D.getuCount() * parametricMesh3D.getvCount() * 2);//rendering
+		gl.glDrawArrays(GL2.GL_POINTS, 0, parametricMesh3D.getuCount() * parametricMesh3D.getvCount() * 3 * 3);//rendering
 		gl.glDisableClientState(GL2.GL_VERTEX_ARRAY);//deactivation
 		gl.glBindBuffer(GL2.GL_ARRAY_BUFFER, 0);
 		}

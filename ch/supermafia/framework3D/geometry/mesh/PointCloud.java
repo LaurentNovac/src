@@ -144,13 +144,6 @@ public class PointCloud implements Mesh3D_I ,Iterable<Vec3D>
 		return this;
 		}
 	
-	@Override
-	public Mesh3D_I polygonize()
-		{
-		// TODO Auto-generated method stub
-		return null;
-		}
-	
 	/*------------------------------*\
 	|*				Get				*|
 	\*------------------------------*/

@@ -1,15 +1,12 @@
 
 package ch.supermafia.framework3D.processing;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import ch.supermafia.framework3D.geometry.mesh.CubicZone;
 import ch.supermafia.framework3D.geometry.mesh.ParametricMesh3D;
 import ch.supermafia.framework3D.geometry.mesh.PointCloud;
+import ch.supermafia.framework3D.geometry.mesh.VoxelSpace;
 import ch.supermafia.framework3D.geometry.vector.Vec3D;
 import processing.core.PApplet;
-import processing.core.PConstants;
 
 public class ProcessingGfx
 	{
@@ -28,6 +25,11 @@ public class ProcessingGfx
 	public void mesh(ParametricMesh3D parametricMesh3D)
 		{
 		drawGrid(parametricMesh3D);
+		}
+	
+	public void mesh(VoxelSpace voxelSpace, float edgeSize)
+		{
+		drawVoxelSpace(voxelSpace, edgeSize);
 		}
 	
 	public void meshLines(ParametricMesh3D parametricMesh3D)
@@ -140,6 +142,25 @@ public class ProcessingGfx
 				}
 			context.endShape();
 			}
+		}
+	
+	private void drawVoxelSpace(VoxelSpace voxelSpace, float edgeSize)
+		{
+		Vec3D[][][] vertices = voxelSpace.getVertices();
+		context.beginShape(PApplet.POINTS);
+		for(int i = 0; i < voxelSpace.getResX(); i++)
+			{
+			for(int j = 0; j < voxelSpace.getResY(); j++)
+				{
+				for(int k = 0; k < voxelSpace.getResZ(); k++)
+					{
+					context.stroke(vertices[i][j][k].x(), vertices[i][j][k].y(), vertices[i][j][k].z());
+					context.fill(vertices[i][j][k].x(), vertices[i][j][k].y(), vertices[i][j][k].z());
+					context.vertex(i * edgeSize, j * edgeSize, k * edgeSize);
+					}
+				}
+			}
+		context.endShape();
 		}
 	
 	private void drawPointCloudPoint(PointCloud pointCloud)

@@ -1,6 +1,11 @@
 
 package ch.supermafia.framework3D.use.frameworkDemo.processing;
 
+import java.util.List;
+
+import controlP5.ControlP5;
+import controlP5.ControlWindow;
+import controlP5.ControllerInterface;
 import ch.supermafia.framework3D.geometry.matrix.Matrix4x4Rotation;
 import ch.supermafia.framework3D.geometry.mesh.ParametricMesh3DUnlekker;
 import ch.supermafia.framework3D.geometry.vector.Vec3D;
@@ -37,7 +42,7 @@ public class Sketch3D extends PApplet
 		nav.setTranslation(width / 2, height / 2, 0);
 		try
 			{
-			mesh = new ParametricMesh3DUnlekker(100, 100, new TranguloidTrefoil(), this);
+			mesh = new ParametricMesh3DUnlekker(150, 150, new TranguloidTrefoil(), this);
 			uMin = mesh.getuMin();
 			uMax = mesh.getuMax();
 			vMin = mesh.getvMin();
@@ -59,7 +64,9 @@ public class Sketch3D extends PApplet
 		isColReverse = false;
 		t = 0;
 		isPrint = false;
+		isQuad = false;
 		updateGui();
+		controlWindow = new ControlWindow(gui, this);
 		rotY = 0.0f;
 		strokeWeight(1.0f);
 		}
@@ -78,7 +85,14 @@ public class Sketch3D extends PApplet
 			{
 			distortMesh();
 			}
-		gfx.meshPoints(mesh);
+		if (isQuad)
+			{
+			gfx.mesh(mesh);
+			}
+		else
+			{
+			gfx.meshPoints(mesh);
+			}
 		popMatrix();
 		hint(DISABLE_DEPTH_TEST);
 		
@@ -90,7 +104,7 @@ public class Sketch3D extends PApplet
 			isPrint = false;
 			}
 		
-		//gui.draw();
+		gui.draw();
 		colorTool.drawColors(this, 0, height - 100);
 		text(frameRate + "", width - 100, height - 10);
 		}
@@ -208,15 +222,16 @@ public class Sketch3D extends PApplet
 		mesh.setuMax(uMax);
 		mesh.setvMin(vMin);
 		mesh.setvMax(vMax);
-		gui = new USimpleGUI(this);
+		gui = new ControlP5(this);
 		gui.addButton("reinit");
-		gui.addSlider("uMin", uMin, mesh.getuMin(), mesh.getuMax());
-		gui.addSlider("uMax", uMax, mesh.getuMin(), mesh.getuMax());
-		gui.addSlider("vMin", vMin, mesh.getvMin(), mesh.getvMax());
-		gui.addSlider("vMax", vMax, mesh.getvMin(), mesh.getvMax());
-		gui.addSlider("distortionFactor", distortionFactor, 0.0f, 3.0f);
-		gui.addSlider("scl", scl, 10, width);
-		gui.addSlider("lerpParam", lerpParam, 0.0f, 1.0f);
+		gui.addSlider("uMin", mesh.getuMin(), mesh.getuMax());
+		gui.addSlider("uMax", mesh.getuMin(), mesh.getuMax());
+		gui.addSlider("vMin", mesh.getvMin(), mesh.getvMax());
+		gui.addSlider("vMax", mesh.getvMin(), mesh.getvMax());
+		gui.addSlider("scl", 10, width);
+		gui.addSlider("lerpParam", 0.0f, 1.0f);
+		gui.addButton("quad");
+		gui.addButton("points");
 		gui.addButton("toSTL");
 		}
 	
@@ -298,12 +313,28 @@ public class Sketch3D extends PApplet
 			}
 		}
 	
+	private boolean isOverGui()
+		{
+		return gui.window(this).isMouseOver();
+		}
+	
+	@SuppressWarnings("unused")
+	private void quad()
+		{
+		isQuad = true;
+		}
+	
+	@SuppressWarnings("unused")
+	private void points()
+		{
+		isQuad=false;
+		}
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
 	private ParametricMesh3DUnlekker mesh;
 	private UNav3D nav;
-	private USimpleGUI gui;
+	private ControlP5 gui;
 	public float uMin;
 	public float uMax;
 	private float vMin;
@@ -321,6 +352,8 @@ public class Sketch3D extends PApplet
 	private boolean isPrint;
 	private float lerpParam;
 	private float lastLerpParam;
+	private boolean isQuad;
 	private ProcessingGfx gfx;
 	private float rotY;
+	private ControlWindow controlWindow;
 	}

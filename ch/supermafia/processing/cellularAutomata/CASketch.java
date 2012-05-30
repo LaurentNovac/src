@@ -27,7 +27,7 @@ public class CASketch extends PApplet
 		if (step < height)
 			{
 			step++;
-			stepRule90();
+			stepRule30();
 			image(imageP, 0, 0);
 			}
 		else
