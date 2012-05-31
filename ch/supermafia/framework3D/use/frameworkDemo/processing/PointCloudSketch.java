@@ -37,7 +37,7 @@ public class PointCloudSketch extends PApplet
 			pointCloud.addPoint(new Vec3D(p.x, p.y));
 			}
 		rippling = new Rippling(1, width / 3);
-		pointCloud.applyFunction(new SinDistSquared());
+		pointCloud.applyFunction(rippling);
 		}
 	
 	public void draw()
@@ -48,7 +48,7 @@ public class PointCloudSketch extends PApplet
 		nav.doTransforms();
 		strokeWeight(4.0f);
 		gfx.meshPoints(pointCloud);
-		//pointCloud.applyFunction(rippling);
+		pointCloud.applyFunction(rippling);
 		}
 	
 	/*------------------------------------------------------------------*\

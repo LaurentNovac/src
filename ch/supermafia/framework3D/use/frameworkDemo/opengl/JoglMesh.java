@@ -44,6 +44,7 @@ public class JoglMesh extends JoglTemplate
 		scl = 1.0f;
 		sclVec = new Vec3D(scl, scl, scl);
 		scaleMat = new Matrix4x4Scale(sclVec);
+		lerpParam = 0.0f;
 		}
 	
 	/*------------------------------------------------------------------*\
@@ -57,7 +58,7 @@ public class JoglMesh extends JoglTemplate
 		gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		try
 			{
-			mesh = new ParametricMesh3D(500, 500, new FlatFunction());
+			mesh = new ParametricMesh3D(200, 200, new FlatFunction());
 			gfx.createParametricMeshVBO(mesh, gl);
 			}
 		catch (InterruptedException e)
@@ -171,10 +172,19 @@ public class JoglMesh extends JoglTemplate
 							scl *= 0.5f;
 							break;
 						case 't':
-							mesh.translate(new Vec3D(1.0f, 0.0f, 0.0f));
+							mesh.translate(new Vec3D(3.0f, 0.0f, 0.0f));
 							break;
 						case 'i':
 							mesh.applyIdentity();
+							break;
+						case 'x':
+							mesh.rotateX((float)(Math.PI / 10));
+							break;
+						case 'y':
+							mesh.rotateY((float)(Math.PI / 10));
+							break;
+						case 'z':
+							mesh.rotateZ((float)(Math.PI / 10));
 							break;
 						case '+':
 							pointSize++;
@@ -186,7 +196,18 @@ public class JoglMesh extends JoglTemplate
 								pointSize = 1.0f;
 								}
 							break;
-						
+						case 'w':
+							lerpParam += 0.1f;
+							if (lerpParam >= 1.0f) lerpParam = 1.0f;
+							mesh.getFunction().setLerpParam(lerpParam);
+							mesh.computeTable();
+							break;
+						case 'q':
+							lerpParam -= 0.1f;
+							if (lerpParam <= 0.0f) lerpParam = 0.0f;
+							mesh.getFunction().setLerpParam(lerpParam);
+							mesh.computeTable();
+							break;
 						default:
 							break;
 						}
@@ -225,5 +246,6 @@ public class JoglMesh extends JoglTemplate
 	private Matrix4x4Rotation rotationMat;
 	private Matrix4x4Scale scaleMat;
 	private Vec3D sclVec;
+	private float lerpParam;
 	float scl = 1.0f;
 	}

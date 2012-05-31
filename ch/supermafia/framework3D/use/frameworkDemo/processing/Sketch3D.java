@@ -40,6 +40,7 @@ public class Sketch3D extends PApplet
 		gfx = new ProcessingGfx(this);
 		nav = new UNav3D(this);
 		nav.setTranslation(width / 2, height / 2, 0);
+		smooth();
 		try
 			{
 			mesh = new ParametricMesh3DUnlekker(150, 150, new TranguloidTrefoil(), this);
@@ -327,8 +328,9 @@ public class Sketch3D extends PApplet
 	@SuppressWarnings("unused")
 	private void points()
 		{
-		isQuad=false;
+		isQuad = false;
 		}
+	
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
