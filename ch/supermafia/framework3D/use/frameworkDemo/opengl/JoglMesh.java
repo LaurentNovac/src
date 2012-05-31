@@ -90,7 +90,7 @@ public class JoglMesh extends JoglTemplate
 		shader.writeUniform(gl, "scaleMatrix", scaleMat);
 		shader.writeUniform(gl, "rotationMatrix", rotationMat);
 		
-		gfx.parametricMeshPoint(mesh, gl, pointSize);
+		gfx.meshPoints(mesh, gl, pointSize);
 		shader.dontUseShader(gl);
 		}
 	

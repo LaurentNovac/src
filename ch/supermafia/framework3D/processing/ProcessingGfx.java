@@ -47,6 +47,11 @@ public class ProcessingGfx
 		drawPointCloudPoint(pointCloud);
 		}
 	
+	public void meshPoints(VoxelSpace voxelSpace, float edgeSize)
+		{
+		drawVoxelSpacePoints(voxelSpace, edgeSize);
+		}
+	
 	public void meshLines(PointCloud pointCloud)
 		{
 		drawPointCloudLines(pointCloud);
@@ -145,6 +150,25 @@ public class ProcessingGfx
 		}
 	
 	private void drawVoxelSpace(VoxelSpace voxelSpace, float edgeSize)
+		{
+		Vec3D[][][] vertices = voxelSpace.getVertices();
+		context.beginShape(PApplet.QUAD_STRIP);
+		for(int i = 0; i < voxelSpace.getResX(); i++)
+			{
+			for(int j = 0; j < voxelSpace.getResY(); j++)
+				{
+				for(int k = 0; k < voxelSpace.getResZ(); k++)
+					{
+					context.stroke(vertices[i][j][k].x(), vertices[i][j][k].y(), vertices[i][j][k].z());
+					context.fill(vertices[i][j][k].x(), vertices[i][j][k].y(), vertices[i][j][k].z());
+					context.vertex(i * edgeSize, j * edgeSize, k * edgeSize);
+					}
+				}
+			}
+		context.endShape();
+		}
+	
+	private void drawVoxelSpacePoints(VoxelSpace voxelSpace, float edgeSize)
 		{
 		Vec3D[][][] vertices = voxelSpace.getVertices();
 		context.beginShape(PApplet.POINTS);

@@ -43,17 +43,17 @@ public class OpenglGfx
 		gl.glDeleteBuffers(1, VBOId, 0);
 		}
 	
-	public void parametricMesh(ParametricMesh3D parametricMesh3D, GL2 gl)
+	public void mesh(ParametricMesh3D parametricMesh3D, GL2 gl)
 		{
 		drawGridQuad(parametricMesh3D, gl);
 		}
 	
-	public void parametricMeshPoint(ParametricMesh3D parametricMesh3D, GL2 gl, float pointSize)
+	public void meshPoints(ParametricMesh3D parametricMesh3D, GL2 gl, float pointSize)
 		{
 		drawGridPoints(parametricMesh3D, gl, pointSize);
 		}
 	
-	public void parametricMeshLines(ParametricMesh3D parametricMesh3D, GL2 gl)
+	public void meshLines(ParametricMesh3D parametricMesh3D, GL2 gl)
 		{
 		drawGridLines(parametricMesh3D, gl);
 		}
