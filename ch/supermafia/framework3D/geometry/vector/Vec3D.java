@@ -56,6 +56,11 @@ public class Vec3D
 		return z;
 		}
 	
+	public Vec3D getNormal()
+		{
+		return this.normal;
+		}
+	
 	/**
 	 * convenience getter
 	 * @return x coordinate
@@ -100,6 +105,11 @@ public class Vec3D
 	public void setZ(float z)
 		{
 		this.z = z;
+		}
+	
+	public void setNormal(Vec3D normal)
+		{
+		this.normal = normal;
 		}
 	
 	/*------------------------------------------------------------------*\
@@ -148,9 +158,9 @@ public class Vec3D
 	
 	public Vec3D sub(Vec3D v)
 		{
-		this.x-=v.x;
-		this.y-=v.y;
-		this.z-=v.z;
+		this.x -= v.x;
+		this.y -= v.y;
+		this.z -= v.z;
 		return this;
 		}
 	
@@ -227,7 +237,7 @@ public class Vec3D
 		transform();
 		return this;
 		}
-
+	
 	public Vec3D rotateX(float angle)
 		{
 		this.transMatrix = new Matrix4x4Rotation(new Vec3D(1.0f, 0.0f, 0.0f), angle);
@@ -318,13 +328,6 @@ public class Vec3D
 		Vec3D vUnit = v.normalize2();
 		vUnit.mult(projNorm);
 		return vUnit;
-		}
-	
-	public Vec3D computeNormal()
-		{
-		//TODO
-		normal = new Vec3D(0, 0, 0);
-		return normal;
 		}
 	
 	public boolean isEqual(Vec3D v, float epsilon)

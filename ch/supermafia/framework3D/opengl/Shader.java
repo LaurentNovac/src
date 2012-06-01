@@ -4,12 +4,10 @@ package ch.supermafia.framework3D.opengl;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.nio.ByteBuffer;
-import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
 import ch.supermafia.framework3D.geometry.matrix.Matrix4x4;
@@ -18,7 +16,7 @@ import ch.supermafia.framework3D.geometry.vector.Vec4D;
 
 //The shader control class.
 //loads and starts/stops shaders.
-public class ShaderControl
+public class Shader
 	{
 	
 	// this will attach the shaders
@@ -109,7 +107,7 @@ public class ShaderControl
 		return shaderprogram;
 		}
 	
-	// when you have finished drawing everything that you want using the shaders, 
+	// when you have finished drawing everything that you want, using the shaders, 
 	// call this to stop further shader interactions.
 	public void dontUseShader(GL2 gl)
 		{

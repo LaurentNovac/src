@@ -8,6 +8,7 @@ import ch.supermafia.framework3D.processing.ProcessingGfx;
 import processing.core.PApplet;
 import unlekker.modelbuilder.UNav3D;
 
+@SuppressWarnings("serial")
 public class ZoneIntersectionSketch extends PApplet
 	{
 	
@@ -20,12 +21,12 @@ public class ZoneIntersectionSketch extends PApplet
 		size(800, 600, P3D);
 		gfx = new ProcessingGfx(this);
 		cubicZone = new CubicZone(new Vec3D(100, 100), 100);
-		v = cubicZone.getVertices();
 		noStroke();
 		nav = new UNav3D(this);
 		pointCloud = new PointCloud();
 		fillPCL();
 		mousePos = new Vec3D();
+		smooth();
 		}
 	
 	public void draw()
@@ -80,7 +81,6 @@ public class ZoneIntersectionSketch extends PApplet
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
 	private CubicZone cubicZone;
-	private Vec3D[] v;
 	private ProcessingGfx gfx;
 	private UNav3D nav;
 	private PointCloud pointCloud;

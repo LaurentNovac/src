@@ -23,7 +23,7 @@ import ch.supermafia.framework3D.mathematics.Function.TranguloidTrefoil;
 import ch.supermafia.framework3D.mathematics.Function.Triaxial;
 import ch.supermafia.framework3D.opengl.JoglTemplate;
 import ch.supermafia.framework3D.opengl.OpenglGfx;
-import ch.supermafia.framework3D.opengl.ShaderControl;
+import ch.supermafia.framework3D.opengl.Shader;
 
 @SuppressWarnings("serial")
 public class JoglMesh extends JoglTemplate
@@ -66,7 +66,7 @@ public class JoglMesh extends JoglTemplate
 			e.printStackTrace();
 			}
 		
-		shader = new ShaderControl();
+		shader = new Shader();
 		shader.setVsrc(shader.loadShader("ambiant.vert"));
 		shader.setFsrc(shader.loadShader("ambiant.frag"));
 		shader.init(gl);
@@ -241,7 +241,7 @@ public class JoglMesh extends JoglTemplate
 	private ParametricMesh3D mesh;
 	//	private PointCloud pointCloud;//FIXME
 	private float pointSize;
-	private ShaderControl shader;
+	private Shader shader;
 	private Vec4D color;
 	private Matrix4x4Rotation rotationMat;
 	private Matrix4x4Scale scaleMat;

@@ -1,5 +1,5 @@
 
-package ch.supermafia.processing.waves.ripplingEffect;
+package ch.supermafia.framework3D.use.frameworkDemo.processing;
 
 import codeanticode.syphon.SyphonServer;
 import ch.supermafia.framework3D.geometry.mesh.ParametricMesh3D;
@@ -35,7 +35,6 @@ public class RipplingEffect3D extends PApplet
 			{
 			e.printStackTrace();
 			}
-		textMode(SCREEN);
 		canvas = createGraphics(width, height, OPENGL);
 		syphonServer = new SyphonServer(this, "Rippling");
 		}
@@ -61,6 +60,11 @@ public class RipplingEffect3D extends PApplet
 		image(canvas, 0, 0);
 		fill(255);
 		text("" + frameRate, width - 100, height - 30);
+		}
+	
+	public void stop()
+		{
+		syphonServer.stop();
 		}
 	
 	/*------------------------------------------------------------------*\

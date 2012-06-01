@@ -43,13 +43,6 @@ public class TestVec3D
 		}
 	
 	@Test
-	public void testComputeNormal()
-		{
-		//TODO
-		assertTrue(false);
-		}
-	
-	@Test
 	public void testNorm()
 		{
 		Vec3D v = new Vec3D(1.0f, 0.0f, 0.0f);
