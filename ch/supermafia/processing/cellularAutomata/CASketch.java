@@ -27,7 +27,7 @@ public class CASketch extends PApplet
 		if (step < height)
 			{
 			step++;
-			stepRule30();
+			stepRule90();
 			image(imageP, 0, 0);
 			}
 		else
@@ -35,7 +35,6 @@ public class CASketch extends PApplet
 			step = 0;
 			initialState();
 			}
-		
 		}
 	
 	public void mousePressed()
