@@ -1,8 +1,8 @@
 
 package ch.supermafia.framework3D.UI;
 
-import ch.supermafia.framework3D.UI.model.Widget;
-import ch.supermafia.framework3D.UI.widgets.model.Quad;
+import ch.supermafia.framework3D.UI.view.WidgetView_I;
+import ch.supermafia.framework3D.UI.widgets.view.QuadViewProcessing;
 
 public class QuadGroup extends WidgetGroup
 	{
@@ -16,10 +16,10 @@ public class QuadGroup extends WidgetGroup
 	\*------------------------------------------------------------------*/
 	public void select()
 		{
-		for(Widget widget:widgets)
+		for(WidgetView_I widget:widgets)
 			{
-			Quad quad = (Quad)widget;
-			quad.setSelected(true);
+			QuadViewProcessing q = (QuadViewProcessing)widget;
+			q.getQuad().setSelected(true);
 			}
 		}
 	/*------------------------------*\

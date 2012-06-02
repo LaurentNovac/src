@@ -6,6 +6,7 @@ import ch.supermafia.framework3D.UI.widgets.model.Quad;
 import ch.supermafia.framework3D.UI.widgets.view.QuadViewProcessing;
 import processing.core.PApplet;
 
+@SuppressWarnings("serial")
 public class UITest extends PApplet
 	{
 	
@@ -31,8 +32,8 @@ public class UITest extends PApplet
 			{
 			case 'a':
 				Quad q = new Quad();
-				q.add(new QuadViewProcessing(q));
-				quadGroup.add(q);
+				QuadViewProcessing qView = new QuadViewProcessing(q);
+				quadGroup.add(qView);
 				quadGroup.draw();
 				break;
 			case 's':

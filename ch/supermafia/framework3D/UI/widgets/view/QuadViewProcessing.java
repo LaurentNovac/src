@@ -13,9 +13,10 @@ public class QuadViewProcessing implements WidgetView_I
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 	
-	public QuadViewProcessing(Quad quad)
+	public QuadViewProcessing(ProcessingGfx gfx, Quad quad)
 		{
 		this.quad = quad;
+		this.gfx = gfx;
 		}
 	
 	/*------------------------------------------------------------------*\
@@ -41,6 +42,10 @@ public class QuadViewProcessing implements WidgetView_I
 	/*------------------------------*\
 	|*				Get				*|
 	\*------------------------------*/
+	public Quad getQuad()
+		{
+		return quad;
+		}
 	
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
@@ -51,5 +56,6 @@ public class QuadViewProcessing implements WidgetView_I
 	\*------------------------------------------------------------------*/
 	
 	private Quad quad;
+	
 	private ProcessingGfx gfx;
 	}

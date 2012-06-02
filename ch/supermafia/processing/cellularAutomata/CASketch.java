@@ -14,7 +14,7 @@ public class CASketch extends PApplet
 	
 	public void setup()
 		{
-		size(800, 800);
+		size(1024, 768);
 		imageP = new PImage(width, height);
 		black = color(0, 0, 0);
 		white = color(255, 255, 255);
@@ -27,7 +27,7 @@ public class CASketch extends PApplet
 		if (step < height)
 			{
 			step++;
-			stepRule90();
+			stepRule05();
 			image(imageP, 0, 0);
 			}
 		else
@@ -39,7 +39,6 @@ public class CASketch extends PApplet
 	
 	public void mousePressed()
 		{
-		
 		}
 	
 	/*------------------------------------------------------------------*\
@@ -66,6 +65,199 @@ public class CASketch extends PApplet
 		for(int i = 1; i < width - 1; i++)
 			{
 			if ((imageP.get(i - 1, step - 1) == black) ^ (imageP.get(i + 1, step - 1) == black))
+				{
+				imageP.set(i, step, black);
+				}
+			}
+		}
+	
+	private void stepRule250()
+		{
+		for(int i = 1; i < width - 1; i++)
+			{
+			if ((imageP.get(i - 1, step - 1) == black) && (imageP.get(i, step - 1) == black) && (imageP.get(i+1, step - 1)) == black)
+				{
+				imageP.set(i, step, black);
+				}
+			if ((imageP.get(i - 1, step - 1) == black) && (imageP.get(i, step - 1)) == black && (imageP.get(i + 1, step - 1) == white))
+				{
+				imageP.set(i, step, black);
+				}
+			if ((imageP.get(i - 1, step - 1) == black) && (imageP.get(i, step - 1)) == white && (imageP.get(i + 1, step - 1) == black))
+				{
+				imageP.set(i, step, black);
+				}
+			if ((imageP.get(i - 1, step - 1) == black) && (imageP.get(i, step - 1)) == white && (imageP.get(i + 1, step - 1) == white))
+				{
+				imageP.set(i, step, black);
+				}
+			if ((imageP.get(i - 1, step - 1) == white) && (imageP.get(i, step - 1)) == black && (imageP.get(i + 1, step - 1) == black))
+				{
+				imageP.set(i, step, black);
+				}
+			if ((imageP.get(i - 1, step - 1) == white) && (imageP.get(i, step - 1)) == black && (imageP.get(i + 1, step - 1) == white))
+				{
+				imageP.set(i, step, white);
+				}
+			if ((imageP.get(i - 1, step - 1) == white) && (imageP.get(i, step - 1)) == white && (imageP.get(i + 1, step - 1) == black))
+				{
+				imageP.set(i, step, black);
+				}
+			if ((imageP.get(i - 1, step - 1) == white) && (imageP.get(i, step - 1)) == white && (imageP.get(i + 1, step - 1) == white))
+				{
+				imageP.set(i, step, white);
+				}
+			}
+		}
+	private void stepRule118()
+		{
+		for(int i = 1; i < width - 1; i++)
+			{
+			if ((imageP.get(i - 1, step - 1) == black) && (imageP.get(i, step - 1) == black) && (imageP.get(i+1, step - 1)) == black)
+				{
+				imageP.set(i, step, white);
+				}
+			if ((imageP.get(i - 1, step - 1) == black) && (imageP.get(i, step - 1)) == black && (imageP.get(i + 1, step - 1) == white))
+				{
+				imageP.set(i, step, black);
+				}
+			if ((imageP.get(i - 1, step - 1) == black) && (imageP.get(i, step - 1)) == white && (imageP.get(i + 1, step - 1) == black))
+				{
+				imageP.set(i, step, black);
+				}
+			if ((imageP.get(i - 1, step - 1) == black) && (imageP.get(i, step - 1)) == white && (imageP.get(i + 1, step - 1) == white))
+				{
+				imageP.set(i, step, black);
+				}
+			if ((imageP.get(i - 1, step - 1) == white) && (imageP.get(i, step - 1)) == black && (imageP.get(i + 1, step - 1) == black))
+				{
+				imageP.set(i, step, white);
+				}
+			if ((imageP.get(i - 1, step - 1) == white) && (imageP.get(i, step - 1)) == black && (imageP.get(i + 1, step - 1) == white))
+				{
+				imageP.set(i, step, black);
+				}
+			if ((imageP.get(i - 1, step - 1) == white) && (imageP.get(i, step - 1)) == white && (imageP.get(i + 1, step - 1) == black))
+				{
+				imageP.set(i, step, black);
+				}
+			if ((imageP.get(i - 1, step - 1) == white) && (imageP.get(i, step - 1)) == white && (imageP.get(i + 1, step - 1) == white))
+				{
+				imageP.set(i, step, white);
+				}
+			}
+		}
+	private void stepRule05()
+		{
+		for(int i = 1; i < width - 1; i++)
+			{
+			if ((imageP.get(i - 1, step - 1) == black) && (imageP.get(i, step - 1) == black) && (imageP.get(i+1, step - 1)) == black)
+				{
+				imageP.set(i, step, white);
+				}
+			if ((imageP.get(i - 1, step - 1) == black) && (imageP.get(i, step - 1)) == black && (imageP.get(i + 1, step - 1) == white))
+				{
+				imageP.set(i, step, black);
+				}
+			if ((imageP.get(i - 1, step - 1) == black) && (imageP.get(i, step - 1)) == white && (imageP.get(i + 1, step - 1) == black))
+				{
+				imageP.set(i, step, black);
+				}
+			if ((imageP.get(i - 1, step - 1) == black) && (imageP.get(i, step - 1)) == white && (imageP.get(i + 1, step - 1) == white))
+				{
+				imageP.set(i, step, white);
+				}
+			if ((imageP.get(i - 1, step - 1) == white) && (imageP.get(i, step - 1)) == black && (imageP.get(i + 1, step - 1) == black))
+				{
+				imageP.set(i, step, black);
+				}
+			if ((imageP.get(i - 1, step - 1) == white) && (imageP.get(i, step - 1)) == black && (imageP.get(i + 1, step - 1) == white))
+				{
+				imageP.set(i, step, white);
+				}
+			if ((imageP.get(i - 1, step - 1) == white) && (imageP.get(i, step - 1)) == white && (imageP.get(i + 1, step - 1) == black))
+				{
+				imageP.set(i, step, white);
+				}
+			if ((imageP.get(i - 1, step - 1) == white) && (imageP.get(i, step - 1)) == white && (imageP.get(i + 1, step - 1) == white))
+				{
+				imageP.set(i, step, black);
+				}
+			}
+		}
+	
+	private void stepRule57()
+		{
+		for(int i = 1; i < width - 1; i++)
+			{
+			if ((imageP.get(i - 1, step - 1) == black) && (imageP.get(i, step - 1) == black) && (imageP.get(i+1, step - 1)) == black)
+				{
+				imageP.set(i, step, white);
+				}
+			if ((imageP.get(i - 1, step - 1) == black) && (imageP.get(i, step - 1)) == black && (imageP.get(i + 1, step - 1) == white))
+				{
+				imageP.set(i, step, white);
+				}
+			if ((imageP.get(i - 1, step - 1) == black) && (imageP.get(i, step - 1)) == white && (imageP.get(i + 1, step - 1) == black))
+				{
+				imageP.set(i, step, black);
+				}
+			if ((imageP.get(i - 1, step - 1) == black) && (imageP.get(i, step - 1)) == white && (imageP.get(i + 1, step - 1) == white))
+				{
+				imageP.set(i, step, black);
+				}
+			if ((imageP.get(i - 1, step - 1) == white) && (imageP.get(i, step - 1)) == black && (imageP.get(i + 1, step - 1) == black))
+				{
+				imageP.set(i, step, black);
+				}
+			if ((imageP.get(i - 1, step - 1) == white) && (imageP.get(i, step - 1)) == black && (imageP.get(i + 1, step - 1) == white))
+				{
+				imageP.set(i, step, white);
+				}
+			if ((imageP.get(i - 1, step - 1) == white) && (imageP.get(i, step - 1)) == white && (imageP.get(i + 1, step - 1) == black))
+				{
+				imageP.set(i, step, white);
+				}
+			if ((imageP.get(i - 1, step - 1) == white) && (imageP.get(i, step - 1)) == white && (imageP.get(i + 1, step - 1) == white))
+				{
+				imageP.set(i, step, black);
+				}
+			}
+		}
+	
+	private void stepRule69()
+		{
+		for(int i = 1; i < width - 1; i++)
+			{
+			if ((imageP.get(i - 1, step - 1) == black) && (imageP.get(i, step - 1) == black) && (imageP.get(i+1, step - 1)) == black)
+				{
+				imageP.set(i, step, white);
+				}
+			if ((imageP.get(i - 1, step - 1) == black) && (imageP.get(i, step - 1)) == black && (imageP.get(i + 1, step - 1) == white))
+				{
+				imageP.set(i, step, black);
+				}
+			if ((imageP.get(i - 1, step - 1) == black) && (imageP.get(i, step - 1)) == white && (imageP.get(i + 1, step - 1) == black))
+				{
+				imageP.set(i, step, white);
+				}
+			if ((imageP.get(i - 1, step - 1) == black) && (imageP.get(i, step - 1)) == white && (imageP.get(i + 1, step - 1) == white))
+				{
+				imageP.set(i, step, white);
+				}
+			if ((imageP.get(i - 1, step - 1) == white) && (imageP.get(i, step - 1)) == black && (imageP.get(i + 1, step - 1) == black))
+				{
+				imageP.set(i, step, white);
+				}
+			if ((imageP.get(i - 1, step - 1) == white) && (imageP.get(i, step - 1)) == black && (imageP.get(i + 1, step - 1) == white))
+				{
+				imageP.set(i, step, black);
+				}
+			if ((imageP.get(i - 1, step - 1) == white) && (imageP.get(i, step - 1)) == white && (imageP.get(i + 1, step - 1) == black))
+				{
+				imageP.set(i, step, white);
+				}
+			if ((imageP.get(i - 1, step - 1) == white) && (imageP.get(i, step - 1)) == white && (imageP.get(i + 1, step - 1) == white))
 				{
 				imageP.set(i, step, black);
 				}

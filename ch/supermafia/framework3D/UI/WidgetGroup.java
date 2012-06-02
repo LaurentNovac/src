@@ -16,13 +16,13 @@ public class WidgetGroup
 	
 	public WidgetGroup()
 		{
-		widgets = new ArrayList<Widget>();
+		widgets = new ArrayList<WidgetView_I>();
 		}
 	
 	/*------------------------------------------------------------------*\
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
-	public void add(Widget widget)
+	public void add(WidgetView_I widget)
 		{
 		widgets.add(widget);
 		}
@@ -35,13 +35,12 @@ public class WidgetGroup
 	public void draw()
 		{
 		System.out.println("....");
-		for(Widget widget:widgets)
+		
+		for(WidgetView_I widgetView:widgets)
 			{
-			for(WidgetView_I widgetView:widget)
-				{
-				widgetView.draw();
-				}
+			widgetView.draw();
 			}
+		
 		}
 	
 	/*------------------------------*\
@@ -60,6 +59,6 @@ public class WidgetGroup
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
 	
-	protected List<Widget> widgets;
+	protected List<WidgetView_I> widgets;
 	
 	}

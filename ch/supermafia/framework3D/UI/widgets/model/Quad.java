@@ -25,7 +25,6 @@ public class Quad extends Widget
 	public void setSelected(boolean isSelected)
 		{
 		this.isSelected = isSelected;
-		notifyViews();
 		}
 	
 	/*------------------------------*\
