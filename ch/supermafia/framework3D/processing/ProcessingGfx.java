@@ -105,6 +105,36 @@ public class ProcessingGfx
 		context.endShape();
 		}
 	
+	public void quad(Vec3D topL, Vec3D bottomL, Vec3D bottomR, Vec3D topR)
+		{
+		context.beginShape(PApplet.QUAD);
+		context.vertex(topL.x(), topL.y(), topL.z());
+		context.vertex(bottomL.x(), bottomL.y(), bottomL.z());
+		context.vertex(bottomR.x(), bottomR.y(), bottomR.z());
+		context.vertex(topR.x(), topR.y(), topR.z());
+		context.endShape();
+		}
+	
+	public void ellipse(Vec3D center, float radiusX, float radiusY)
+		{
+		context.ellipse(center.x(), center.y(), radiusX, radiusY);
+		}
+	
+	public void fillColor(float r, float g, float b, float a)
+		{
+		context.fill(r, g, b, a);
+		}
+	
+	public void strokeColor(float r, float g, float b, float a)
+		{
+		context.stroke(r, g, b, a);
+		}
+	
+	public void noFill()
+		{
+		context.noFill();
+		}
+	
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/

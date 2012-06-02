@@ -1,7 +1,6 @@
 
 package ch.supermafia.framework3D.UI.widgets.view;
 
-import ch.supermafia.framework3D.UI.model.Widget;
 import ch.supermafia.framework3D.UI.view.WidgetView_I;
 import ch.supermafia.framework3D.UI.widgets.model.Quad;
 import ch.supermafia.framework3D.processing.ProcessingGfx;
@@ -25,14 +24,22 @@ public class QuadViewProcessing implements WidgetView_I
 	@Override
 	public void draw()
 		{
-		// TODO use gfx to draw the quad
-		System.out.println("Am i selected? :" + quad.isSelected());
-		}
-	
-	@Override
-	public void notify(Widget widget)
-		{
-		this.quad = (Quad)widget;
+		System.out.println(quad.isSelected());
+		if (quad.isSelected() == true)
+			{
+			gfx.strokeColor(255, 0, 0, 255);
+			gfx.noFill();
+			}
+		else
+			{
+			gfx.strokeColor(0, 0, 255, 255);
+			gfx.noFill();
+			}
+		gfx.quad(quad.getTopLeft(), quad.getBottomLeft(), quad.getBottomRight(), quad.getTopRight());
+		gfx.ellipse(quad.getTopLeft(), 20, 20);
+		gfx.ellipse(quad.getBottomLeft(), 20, 20);
+		gfx.ellipse(quad.getBottomRight(), 20, 20);
+		gfx.ellipse(quad.getTopRight(), 20, 20);
 		}
 	
 	/*------------------------------*\

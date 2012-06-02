@@ -1,13 +1,7 @@
 
 package ch.supermafia.framework3D.UI.model;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import ch.supermafia.framework3D.UI.view.WidgetView_I;
-
-public class Widget 
+public class Widget
 	{
 	
 	/*------------------------------------------------------------------*\
@@ -16,6 +10,8 @@ public class Widget
 	
 	public Widget()
 		{
+		isSelected = false;
+		isSelectable = false;
 		}
 	
 	/*------------------------------------------------------------------*\
@@ -25,10 +21,36 @@ public class Widget
 	/*------------------------------*\
 	|*				Set				*|
 	\*------------------------------*/
+	public void setSelected(boolean isSelected)
+		{
+		System.out.println("Hello select");
+		if (!isSelectable())
+			{
+			this.isSelected = false;
+			}
+		else
+			{
+			this.isSelected = isSelected;
+			}
+		}
+	
+	public void setSelectable(boolean isSelectable)
+		{
+		this.isSelectable = isSelectable;
+		}
 	
 	/*------------------------------*\
 	|*				Get				*|
 	\*------------------------------*/
+	public boolean isSelected()
+		{
+		return isSelected;
+		}
+	
+	public boolean isSelectable()
+		{
+		return isSelectable;
+		}
 	
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
@@ -37,6 +59,6 @@ public class Widget
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
-	
-	
+	protected boolean isSelected;
+	protected boolean isSelectable;
 	}
