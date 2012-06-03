@@ -3,6 +3,7 @@ package ch.supermafia.framework3D.UI.widgets.view;
 
 import ch.supermafia.framework3D.UI.view.WidgetView_I;
 import ch.supermafia.framework3D.UI.widgets.model.Quad;
+import ch.supermafia.framework3D.geometry.vector.Vec3D;
 import ch.supermafia.framework3D.processing.ProcessingGfx;
 
 public class QuadViewProcessing implements WidgetView_I
@@ -24,7 +25,7 @@ public class QuadViewProcessing implements WidgetView_I
 	@Override
 	public void draw()
 		{
-		System.out.println(quad.isSelected());
+		checkMouse();
 		if (quad.isSelected() == true)
 			{
 			gfx.strokeColor(255, 0, 0, 255);
@@ -57,6 +58,24 @@ public class QuadViewProcessing implements WidgetView_I
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
+	private void checkMouse()
+		{
+		System.out.println("HEllo mouse");
+		if (gfx.mousePressed() && quad.isSelected())
+			{
+			Vec3D[] v = quad.getVertices();
+			Vec3D mV = gfx.mousePos();
+			for(int i = 0; i < 4; i++)
+				{
+				if (v[i].distanceTo(mV) <= 10)
+					{
+					System.out.println("Hello mmm");
+					v[i].setX(mV.getX());
+					v[i].setY(mV.getY());
+					}
+				}
+			}
+		}
 	
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|

@@ -135,6 +135,16 @@ public class ProcessingGfx
 		context.noFill();
 		}
 	
+	public boolean mousePressed()
+		{
+		return context.mousePressed;
+		}
+	
+	public Vec3D mousePos()
+		{
+		return new Vec3D(context.mouseX, context.mouseY);
+		}
+	
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
